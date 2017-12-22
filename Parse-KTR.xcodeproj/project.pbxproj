@@ -1,0 +1,449 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D99724951FEDB1E500FD3B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724941FEDB1E500FD3B08 /* AppDelegate.swift */; };
+		D99724971FEDB1E500FD3B08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724961FEDB1E500FD3B08 /* ViewController.swift */; };
+		D997249A1FEDB1E500FD3B08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D99724981FEDB1E500FD3B08 /* Main.storyboard */; };
+		D997249C1FEDB1E500FD3B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D997249B1FEDB1E500FD3B08 /* Assets.xcassets */; };
+		D997249F1FEDB1E500FD3B08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D997249D1FEDB1E500FD3B08 /* LaunchScreen.storyboard */; };
+		D99724AA1FEDB1E500FD3B08 /* Parse_KTRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724A91FEDB1E500FD3B08 /* Parse_KTRTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D99724A61FEDB1E500FD3B08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D99724891FEDB1E500FD3B08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D99724901FEDB1E500FD3B08;
+			remoteInfo = "Parse-KTR";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D99724911FEDB1E500FD3B08 /* Parse-KTR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parse-KTR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D99724941FEDB1E500FD3B08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D99724961FEDB1E500FD3B08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D99724991FEDB1E500FD3B08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D997249B1FEDB1E500FD3B08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D997249E1FEDB1E500FD3B08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D99724A01FEDB1E500FD3B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D99724A51FEDB1E500FD3B08 /* Parse-KTRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Parse-KTRTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D99724A91FEDB1E500FD3B08 /* Parse_KTRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parse_KTRTests.swift; sourceTree = "<group>"; };
+		D99724AB1FEDB1E500FD3B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D997248E1FEDB1E500FD3B08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D99724A21FEDB1E500FD3B08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D99724881FEDB1E500FD3B08 = {
+			isa = PBXGroup;
+			children = (
+				D99724931FEDB1E500FD3B08 /* Parse-KTR */,
+				D99724A81FEDB1E500FD3B08 /* Parse-KTRTests */,
+				D99724921FEDB1E500FD3B08 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D99724921FEDB1E500FD3B08 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D99724911FEDB1E500FD3B08 /* Parse-KTR.app */,
+				D99724A51FEDB1E500FD3B08 /* Parse-KTRTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D99724931FEDB1E500FD3B08 /* Parse-KTR */ = {
+			isa = PBXGroup;
+			children = (
+				D99724941FEDB1E500FD3B08 /* AppDelegate.swift */,
+				D99724961FEDB1E500FD3B08 /* ViewController.swift */,
+				D99724981FEDB1E500FD3B08 /* Main.storyboard */,
+				D997249B1FEDB1E500FD3B08 /* Assets.xcassets */,
+				D997249D1FEDB1E500FD3B08 /* LaunchScreen.storyboard */,
+				D99724A01FEDB1E500FD3B08 /* Info.plist */,
+			);
+			path = "Parse-KTR";
+			sourceTree = "<group>";
+		};
+		D99724A81FEDB1E500FD3B08 /* Parse-KTRTests */ = {
+			isa = PBXGroup;
+			children = (
+				D99724A91FEDB1E500FD3B08 /* Parse_KTRTests.swift */,
+				D99724AB1FEDB1E500FD3B08 /* Info.plist */,
+			);
+			path = "Parse-KTRTests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D99724901FEDB1E500FD3B08 /* Parse-KTR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D99724AE1FEDB1E500FD3B08 /* Build configuration list for PBXNativeTarget "Parse-KTR" */;
+			buildPhases = (
+				D997248D1FEDB1E500FD3B08 /* Sources */,
+				D997248E1FEDB1E500FD3B08 /* Frameworks */,
+				D997248F1FEDB1E500FD3B08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Parse-KTR";
+			productName = "Parse-KTR";
+			productReference = D99724911FEDB1E500FD3B08 /* Parse-KTR.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D99724A41FEDB1E500FD3B08 /* Parse-KTRTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D99724B11FEDB1E500FD3B08 /* Build configuration list for PBXNativeTarget "Parse-KTRTests" */;
+			buildPhases = (
+				D99724A11FEDB1E500FD3B08 /* Sources */,
+				D99724A21FEDB1E500FD3B08 /* Frameworks */,
+				D99724A31FEDB1E500FD3B08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D99724A71FEDB1E500FD3B08 /* PBXTargetDependency */,
+			);
+			name = "Parse-KTRTests";
+			productName = "Parse-KTRTests";
+			productReference = D99724A51FEDB1E500FD3B08 /* Parse-KTRTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D99724891FEDB1E500FD3B08 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0910;
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = "Austin Hill";
+				TargetAttributes = {
+					D99724901FEDB1E500FD3B08 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					D99724A41FEDB1E500FD3B08 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D99724901FEDB1E500FD3B08;
+					};
+				};
+			};
+			buildConfigurationList = D997248C1FEDB1E500FD3B08 /* Build configuration list for PBXProject "Parse-KTR" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D99724881FEDB1E500FD3B08;
+			productRefGroup = D99724921FEDB1E500FD3B08 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D99724901FEDB1E500FD3B08 /* Parse-KTR */,
+				D99724A41FEDB1E500FD3B08 /* Parse-KTRTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D997248F1FEDB1E500FD3B08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D997249F1FEDB1E500FD3B08 /* LaunchScreen.storyboard in Resources */,
+				D997249C1FEDB1E500FD3B08 /* Assets.xcassets in Resources */,
+				D997249A1FEDB1E500FD3B08 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D99724A31FEDB1E500FD3B08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D997248D1FEDB1E500FD3B08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D99724971FEDB1E500FD3B08 /* ViewController.swift in Sources */,
+				D99724951FEDB1E500FD3B08 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D99724A11FEDB1E500FD3B08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D99724AA1FEDB1E500FD3B08 /* Parse_KTRTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D99724A71FEDB1E500FD3B08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D99724901FEDB1E500FD3B08 /* Parse-KTR */;
+			targetProxy = D99724A61FEDB1E500FD3B08 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D99724981FEDB1E500FD3B08 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D99724991FEDB1E500FD3B08 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D997249D1FEDB1E500FD3B08 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D997249E1FEDB1E500FD3B08 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D99724AC1FEDB1E500FD3B08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D99724AD1FEDB1E500FD3B08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D99724AF1FEDB1E500FD3B08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y778RS7S4P;
+				INFOPLIST_FILE = "Parse-KTR/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "austin.Parse-KTR";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D99724B01FEDB1E500FD3B08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y778RS7S4P;
+				INFOPLIST_FILE = "Parse-KTR/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "austin.Parse-KTR";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D99724B21FEDB1E500FD3B08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y778RS7S4P;
+				INFOPLIST_FILE = "Parse-KTRTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "austin.Parse-KTRTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Parse-KTR.app/Parse-KTR";
+			};
+			name = Debug;
+		};
+		D99724B31FEDB1E500FD3B08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y778RS7S4P;
+				INFOPLIST_FILE = "Parse-KTRTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "austin.Parse-KTRTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Parse-KTR.app/Parse-KTR";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D997248C1FEDB1E500FD3B08 /* Build configuration list for PBXProject "Parse-KTR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D99724AC1FEDB1E500FD3B08 /* Debug */,
+				D99724AD1FEDB1E500FD3B08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D99724AE1FEDB1E500FD3B08 /* Build configuration list for PBXNativeTarget "Parse-KTR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D99724AF1FEDB1E500FD3B08 /* Debug */,
+				D99724B01FEDB1E500FD3B08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D99724B11FEDB1E500FD3B08 /* Build configuration list for PBXNativeTarget "Parse-KTRTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D99724B21FEDB1E500FD3B08 /* Debug */,
+				D99724B31FEDB1E500FD3B08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D99724891FEDB1E500FD3B08 /* Project object */;
+}
