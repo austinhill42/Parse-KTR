@@ -17,6 +17,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var l_outfile: UILabel!
     
     @IBAction func btn_save(_ sender: Any) {
+        
+        let name: String = tf_name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
+        let path: [String] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let outfile: String = path[0] + "/" + name + ".txt"
+        l_outfile.text! = outfile
+    
     }
     
     @IBAction func btn_print(_ sender: Any) {
