@@ -29,14 +29,16 @@ class ViewController: UIViewController {
         var outstring: String = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text!
         var instring: String = ""
         do {
-            try outstring.write(toFile: outfile, atomically: false, encoding: String.Encoding.utf8)
-            instring = try String(contentsOfFile: outfile, encoding: String.Encoding.utf8)
+            //try outstring.write(toFile: outfile, atomically: false, encoding: String.Encoding.utf8)
+            let path: String = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
+            instring = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
+            print(instring)
             
         } catch{
-            
+            print("FAILED")
         }
     
-        print(instring)
+        
     }
     
     @IBAction func btn_print(_ sender: Any) {
