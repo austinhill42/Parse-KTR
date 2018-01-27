@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tf_codelist: UITextField!
     @IBOutlet weak var l_outfile: UILabel!
     @IBOutlet weak var sc_switch: UISegmentedControl!
-    
+    var outstring: String = ""
     
     @IBAction func btn_save(_ sender: Any) {
         
@@ -28,12 +28,12 @@ class ViewController: UIViewController {
         let outfile: String = path + "/" + name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
         l_outfile.text! = outfile
         
-        var outstring: String = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text! + "\n\n"
+        outstring = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text! + "\n\n"
         
         if sc_switch.selectedSegmentIndex == 0 {
             formatDPE(codes: codes, outstring: &outstring)
         }
-        else if sc_switch.selectedSegmentIndex == 1{
+        else if sc_switch.selectedSegmentIndex == 1 {
             formatCFI(codes: codes, outstring: &outstring)
         }
         
@@ -46,6 +46,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btn_print(_ sender: Any) {
+        btn_save((Any).self)
+        
+        let printcontroller = UIPrintInteractionController.shared
+        let printinfo = UIPrintInfo(dictionary: nil)
+        
+        printinfo.outputType = UIPrintInfoOutputType.general
+        printinfo.jobName = "PLT Print Job"
+        printcontroller.printInfo = printinfo
+        
+        let formatter = UISimpleTextPrintFormatter(text: outstring)
+        formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+        printcontroller.printFormatter = formatter
+        
+        printcontroller.present(animated: true, completionHandler: nil)
     }
     
     override func viewDidLoad() {
