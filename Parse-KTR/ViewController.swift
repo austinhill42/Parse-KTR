@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         }
         
         do {
-            /try outstring.write(toFile: outfile, atomically: false, encoding: String.Encoding.utf8)
+            try outstring.write(toFile: outfile, atomically: false, encoding: String.Encoding.utf8)
             
         } catch{
             print("FAILED")
