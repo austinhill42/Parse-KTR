@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tf_testtype: UITextField!
     @IBOutlet weak var tf_codelist: UITextField!
     @IBOutlet weak var l_outfile: UILabel!
+    @IBOutlet weak var sc_switch: UISegmentedControl!
     
     @IBAction func btn_save(_ sender: Any) {
         
