@@ -19,10 +19,23 @@ class ViewController: UIViewController {
     @IBAction func btn_save(_ sender: Any) {
         
         let name: String = tf_name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
-        let path: [String] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let outfile: String = path[0] + "/" + name + ".txt"
+        let ftn: String = tf_ftn.text!
+        let testtype: String = tf_testtype.text!
+        let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let outfile: String = path + "/" + name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
         l_outfile.text! = outfile
+        
+        var outstring: String = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text!
+        var instring: String = ""
+        do {
+            try outstring.write(toFile: outfile, atomically: false, encoding: String.Encoding.utf8)
+            instring = try String(contentsOfFile: outfile, encoding: String.Encoding.utf8)
+            
+        } catch{
+            
+        }
     
+        print(instring)
     }
     
     @IBAction func btn_print(_ sender: Any) {
