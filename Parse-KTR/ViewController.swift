@@ -81,7 +81,7 @@ class ViewController: UIViewController {
             for code in codes {
                 for plt in pltcodes {
                     if plt.contains(code) {
-                        outstring += "______  " + plt + "\n"
+                        outstring += "______  " + plt + "\n\n\n"
                     }
                     
                 }
@@ -102,7 +102,7 @@ class ViewController: UIViewController {
             for code in codes {
                 for plt in pltcodes {
                     if plt.contains(code) {
-                        outstring += "____ ____  ____ ____  ____ ____  " + plt + "\n"
+                        outstring += "____ ____  ____ ____  ____ ____  " + plt + "\n\n\n"
                     }
                     
                 }
