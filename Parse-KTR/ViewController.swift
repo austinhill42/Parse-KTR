@@ -18,12 +18,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var sc_switch: UISegmentedControl!
     var outstring: String = ""
     
+    @IBAction func btn_ocr(_ sender: Any) {
+    }
+    
     @IBAction func btn_save(_ sender: Any) {
         
         let name: String = tf_name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
         let ftn: String = tf_ftn.text!
         let testtype: String = tf_testtype.text!
-        let codes: [String] = tf_codelist.text!.replacingOccurrences(of: ",", with: " ").components(separatedBy: " ")
+        let codes: [String] = tf_codelist.text!.replacingOccurrences(of: ",", with: " ").replacingOccurrences(of: "  ", with: " ").components(separatedBy: " ")
         let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let outfile: String = path + "/" + name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
         l_outfile.text! = outfile
@@ -79,9 +82,11 @@ class ViewController: UIViewController {
             let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
             
             for code in codes {
-                for plt in pltcodes {
-                    if plt.contains(code) {
-                        outstring += "______  " + plt + "\n\n\n"
+                for pltcode in pltcodes {
+                    let plt = pltcode.prefix(6)
+                    
+                    if (plt == code || plt == "PLT" + code || plt == "PLT0" + code || plt == "PLT00" + code) {
+                        outstring += "______  " + pltcode + "\n\n\n"
                     }
                     
                 }
@@ -100,8 +105,10 @@ class ViewController: UIViewController {
             outstring += "Re-Train".padding(toLength: 11, withPad: " ", startingAt: 0) + "Validate".padding(toLength: 11, withPad: " ", startingAt: 0) + "Tested".padding(toLength: 11, withPad: " ", startingAt: 0) + "\n" + "Date By".padding(toLength: 11, withPad: " ", startingAt: 0) + "Date By".padding(toLength: 11, withPad: " ", startingAt: 0) + "Date By".padding(toLength: 11, withPad: " ", startingAt: 0) + "\n\n"
             
             for code in codes {
-                for plt in pltcodes {
-                    if plt.contains(code) {
+                for pltcode in pltcodes {
+                    let plt = pltcode.prefix(6)
+                    
+                    if (plt == code || plt == "PLT" + code || plt == "PLT0" + code || plt == "PLT00" + code)  {
                         outstring += "____ ____  ____ ____  ____ ____  " + plt + "\n\n\n"
                     }
                     
