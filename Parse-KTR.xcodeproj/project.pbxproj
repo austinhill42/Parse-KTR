@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		117F5C231C97B66A2A9DFFF4 /* Pods_Parse_KTRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1DF906F094383C5E6D46B9F /* Pods_Parse_KTRTests.framework */; };
+		7A16A0D92FD2783ECA5EF914 /* Pods_Parse_KTR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89935D6B394436D6A020B33F /* Pods_Parse_KTR.framework */; };
+		D948651720CA38EC00A18995 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = D948651620CA38EC00A18995 /* tessdata */; };
+		D948651920CA3A1C00A18995 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651820CA3A1B00A18995 /* libstdc++.tbd */; };
+		D948651D20CA3AA300A18995 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651C20CA3AA300A18995 /* TesseractOCR.framework */; };
+		D948651F20CA3AAB00A18995 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651E20CA3AAB00A18995 /* CoreImage.framework */; };
 		D99724951FEDB1E500FD3B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724941FEDB1E500FD3B08 /* AppDelegate.swift */; };
 		D99724971FEDB1E500FD3B08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724961FEDB1E500FD3B08 /* ViewController.swift */; };
 		D997249A1FEDB1E500FD3B08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D99724981FEDB1E500FD3B08 /* Main.storyboard */; };
@@ -28,6 +34,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22792F52DC6FE16FC93CEE64 /* Pods-Parse-KTRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parse-KTRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Parse-KTRTests/Pods-Parse-KTRTests.debug.xcconfig"; sourceTree = "<group>"; };
+		27349D3D8D78239C75BC6BD5 /* Pods-Parse-KTR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parse-KTR.release.xcconfig"; path = "Pods/Target Support Files/Pods-Parse-KTR/Pods-Parse-KTR.release.xcconfig"; sourceTree = "<group>"; };
+		2820E41C81A294A20031F8C5 /* Pods-Parse-KTR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parse-KTR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Parse-KTR/Pods-Parse-KTR.debug.xcconfig"; sourceTree = "<group>"; };
+		61F11E905742391E347E5909 /* Pods-Parse-KTRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parse-KTRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Parse-KTRTests/Pods-Parse-KTRTests.release.xcconfig"; sourceTree = "<group>"; };
+		89935D6B394436D6A020B33F /* Pods_Parse_KTR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Parse_KTR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1DF906F094383C5E6D46B9F /* Pods_Parse_KTRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Parse_KTRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D948651620CA38EC00A18995 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		D948651820CA3A1B00A18995 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		D948651A20CA3A7100A18995 /* Pods_Parse_KTRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Parse_KTRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D948651C20CA3AA300A18995 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D948651E20CA3AAB00A18995 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D99724911FEDB1E500FD3B08 /* Parse-KTR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parse-KTR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99724941FEDB1E500FD3B08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D99724961FEDB1E500FD3B08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +63,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D948651F20CA3AAB00A18995 /* CoreImage.framework in Frameworks */,
+				D948651D20CA3AA300A18995 /* TesseractOCR.framework in Frameworks */,
+				D948651920CA3A1C00A18995 /* libstdc++.tbd in Frameworks */,
+				7A16A0D92FD2783ECA5EF914 /* Pods_Parse_KTR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,18 +74,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				117F5C231C97B66A2A9DFFF4 /* Pods_Parse_KTRTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E0A71AB6192BE200695C086 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D948651E20CA3AAB00A18995 /* CoreImage.framework */,
+				D948651C20CA3AA300A18995 /* TesseractOCR.framework */,
+				D948651A20CA3A7100A18995 /* Pods_Parse_KTRTests.framework */,
+				D948651820CA3A1B00A18995 /* libstdc++.tbd */,
+				89935D6B394436D6A020B33F /* Pods_Parse_KTR.framework */,
+				D1DF906F094383C5E6D46B9F /* Pods_Parse_KTRTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A4BA4020164F2B364D324205 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2820E41C81A294A20031F8C5 /* Pods-Parse-KTR.debug.xcconfig */,
+				27349D3D8D78239C75BC6BD5 /* Pods-Parse-KTR.release.xcconfig */,
+				22792F52DC6FE16FC93CEE64 /* Pods-Parse-KTRTests.debug.xcconfig */,
+				61F11E905742391E347E5909 /* Pods-Parse-KTRTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D99724881FEDB1E500FD3B08 = {
 			isa = PBXGroup;
 			children = (
+				D948651620CA38EC00A18995 /* tessdata */,
 				D99724931FEDB1E500FD3B08 /* Parse-KTR */,
 				D99724A81FEDB1E500FD3B08 /* Parse-KTRTests */,
 				D99724921FEDB1E500FD3B08 /* Products */,
+				A4BA4020164F2B364D324205 /* Pods */,
+				1E0A71AB6192BE200695C086 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,9 +156,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D99724AE1FEDB1E500FD3B08 /* Build configuration list for PBXNativeTarget "Parse-KTR" */;
 			buildPhases = (
+				EF93D8E6AB7F7C45923FB742 /* [CP] Check Pods Manifest.lock */,
 				D997248D1FEDB1E500FD3B08 /* Sources */,
 				D997248E1FEDB1E500FD3B08 /* Frameworks */,
 				D997248F1FEDB1E500FD3B08 /* Resources */,
+				4382B7D9ACA320B99DE41E99 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,6 +175,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D99724B11FEDB1E500FD3B08 /* Build configuration list for PBXNativeTarget "Parse-KTRTests" */;
 			buildPhases = (
+				D3F639F4F5C8E8658988185B /* [CP] Check Pods Manifest.lock */,
 				D99724A11FEDB1E500FD3B08 /* Sources */,
 				D99724A21FEDB1E500FD3B08 /* Frameworks */,
 				D99724A31FEDB1E500FD3B08 /* Resources */,
@@ -183,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D948651720CA38EC00A18995 /* tessdata in Resources */,
 				D997249F1FEDB1E500FD3B08 /* LaunchScreen.storyboard in Resources */,
 				D99724BA201C3B0A00FD3B08 /* ALL_PLTS.txt in Resources */,
 				D997249C1FEDB1E500FD3B08 /* Assets.xcassets in Resources */,
@@ -199,6 +252,63 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4382B7D9ACA320B99DE41E99 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Parse-KTR/Pods-Parse-KTR-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Parse-KTR/Pods-Parse-KTR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3F639F4F5C8E8658988185B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Parse-KTRTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF93D8E6AB7F7C45923FB742 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Parse-KTR-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D997248D1FEDB1E500FD3B08 /* Sources */ = {
@@ -361,11 +471,14 @@
 		};
 		D99724AF1FEDB1E500FD3B08 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2820E41C81A294A20031F8C5 /* Pods-Parse-KTR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y778RS7S4P;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Parse-KTR/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "austin.Parse-KTR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -376,11 +489,14 @@
 		};
 		D99724B01FEDB1E500FD3B08 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27349D3D8D78239C75BC6BD5 /* Pods-Parse-KTR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y778RS7S4P;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Parse-KTR/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "austin.Parse-KTR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -391,6 +507,7 @@
 		};
 		D99724B21FEDB1E500FD3B08 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22792F52DC6FE16FC93CEE64 /* Pods-Parse-KTRTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -408,6 +525,7 @@
 		};
 		D99724B31FEDB1E500FD3B08 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61F11E905742391E347E5909 /* Pods-Parse-KTRTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

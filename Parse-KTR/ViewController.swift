@@ -19,6 +19,44 @@ class ViewController: UIViewController {
     var outstring: String = ""
     
     @IBAction func btn_ocr(_ sender: Any) {
+        //view.endEditing(true)
+        let imagePickerActionSheet = UIAlertController(title: "Take/Upload Image", message: nil, preferredStyle: .actionSheet)
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraButton = UIAlertAction(title: "Take Photo",
+                                             style: .default,
+                                             handler: { (alert) ->Void in
+                                                let imagePicker = UIImagePickerController()
+                                                imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+                                                imagePicker.sourceType = .camera
+                                                self.present(imagePicker, animated: true)
+            })
+            imagePickerActionSheet.addAction(cameraButton)
+        }
+        
+        let libraryButton = UIAlertAction(title: "Choose Existing",
+                                          style: .default,
+                                          handler: { (alert) -> Void in
+                                            let imagePicker = UIImagePickerController()
+                                            imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+                                            imagePicker.sourceType = .photoLibrary
+                                            self.present(imagePicker, animated: true)
+        })
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        
+        imagePickerActionSheet.addAction(libraryButton)
+        imagePickerActionSheet.addAction(cancelButton)
+        
+        if let popoverController = imagePickerActionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        self.present(imagePickerActionSheet, animated: true, completion: nil)
     }
     
     @IBAction func btn_save(_ sender: Any) {
@@ -120,4 +158,6 @@ class ViewController: UIViewController {
     }
 
 }
+
+
 
