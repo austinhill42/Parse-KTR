@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="ipad9_7" orientation="landscape">
+    <device id="ipad12_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,104 +14,110 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Parse_KTR" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Appilcant's Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2t-Pv-bXy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Appilcant's Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2t-Pv-bXy">
                                 <rect key="frame" x="100" y="100" width="142.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Test Type: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1J-02-HC1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test Type: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1J-02-HC1">
                                 <rect key="frame" x="100" y="222" width="142.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last, First, M" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JCw-Db-Eaa">
-                                <rect key="frame" x="262.5" y="95" width="661.5" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last, First, M" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JCw-Db-Eaa">
+                                <rect key="frame" x="262.5" y="95" width="1003.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Optional" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VhS-dY-mW7">
-                                <rect key="frame" x="262.5" y="156" width="661.5" height="30"/>
+                                <rect key="frame" x="262.5" y="156" width="1003.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PA, CA, ATPA, FOI, ETC." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="esI-G2-8TH">
-                                <rect key="frame" x="262.5" y="218" width="661.5" height="30"/>
+                                <rect key="frame" x="262.5" y="218" width="1003.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="PLT Codes: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx4-oZ-p3X">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLT Codes: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx4-oZ-p3X">
                                 <rect key="frame" x="100" y="283" width="142.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter codes seperated by commas or spaces e.g. 002,059,083,102" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JkO-7n-yu2">
-                                <rect key="frame" x="262.5" y="278" width="661.5" height="30"/>
+                                <rect key="frame" x="262.5" y="278" width="1003.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="FTN: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRX-JT-0j6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FTN: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRX-JT-0j6">
                                 <rect key="frame" x="100" y="161" width="142.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Output File Name: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSF-6G-ySv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Output File Name: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSF-6G-ySv">
                                 <rect key="frame" x="100" y="344" width="142.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBt-Hc-oKQ">
-                                <rect key="frame" x="809" y="486" width="115" height="30"/>
+                                <rect key="frame" x="1191" y="486" width="115" height="30"/>
                                 <state key="normal" title="  Save and Print  "/>
                                 <connections>
                                     <action selector="btn_print:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TVK-Jf-liK"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VgI-mz-Ryr">
-                                <rect key="frame" x="432" y="487" width="237" height="26"/>
-                                <segments>
-                                    <segment title="DPE"/>
-                                    <segment title="CFI/Flight School"/>
-                                </segments>
-                            </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qlm-Nq-SvM">
-                                <rect key="frame" x="262.5" y="339" width="661.5" height="67"/>
+                                <rect key="frame" x="262.5" y="339" width="1003.5" height="67"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EXO-03-YHY">
-                                <rect key="frame" x="739" y="486" width="50" height="30"/>
+                                <rect key="frame" x="1121" y="486" width="50" height="30"/>
                                 <state key="normal" title="  Save  "/>
                                 <connections>
                                     <action selector="btn_save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="puw-Vd-gYZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="II4-5k-Jfp">
+                                <rect key="frame" x="928" y="486" width="158" height="30"/>
+                                <state key="normal" title="  Populate from Image  "/>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VgI-mz-Ryr">
+                                <rect key="frame" x="656" y="489" width="237" height="26"/>
+                                <segments>
+                                    <segment title="DPE"/>
+                                    <segment title="CFI/Flight School"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="G1J-02-HC1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="0WT-Fs-Rs4"/>
                             <constraint firstItem="Qlm-Nq-SvM" firstAttribute="leading" secondItem="JCw-Db-Eaa" secondAttribute="leading" id="4GI-HP-K6H"/>
                             <constraint firstItem="Bx4-oZ-p3X" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="5GR-d7-P9g"/>
+                            <constraint firstItem="EXO-03-YHY" firstAttribute="leading" secondItem="II4-5k-Jfp" secondAttribute="trailing" constant="35" id="5to-y5-rgz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Qlm-Nq-SvM" secondAttribute="trailing" constant="100" id="64V-m0-Y28"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rSF-6G-ySv" secondAttribute="bottom" constant="659" id="6t0-Mk-4Nw"/>
                             <constraint firstItem="esI-G2-8TH" firstAttribute="leading" secondItem="JCw-Db-Eaa" secondAttribute="leading" id="AUO-Ky-mhe"/>
                             <constraint firstItem="JkO-7n-yu2" firstAttribute="leading" secondItem="JCw-Db-Eaa" secondAttribute="leading" id="IjE-iZ-m4f"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OBt-Hc-oKQ" secondAttribute="trailing" constant="100" id="M0v-FZ-FbQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OBt-Hc-oKQ" secondAttribute="trailing" constant="60" id="M0v-FZ-FbQ"/>
                             <constraint firstItem="S2t-Pv-bXy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="Myg-P6-HNo"/>
                             <constraint firstItem="Bx4-oZ-p3X" firstAttribute="top" secondItem="G1J-02-HC1" secondAttribute="bottom" constant="40" id="PaO-aG-guI"/>
+                            <constraint firstItem="II4-5k-Jfp" firstAttribute="leading" secondItem="VgI-mz-Ryr" secondAttribute="trailing" constant="35" id="QmG-H4-49q"/>
                             <constraint firstItem="JkO-7n-yu2" firstAttribute="leading" secondItem="Bx4-oZ-p3X" secondAttribute="trailing" constant="20" id="Sg0-Fk-JHP"/>
                             <constraint firstItem="S2t-Pv-bXy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="UOe-1x-8xm"/>
                             <constraint firstItem="KRX-JT-0j6" firstAttribute="top" secondItem="S2t-Pv-bXy" secondAttribute="bottom" constant="40" id="XGj-5U-Tvm"/>
@@ -129,7 +135,6 @@
                             <constraint firstItem="G1J-02-HC1" firstAttribute="top" secondItem="KRX-JT-0j6" secondAttribute="bottom" constant="40" id="hhN-OZ-w22"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JkO-7n-yu2" secondAttribute="trailing" constant="100" id="i4I-y9-YEQ"/>
                             <constraint firstItem="rSF-6G-ySv" firstAttribute="trailing" secondItem="S2t-Pv-bXy" secondAttribute="trailing" id="nYL-wY-886"/>
-                            <constraint firstItem="EXO-03-YHY" firstAttribute="leading" secondItem="VgI-mz-Ryr" secondAttribute="trailing" constant="70" id="qhh-1P-TWP"/>
                             <constraint firstItem="VhS-dY-mW7" firstAttribute="leading" secondItem="KRX-JT-0j6" secondAttribute="trailing" constant="20" id="u4q-oB-Gmo"/>
                             <constraint firstItem="VhS-dY-mW7" firstAttribute="leading" secondItem="JCw-Db-Eaa" secondAttribute="leading" id="ugT-6U-xdh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JCw-Db-Eaa" secondAttribute="trailing" constant="100" id="y7p-76-179"/>
