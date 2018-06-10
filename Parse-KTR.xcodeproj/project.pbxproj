@@ -11,6 +11,9 @@
 		7A16A0D92FD2783ECA5EF914 /* Pods_Parse_KTR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89935D6B394436D6A020B33F /* Pods_Parse_KTR.framework */; };
 		AB5DAEDC27B3E03ACC88169B /* Pods_Parse_KTRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651A20CA3A7100A18995 /* Pods_Parse_KTRTests.framework */; };
 		D948651920CA3A1C00A18995 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651820CA3A1B00A18995 /* libstdc++.tbd */; };
+		D948655220CCDFF400A18995 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948655120CCDFF400A18995 /* TesseractOCR.framework */; };
+		D948655320CCDFFB00A18995 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651E20CA3AAB00A18995 /* CoreImage.framework */; };
+		D948655520CCE00C00A18995 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = D948655420CCE00C00A18995 /* tessdata */; };
 		D99724951FEDB1E500FD3B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724941FEDB1E500FD3B08 /* AppDelegate.swift */; };
 		D99724971FEDB1E500FD3B08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724961FEDB1E500FD3B08 /* ViewController.swift */; };
 		D997249A1FEDB1E500FD3B08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D99724981FEDB1E500FD3B08 /* Main.storyboard */; };
@@ -44,6 +47,9 @@
 		D948651E20CA3AAB00A18995 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D948652020CCBD9F00A18995 /* SwiftOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D948652220CCBEB400A18995 /* GPUImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GPUImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D948655120CCDFF400A18995 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D948655420CCE00C00A18995 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		D948655620CCEB1300A18995 /* Objective-CBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Objective-CBridgingHeader.h"; sourceTree = "<group>"; };
 		D99724911FEDB1E500FD3B08 /* Parse-KTR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parse-KTR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99724941FEDB1E500FD3B08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D99724961FEDB1E500FD3B08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D948655320CCDFFB00A18995 /* CoreImage.framework in Frameworks */,
+				D948655220CCDFF400A18995 /* TesseractOCR.framework in Frameworks */,
 				D948651920CA3A1C00A18995 /* libstdc++.tbd in Frameworks */,
 				7A16A0D92FD2783ECA5EF914 /* Pods_Parse_KTR.framework in Frameworks */,
 			);
@@ -82,6 +90,7 @@
 		1E0A71AB6192BE200695C086 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D948655120CCDFF400A18995 /* TesseractOCR.framework */,
 				D948652220CCBEB400A18995 /* GPUImage.framework */,
 				D948652020CCBD9F00A18995 /* SwiftOCR.framework */,
 				D948651E20CA3AAB00A18995 /* CoreImage.framework */,
@@ -108,6 +117,8 @@
 		D99724881FEDB1E500FD3B08 = {
 			isa = PBXGroup;
 			children = (
+				D948655620CCEB1300A18995 /* Objective-CBridgingHeader.h */,
+				D948655420CCE00C00A18995 /* tessdata */,
 				D99724931FEDB1E500FD3B08 /* Parse-KTR */,
 				D99724A81FEDB1E500FD3B08 /* Parse-KTRTests */,
 				D99724921FEDB1E500FD3B08 /* Products */,
@@ -159,6 +170,7 @@
 				D997248D1FEDB1E500FD3B08 /* Sources */,
 				D997248E1FEDB1E500FD3B08 /* Frameworks */,
 				D997248F1FEDB1E500FD3B08 /* Resources */,
+				318ED61DFD0660884FB7B21F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -235,6 +247,7 @@
 			files = (
 				D997249F1FEDB1E500FD3B08 /* LaunchScreen.storyboard in Resources */,
 				D99724BA201C3B0A00FD3B08 /* ALL_PLTS.txt in Resources */,
+				D948655520CCE00C00A18995 /* tessdata in Resources */,
 				D997249C1FEDB1E500FD3B08 /* Assets.xcassets in Resources */,
 				D997249A1FEDB1E500FD3B08 /* Main.storyboard in Resources */,
 			);
@@ -251,6 +264,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		318ED61DFD0660884FB7B21F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Parse-KTR/Pods-Parse-KTR-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Parse-KTR/Pods-Parse-KTR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D3F639F4F5C8E8658988185B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
