@@ -1,0 +1,6 @@
+framework module Pods_Parse_KTR {
+  umbrella header "Pods-Parse-KTR-umbrella.h"
+
+  export *
+  module * { export * }
+}

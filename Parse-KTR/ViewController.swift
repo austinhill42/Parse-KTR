@@ -14,49 +14,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var tf_ftn: UITextField!
     @IBOutlet weak var tf_testtype: UITextField!
     @IBOutlet weak var tf_codelist: UITextField!
-    @IBOutlet weak var l_outfile: UILabel!
+    @IBOutlet weak var l_outfile: UITextView!
     @IBOutlet weak var sc_switch: UISegmentedControl!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     var outstring: String = ""
     
     @IBAction func btn_ocr(_ sender: Any) {
         //view.endEditing(true)
-        let imagePickerActionSheet = UIAlertController(title: "Take/Upload Image", message: nil, preferredStyle: .actionSheet)
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let cameraButton = UIAlertAction(title: "Take Photo",
-                                             style: .default,
-                                             handler: { (alert) ->Void in
-                                                let imagePicker = UIImagePickerController()
-                                                imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
-                                                imagePicker.sourceType = .camera
-                                                self.present(imagePicker, animated: true)
-            })
-            imagePickerActionSheet.addAction(cameraButton)
-        }
-        
-        let libraryButton = UIAlertAction(title: "Choose Existing",
-                                          style: .default,
-                                          handler: { (alert) -> Void in
-                                            let imagePicker = UIImagePickerController()
-                                            imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
-                                            imagePicker.sourceType = .photoLibrary
-                                            self.present(imagePicker, animated: true)
-        })
-        
-        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        
-        imagePickerActionSheet.addAction(libraryButton)
-        imagePickerActionSheet.addAction(cancelButton)
-        
-        if let popoverController = imagePickerActionSheet.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-            
-        }
-        
-        self.present(imagePickerActionSheet, animated: true, completion: nil)
+        presentImagePicker()
     }
     
     @IBAction func btn_save(_ sender: Any) {
@@ -156,8 +122,126 @@ class ViewController: UIViewController {
             
         }
     }
+    
+    func performImageRecognition(_ image: UIImage) {
+        
+        self.view.bringSubview(toFront: self.activityIndicator)
+        activityIndicator.startAnimating()
+        
+        
+        
+        activityIndicator.stopAnimating()
+
+
+    }
+    
+    func output(_ string: String) {
+        
+        l_outfile.text = string
+    }
 
 }
+
+extension ViewController: UINavigationControllerDelegate {
+    
+}
+
+extension ViewController: UIImagePickerControllerDelegate {
+
+    func presentImagePicker() {
+        
+        let imagePickerActionSheet = UIAlertController(title: "Take/Upload Image", message: nil, preferredStyle: .actionSheet)
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraButton = UIAlertAction(title: "Take Photo",
+                                             style: .default,
+                                             handler: { (alert) ->Void in
+                                                let imagePicker = UIImagePickerController()
+                                                imagePicker.delegate = self
+                                                imagePicker.sourceType = .camera
+                                                self.present(imagePicker, animated: true)
+            })
+            imagePickerActionSheet.addAction(cameraButton)
+        }
+        
+        let libraryButton = UIAlertAction(title: "Choose Existing",
+                                          style: .default,
+                                          handler: { (alert) -> Void in
+                                            let imagePicker = UIImagePickerController()
+                                            imagePicker.delegate = self
+                                            imagePicker.sourceType = .photoLibrary
+                                            self.present(imagePicker, animated: true)
+        })
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        
+        imagePickerActionSheet.addAction(libraryButton)
+        imagePickerActionSheet.addAction(cancelButton)
+        
+        if let popoverController = imagePickerActionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        self.present(imagePickerActionSheet, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        
+        let scaledImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        dismiss(animated: true, completion: { self.performImageRecognition(scaledImage!)})
+    }
+    
+}
+
+extension UIImage {
+    func scaleImage(_ maxDimension: CGFloat) -> UIImage? {
+        
+        var scaledSize = CGSize(width: maxDimension, height: maxDimension)
+        
+        if size.width > size.height {
+            let scaleFactor = size.height / size.width
+            scaledSize.height = scaledSize.width * scaleFactor
+        } else {
+            let scaleFactor = size.width / size.height
+            scaledSize.width = scaledSize.height * scaleFactor
+        }
+        
+        UIGraphicsBeginImageContext(scaledSize)
+        draw(in: CGRect(origin: .zero, size: scaledSize))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

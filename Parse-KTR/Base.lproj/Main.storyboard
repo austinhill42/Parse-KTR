@@ -13,7 +13,6 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Parse_KTR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -91,8 +90,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="UAd-z0-jdT">
+                                <rect key="frame" x="374" y="502" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBt-Hc-oKQ">
-                                <rect key="frame" x="593.20676462484403" y="485.99999999999977" width="115.00000000000014" height="30.000000000000099"/>
+                                <rect key="frame" x="594" y="929" width="115.00000000000014" height="30.000000000000099"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <viewLayoutGuide key="safeArea" id="TPd-W6-one"/>
                                 <state key="normal" title="  Save and Print  "/>
@@ -100,16 +103,8 @@
                                     <action selector="btn_print:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TVK-Jf-liK"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qlm-Nq-SvM">
-                                <rect key="frame" x="259" y="339" width="409" height="80"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <viewLayoutGuide key="safeArea" id="5BI-tv-36i"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EXO-03-YHY">
-                                <rect key="frame" x="523.20676462484403" y="485.99999999999977" width="49.999999999999858" height="30.000000000000099"/>
+                                <rect key="frame" x="524" y="929" width="49.999999999999858" height="30.000000000000099"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <viewLayoutGuide key="safeArea" id="52i-bg-PdI"/>
                                 <state key="normal" title="  Save  "/>
@@ -118,7 +113,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="II4-5k-Jfp">
-                                <rect key="frame" x="330.20676462484425" y="485.99999999999977" width="157.9999999999998" height="30.000000000000099"/>
+                                <rect key="frame" x="331" y="929" width="157.9999999999998" height="30.000000000000099"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <viewLayoutGuide key="safeArea" id="Dna-iQ-Hdg"/>
                                 <state key="normal" title="  Populate from Image  "/>
@@ -127,7 +122,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VgI-mz-Ryr">
-                                <rect key="frame" x="58.206764624844482" y="488.99999999999955" width="236.99999999999986" height="29.000000000000121"/>
+                                <rect key="frame" x="59" y="932" width="236.99999999999986" height="29.000000000000121"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <viewLayoutGuide key="safeArea" id="6x5-IQ-Kqc"/>
                                 <segments>
@@ -135,12 +130,20 @@
                                     <segment title="CFI/Flight School"/>
                                 </segments>
                             </segmentedControl>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pM-uB-m5L">
+                                <rect key="frame" x="9" y="376" width="728" height="548"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="l_outfile" destination="Qlm-Nq-SvM" id="hbg-Cu-jds"/>
+                        <outlet property="activityIndicator" destination="UAd-z0-jdT" id="oxd-Da-ZS5"/>
+                        <outlet property="l_outfile" destination="3pM-uB-m5L" id="Shg-DK-GYa"/>
                         <outlet property="sc_switch" destination="VgI-mz-Ryr" id="cqQ-GD-8u4"/>
                         <outlet property="tf_codelist" destination="JkO-7n-yu2" id="H4s-hk-9dS"/>
                         <outlet property="tf_ftn" destination="VhS-dY-mW7" id="CRc-kI-GpH"/>
@@ -148,6 +151,7 @@
                         <outlet property="tf_testtype" destination="esI-G2-8TH" id="QTK-c8-0Qa"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="23.4375" y="30.468749999999996"/>
         </scene>
