@@ -14,7 +14,7 @@ class ViewController: UIViewController, G8TesseractDelegate {
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var tf_ftn: UITextField!
     @IBOutlet weak var tf_testtype: UITextField!
-    @IBOutlet weak var tf_codelist: UITextField!
+    @IBOutlet weak var tf_codelist: UITextView!
     @IBOutlet weak var l_outfile: UITextView!
     @IBOutlet weak var sc_switch: UISegmentedControl!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -33,7 +33,7 @@ class ViewController: UIViewController, G8TesseractDelegate {
         let testtype: String = tf_testtype.text!
         let codes: [String] = tf_codelist.text!.replacingOccurrences(of: ",", with: " ").replacingOccurrences(of: "  ", with: " ").components(separatedBy: " ")
         let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        let outfile: String = path + "/" + name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
+        let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
         l_outfile.text! = outfile
         
         outstring = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text! + "\n\n"
@@ -46,7 +46,7 @@ class ViewController: UIViewController, G8TesseractDelegate {
         }
         
         do {
-            try outstring.write(toFile: outfile, atomically: false, encoding: String.Encoding.utf8)
+            try outstring.write(toFile: path + "/" + outfile, atomically: false, encoding: String.Encoding.utf8)
             
         } catch{
             print("FAILED")
@@ -122,7 +122,9 @@ class ViewController: UIViewController, G8TesseractDelegate {
             let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
             
             // add the file header
-            outstring += "Re-Train".padding(toLength: 11, withPad: " ", startingAt: 0) + "Validate".padding(toLength: 11, withPad: " ", startingAt: 0) + "Tested".padding(toLength: 11, withPad: " ", startingAt: 0) + "\n" + "Date By".padding(toLength: 11, withPad: " ", startingAt: 0) + "Date By".padding(toLength: 11, withPad: " ", startingAt: 0) + "Date By".padding(toLength: 11, withPad: " ", startingAt: 0) + "\n\n"
+            outstring +=
+                "Re-Train" + "     Validate" + "      Tested" + "\n" +
+                "Date By" + "      Date By" + "      Date By" + "\n\n"
             
             
             // find the code in the file that matches the code entered by the user and add it to the output
@@ -131,7 +133,7 @@ class ViewController: UIViewController, G8TesseractDelegate {
                     let plt = pltcode.prefix(6)
                     
                     if (plt == code || plt == "PLT" + code || plt == "PLT0" + code || plt == "PLT00" + code)  {
-                        outstring += "____ ____  ____ ____  ____ ____  " + plt + "\n\n\n"
+                        outstring += "____ ____  ____ ____  ____ ____  " + pltcode + "\n\n\n"
                     }
                     
                 }
@@ -141,34 +143,29 @@ class ViewController: UIViewController, G8TesseractDelegate {
         }
     }
     
-    func parse(_ string: String) -> [String] {
+    func parseOCR(_ string: String) -> [String] {
         
         var originalString = string
         var codes = [String]()
         
-        // remove errant date before the PLT codes
-        while originalString.isEmpty == false && originalString.hasPrefix("PLT") == false {
-            originalString.removeFirst()
-        }
-        
-        while originalString.isEmpty == false {
+        // loop while the string isn't empty and is large enough to contain a code
+        while originalString.isEmpty == false && originalString.count > 6{
            
             var parsedString = ""
             
-            // grab the first element
-            var first = originalString.removeFirst()
-            
-            // chech that the first element starts a possible PLT code
-            while (first == "P" || first == "L" || first == "T" ||
-                (first >= "0" && first <= "9")) {
+            // if it starts with PLT then it's likely a proper code, grab it and remove it from the original string
+            if originalString.hasPrefix("PLT") == true {
+                parsedString.append(String(originalString.prefix(6)))
+                originalString.removeSubrange(
+                    originalString.startIndex..<originalString.index(originalString.startIndex, offsetBy: 6))
                 
-                    // add the character to the parsed string
-                    parsedString.append(first)
-                    first = originalString.removeFirst()
+                // append the parsed PLT code to the code array
+                codes.append(parsedString)
             }
             
-            // append the parsed PLT code to the code array
-            codes.append(parsedString)
+            // remove the first element and look for the code again
+            originalString.removeFirst()
+            
         }
         
         return codes
@@ -205,7 +202,7 @@ class ViewController: UIViewController, G8TesseractDelegate {
                 DispatchQueue.main.async {
                     
                     // parse the tesseract text data and add them to the PLT codes textview
-                    self.l_outfile.text = self.parse(tesseract.recognizedText).joined(separator: " ")
+                    self.tf_codelist.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
                     
                     // stop the activity indicator when done
                     self.activityIndicator.stopAnimating() }
@@ -259,10 +256,6 @@ extension ViewController: UIImagePickerControllerDelegate {
         
         // add the liobrary button as an option
         imagePickerActionSheet.addAction(libraryButton)
-
-        // set the cancel button properties and add it as an option
-        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
-        imagePickerActionSheet.addAction(cancelButton)
         
         // required for the ipad, tell the app where the image picker should appear on screen
         if let popoverController = imagePickerActionSheet.popoverPresentationController {

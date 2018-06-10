@@ -66,14 +66,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter codes seperated by commas or spaces e.g. 002,059,083,102" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JkO-7n-yu2">
-                                <rect key="frame" x="259.20676462484425" y="278.00000000000045" width="408.99999999999966" height="29.999999999999631"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <viewLayoutGuide key="safeArea" id="N4N-Ib-Y2c"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="FTN: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRX-JT-0j6">
                                 <rect key="frame" x="100.20676462484425" y="160.99999999999977" width="139.00000000000003" height="21.000000000000455"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -95,8 +87,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pM-uB-m5L">
+                                <rect key="frame" x="259" y="343" width="409" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hbj-e9-xeZ">
+                                <rect key="frame" x="259" y="275" width="409" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBt-Hc-oKQ">
-                                <rect key="frame" x="594" y="929" width="115.00000000000014" height="30.000000000000099"/>
+                                <rect key="frame" x="594" y="462" width="115.00000000000014" height="30.000000000000099"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <viewLayoutGuide key="safeArea" id="TPd-W6-one"/>
                                 <state key="normal" title="  Save and Print  "/>
@@ -105,7 +111,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EXO-03-YHY">
-                                <rect key="frame" x="524" y="929" width="49.999999999999858" height="30.000000000000099"/>
+                                <rect key="frame" x="524" y="462" width="49.999999999999858" height="30.000000000000099"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <viewLayoutGuide key="safeArea" id="52i-bg-PdI"/>
                                 <state key="normal" title="  Save  "/>
@@ -114,7 +120,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="II4-5k-Jfp">
-                                <rect key="frame" x="331" y="929" width="157.9999999999998" height="30.000000000000099"/>
+                                <rect key="frame" x="331" y="462" width="157.9999999999998" height="30.000000000000099"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <viewLayoutGuide key="safeArea" id="Dna-iQ-Hdg"/>
                                 <state key="normal" title="  Populate from Image  "/>
@@ -123,7 +129,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VgI-mz-Ryr">
-                                <rect key="frame" x="59" y="932" width="236.99999999999986" height="29.000000000000121"/>
+                                <rect key="frame" x="59" y="465" width="236.99999999999986" height="29.000000000000121"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <viewLayoutGuide key="safeArea" id="6x5-IQ-Kqc"/>
                                 <segments>
@@ -131,13 +137,6 @@
                                     <segment title="CFI/Flight School"/>
                                 </segments>
                             </segmentedControl>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pM-uB-m5L">
-                                <rect key="frame" x="9" y="376" width="728" height="548"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -146,7 +145,7 @@
                         <outlet property="activityIndicator" destination="UAd-z0-jdT" id="oxd-Da-ZS5"/>
                         <outlet property="l_outfile" destination="3pM-uB-m5L" id="Shg-DK-GYa"/>
                         <outlet property="sc_switch" destination="VgI-mz-Ryr" id="cqQ-GD-8u4"/>
-                        <outlet property="tf_codelist" destination="JkO-7n-yu2" id="H4s-hk-9dS"/>
+                        <outlet property="tf_codelist" destination="Hbj-e9-xeZ" id="pg2-qi-Zre"/>
                         <outlet property="tf_ftn" destination="VhS-dY-mW7" id="CRc-kI-GpH"/>
                         <outlet property="tf_name" destination="JCw-Db-Eaa" id="BLy-hU-Nos"/>
                         <outlet property="tf_testtype" destination="esI-G2-8TH" id="QTK-c8-0Qa"/>
