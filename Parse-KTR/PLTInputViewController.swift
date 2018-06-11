@@ -6,6 +6,11 @@
 //  Copyright © 2018 Austin Hill. All rights reserved.
 //
 
+
+/* Each key has an individual tag according to: tag = (10 * group number) + button number
+   so the button number = tag - (10 * group number) */
+
+
 import UIKit
 
 class PLTInputViewController: UIViewController {
@@ -19,7 +24,7 @@ class PLTInputViewController: UIViewController {
     }
     
     // when done, reload the initial view controller
-    @IBAction func click(_ sender: Any) {
+    @IBAction func done(_ sender: Any) {
         
         // get the main storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
