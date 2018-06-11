@@ -166,12 +166,12 @@ class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate 
         var codes = [String]()
         
         // loop while the string isn't empty and is large enough to contain a code
-        while originalString.isEmpty == false && originalString.count > 6{
+        while !originalString.isEmpty && originalString.count > 6{
            
             var parsedString = ""
             
             // if it starts with PLT then it's likely a proper code, grab it and remove it from the original string
-            if originalString.hasPrefix("PLT") == true {
+            if originalString.hasPrefix("PLT") {
                 parsedString.append(String(originalString.prefix(6)))
                 originalString.removeSubrange(
                     originalString.startIndex..<originalString.index(originalString.startIndex, offsetBy: 6))
