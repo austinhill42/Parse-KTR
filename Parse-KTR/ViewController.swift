@@ -9,21 +9,53 @@
 import UIKit
 import TesseractOCR
 
-class ViewController: UIViewController, G8TesseractDelegate {
+class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate {
     
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var tf_ftn: UITextField!
     @IBOutlet weak var tf_testtype: UITextField!
     @IBOutlet weak var tf_codelist: UITextView!
-    @IBOutlet weak var l_outfile: UITextView!
+    @IBOutlet weak var l_outfile: UILabel!
     @IBOutlet weak var sc_switch: UISegmentedControl!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     var outstring: String = ""
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // the activity indicator was covered in testing, bring it to the front
+        self.view.bringSubview(toFront: self.activityIndicator)
+        
+        // assign the view controller as the code lists delegate to do something when editing
+        tf_codelist.delegate = self
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // for typing in the plt codes, load the plt code "keyboard" view controller
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        // get the main storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        // get the plt code "keyboard" view controller from the main storyboard
+        let controller = storyboard.instantiateViewController(withIdentifier: "PLTViewController")
+        
+        // present the plt code "keyboard" view controller
+        self.present(controller, animated: true, completion: nil)
+        
+    }
+    
     @IBAction func btn_ocr(_ sender: Any) {
         
             presentImagePicker()
+    }
+    @IBAction func plt(_ sender: Any) {
+        
     }
     
     @IBAction func btn_save(_ sender: Any) {
@@ -54,7 +86,6 @@ class ViewController: UIViewController, G8TesseractDelegate {
     }
     
     @IBAction func btn_print(_ sender: Any) {
-        btn_save((Any).self)
         
         let printcontroller = UIPrintInteractionController.shared
         let printinfo = UIPrintInfo(dictionary: nil)
@@ -68,20 +99,6 @@ class ViewController: UIViewController, G8TesseractDelegate {
         printcontroller.printFormatter = formatter
         
         printcontroller.present(animated: true, completionHandler: nil)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // the activity indicator was covered in testing, bring it to the front
-        self.view.bringSubview(toFront: self.activityIndicator)
-
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func formatDPE(codes: [String], outstring: inout String) {
@@ -161,10 +178,11 @@ class ViewController: UIViewController, G8TesseractDelegate {
                 
                 // append the parsed PLT code to the code array
                 codes.append(parsedString)
+            } else {
+                
+                // remove the first element and look for the code again
+                originalString.removeFirst()
             }
-            
-            // remove the first element and look for the code again
-            originalString.removeFirst()
             
         }
         
