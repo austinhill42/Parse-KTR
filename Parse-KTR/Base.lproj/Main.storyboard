@@ -18,380 +18,366 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Appilcant's Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2t-Pv-bXy">
-                                <rect key="frame" x="100" y="100" width="139" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="safeArea" id="tA3-Z6-koS"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Test Type: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1J-02-HC1">
-                                <rect key="frame" x="100" y="222" width="139" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="safeArea" id="gBf-Cz-eNp"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last, First, M" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JCw-Db-Eaa">
-                                <rect key="frame" x="259" y="95" width="409" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="safeArea" id="fex-zy-Yto"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Optional" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VhS-dY-mW7">
-                                <rect key="frame" x="259" y="156" width="409" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="safeArea" id="VVi-CB-iBh"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PA, CA, ATPA, FOI, ETC." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="esI-G2-8TH">
-                                <rect key="frame" x="259" y="218" width="409" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="safeArea" id="zy4-wM-fxC"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="PLT Codes: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx4-oZ-p3X">
-                                <rect key="frame" x="100" y="283" width="139" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="safeArea" id="kNW-KI-Utk"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="FTN: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRX-JT-0j6">
-                                <rect key="frame" x="100" y="161" width="139" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="safeArea" id="2nN-ck-CL3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Output File Name: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSF-6G-ySv">
-                                <rect key="frame" x="100" y="344" width="139" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="safeArea" id="vgj-hh-kzD"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="UAd-z0-jdT">
-                                <rect key="frame" x="366" y="494" width="37" height="37"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iHn-eB-ANc">
+                                <rect key="frame" x="365" y="493" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBt-Hc-oKQ">
-                                <rect key="frame" x="598" y="463" width="70" height="30"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kI8-DI-Et4">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="418"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977678571429" green="0.12854352678571429" blue="0.16261160714285713" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <viewLayoutGuide key="safeArea" id="TPd-W6-one"/>
-                                <state key="normal" title="  Print  ">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_print:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TVK-Jf-liK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="II4-5k-Jfp">
-                                <rect key="frame" x="331" y="463" width="158" height="30"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PA, CA, ATPA, FOI, ETC." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cYx-eT-FfM">
+                                        <rect key="frame" x="213" y="176" width="493" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <viewLayoutGuide key="safeArea" id="L3b-IV-RMp"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <segmentedControl opaque="NO" alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="esu-QN-03I">
+                                        <rect key="frame" x="62" y="366" width="237" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <viewLayoutGuide key="safeArea" id="03P-AS-4Md"/>
+                                        <segments>
+                                            <segment title="DPE"/>
+                                            <segment title="CFI/Flight School"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </segmentedControl>
+                                    <button alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRX-dg-UVe">
+                                        <rect key="frame" x="637" y="362" width="70" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <viewLayoutGuide key="safeArea" id="wlw-mb-4zH"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="  Print  ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_print:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hzO-6Z-U3z"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Optional" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="76c-N1-g6Y">
+                                        <rect key="frame" x="213" y="126" width="493" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <viewLayoutGuide key="safeArea" id="nG9-Ha-WLb"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02R-nk-Ipi">
+                                        <rect key="frame" x="549" y="362" width="61" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <viewLayoutGuide key="safeArea" id="ZPs-lt-W67"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="  Save  ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bG8-Jz-2bb"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last, First, M" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4oh-oj-BvW">
+                                        <rect key="frame" x="213" y="79" width="493" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <viewLayoutGuide key="safeArea" id="qSn-ks-EXj"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssX-ny-s0H">
+                                        <rect key="frame" x="323" y="362" width="197" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <viewLayoutGuide key="safeArea" id="QfX-Zq-tes"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" red="0.51388888889999995" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="  Populate from Image  ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_ocr:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SBK-yy-tbw"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Test Type: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbi-tW-crR">
+                                        <rect key="frame" x="45" y="176" width="139" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <viewLayoutGuide key="safeArea" id="n8m-EA-qRa"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Appilcant's Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfQ-7v-IIX">
+                                        <rect key="frame" x="8" y="79" width="176" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <viewLayoutGuide key="safeArea" id="xE4-8K-ntf"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="FTN: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jo3-Zj-dcG">
+                                        <rect key="frame" x="45" y="126" width="139" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <viewLayoutGuide key="safeArea" id="u2G-Jc-mkB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0Vo-R5-rvR">
+                                        <rect key="frame" x="213" y="224" width="493" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="PLT Codes: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hv-sT-teJ">
+                                        <rect key="frame" x="45" y="224" width="139" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <viewLayoutGuide key="safeArea" id="7gb-Pf-fmy"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.58431372550000005" green="0.74901960779999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <viewLayoutGuide key="safeArea" id="bX4-gl-NDK"/>
+                            </view>
+                            <view alpha="0.64999997615814209" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b1V-7x-HIT">
+                                <rect key="frame" x="0.0" y="418" width="768" height="606"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977678571429" green="0.12854352678571429" blue="0.16261160714285713" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <viewLayoutGuide key="safeArea" id="Dna-iQ-Hdg"/>
-                                <color key="tintColor" red="0.51388888888888884" green="0.12854352678571429" blue="0.16261160714285713" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="  Populate from Image  ">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_ocr:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qyJ-ab-G5y"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hbj-e9-xeZ">
-                                <rect key="frame" x="259" y="275" width="409" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EXO-03-YHY">
-                                <rect key="frame" x="520" y="463" width="50" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977678571429" green="0.12854352678571429" blue="0.16261160714285713" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <viewLayoutGuide key="safeArea" id="52i-bg-PdI"/>
-                                <state key="normal" title="  Save  ">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="puw-Vd-gYZ"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="characterWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ce2-Zi-l7h">
-                                <rect key="frame" x="259" y="343" width="409" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VgI-mz-Ryr">
-                                <rect key="frame" x="62" y="463" width="237" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <viewLayoutGuide key="safeArea" id="6x5-IQ-Kqc"/>
-                                <segments>
-                                    <segment title="DPE"/>
-                                    <segment title="CFI/Flight School"/>
-                                </segments>
-                                <color key="tintColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </segmentedControl>
+                                <subviews>
+                                    <button opaque="NO" tag="20" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r5W-Ou-P90">
+                                        <rect key="frame" x="256" y="509" width="256" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="0">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vl0-ZH-zxm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="21" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4y-NB-lH7">
+                                        <rect key="frame" x="256" y="435" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="1">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IFW-8H-Bcg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="22" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wn-Ye-AhH">
+                                        <rect key="frame" x="344" y="435" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="2">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Trl-fW-EnT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="23" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwd-GZ-R83">
+                                        <rect key="frame" x="432" y="435" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="3">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gEU-CY-5h1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="24" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYo-Lq-K4y">
+                                        <rect key="frame" x="256" y="357" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="4">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qaa-Tv-v8d"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="25" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bR-k8-bt6">
+                                        <rect key="frame" x="344" y="357" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="5">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lSy-aU-vXA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="26" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AbN-hP-Cj0">
+                                        <rect key="frame" x="432" y="357" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="6">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ql4-8Q-2Dk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="27" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2Y-Bi-FeV">
+                                        <rect key="frame" x="256" y="278" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="7">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xQY-du-J4p"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="28" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLi-4h-rWQ">
+                                        <rect key="frame" x="344" y="278" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="8">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DFj-5J-xH8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="29" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyk-up-fAR">
+                                        <rect key="frame" x="432" y="278" width="80" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                        <state key="normal" title="9">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btn_keypad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yph-mx-vuO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiC-25-YqX">
+                                        <rect key="frame" x="548" y="509" width="200" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Done"/>
+                                        <connections>
+                                            <action selector="btn_done:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bak-sz-9um"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCV-Zr-E2D">
+                                        <rect key="frame" x="20" y="509" width="200" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Delete"/>
+                                        <connections>
+                                            <action selector="btn_delete:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Sxn-4Z-XIF"/>
+                                        </connections>
+                                    </button>
+                                    <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgg-jj-0pK">
+                                        <rect key="frame" x="548" y="431" width="200" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Enter"/>
+                                        <connections>
+                                            <action selector="btn_enter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rCa-c0-cTb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Mo-ow-WXi">
+                                        <rect key="frame" x="20" y="431" width="200" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Clear"/>
+                                        <connections>
+                                            <action selector="btn_clear:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yHt-5M-caM"/>
+                                        </connections>
+                                    </button>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bJm-39-UjN">
+                                        <rect key="frame" x="59" y="0.0" width="650" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ICv-f8-ujv">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="cTb-Xl-K3x"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="2vZ-uV-MFa"/>
+                                        </connections>
+                                    </collectionView>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lbZ-Mg-68H">
+                                        <rect key="frame" x="256" y="178" width="80" height="76"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f84-Yq-6BI">
+                                        <rect key="frame" x="432" y="178" width="80" height="76"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dJN-Vj-GVI">
+                                        <rect key="frame" x="344" y="178" width="80" height="76"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.58431372550000005" green="0.74901960779999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <viewLayoutGuide key="safeArea" id="t0o-Ic-6Cy"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.58360460069444442" green="0.74807400173611116" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="UAd-z0-jdT" id="oxd-Da-ZS5"/>
-                        <outlet property="l_outfile" destination="Ce2-Zi-l7h" id="YNg-W0-oHl"/>
-                        <outlet property="sc_switch" destination="VgI-mz-Ryr" id="cqQ-GD-8u4"/>
-                        <outlet property="tf_codelist" destination="Hbj-e9-xeZ" id="pg2-qi-Zre"/>
-                        <outlet property="tf_ftn" destination="VhS-dY-mW7" id="CRc-kI-GpH"/>
-                        <outlet property="tf_name" destination="JCw-Db-Eaa" id="BLy-hU-Nos"/>
-                        <outlet property="tf_testtype" destination="esI-G2-8TH" id="QTK-c8-0Qa"/>
+                        <outlet property="PLTView" destination="b1V-7x-HIT" id="pai-mD-wK8"/>
+                        <outlet property="activityIndicator" destination="iHn-eB-ANc" id="y9M-ci-bDt"/>
+                        <outlet property="collectionView" destination="bJm-39-UjN" id="z2s-dy-CGX"/>
+                        <outlet property="mainView" destination="kI8-DI-Et4" id="Ea2-Ud-Zre"/>
+                        <outlet property="plt1" destination="lbZ-Mg-68H" id="L7H-Mj-58r"/>
+                        <outlet property="plt2" destination="dJN-Vj-GVI" id="SlL-nY-Ic4"/>
+                        <outlet property="plt3" destination="f84-Yq-6BI" id="apO-LD-LvS"/>
+                        <outlet property="sc_switch" destination="esu-QN-03I" id="z5P-8Z-vv8"/>
+                        <outlet property="tf_ftn" destination="76c-N1-g6Y" id="Qob-bd-Ju9"/>
+                        <outlet property="tf_name" destination="4oh-oj-BvW" id="gM3-rU-7Kg"/>
+                        <outlet property="tf_testtype" destination="cYx-eT-FfM" id="Kpk-9Y-NXE"/>
+                        <outlet property="tv_codelist" destination="0Vo-R5-rvR" id="ZNq-ew-9LK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-276" y="30"/>
-        </scene>
-        <!--Input View Controller-->
-        <scene sceneID="0ZT-Ns-HKc">
-            <objects>
-                <viewController storyboardIdentifier="PLTViewController" id="Sd7-tX-385" customClass="PLTInputViewController" customModule="Parse_KTR" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" alpha="0.65000000000000002" contentMode="scaleToFill" id="SRU-Qm-ujo">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" tag="20" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQR-es-9W5">
-                                <rect key="frame" x="256" y="898" width="256" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="0">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="qYb-Za-o1s"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="21" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fES-Ba-pbp">
-                                <rect key="frame" x="256" y="810" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="1">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="4La-to-nl9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="22" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcm-fQ-Ekc">
-                                <rect key="frame" x="344" y="810" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="2">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="bch-bh-gui"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="23" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Kf-mY-ggJ">
-                                <rect key="frame" x="432" y="810" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="3">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="uHH-vc-Ucp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="24" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4K-lk-UV3">
-                                <rect key="frame" x="256" y="722" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="4">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="3gq-G9-jkt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="25" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smb-xa-4XS">
-                                <rect key="frame" x="344" y="722" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="5">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="mbr-CX-eXt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="26" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bn6-xJ-udE">
-                                <rect key="frame" x="432" y="722" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="6">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="hX2-Rk-kE0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="27" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pV-6O-C7t">
-                                <rect key="frame" x="256" y="634" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="7">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="1df-TD-Px3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="28" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UkG-U9-UbW">
-                                <rect key="frame" x="344" y="634" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="8">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="KJW-NG-AWL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="29" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qf4-Th-DY2">
-                                <rect key="frame" x="432" y="634" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
-                                <state key="normal" title="9">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btn_keypad:" destination="Sd7-tX-385" eventType="touchUpInside" id="vCs-gj-RNv"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukg-gr-OQY">
-                                <rect key="frame" x="227" y="483" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhE-e4-t0B">
-                                <rect key="frame" x="334" y="483" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8j-Ne-us2">
-                                <rect key="frame" x="442" y="483" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avl-XB-iVC">
-                                <rect key="frame" x="548" y="898" width="200" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977678571429" green="0.12854352678571429" blue="0.16261160714285713" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="btn_done:" destination="Sd7-tX-385" eventType="touchUpInside" id="bxW-x6-MIz"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRv-hk-CYY">
-                                <rect key="frame" x="20" y="898" width="200" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Delete"/>
-                                <connections>
-                                    <action selector="btn_delete:" destination="Sd7-tX-385" eventType="touchUpInside" id="dvv-11-ov7"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jrf-9s-jjp">
-                                <rect key="frame" x="548" y="810" width="200" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Enter"/>
-                                <connections>
-                                    <action selector="btn_enter:" destination="Sd7-tX-385" eventType="touchUpInside" id="FEH-pj-FfU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LSF-6a-zeL">
-                                <rect key="frame" x="20" y="810" width="200" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.41369977679999997" green="0.1285435268" blue="0.1626116071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Clear"/>
-                                <connections>
-                                    <action selector="btn_clear:" destination="Sd7-tX-385" eventType="touchUpInside" id="KgS-AJ-y3f"/>
-                                </connections>
-                            </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8td-rn-y2Y">
-                                <rect key="frame" x="59" y="54" width="650" height="355"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NpP-kH-mW1">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Sd7-tX-385" id="aXW-no-TEc"/>
-                                    <outlet property="delegate" destination="Sd7-tX-385" id="FIo-WQ-9aO"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.58431372549019611" green="0.74901960784313726" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <viewLayoutGuide key="safeArea" id="qNS-v5-Fcb"/>
-                    </view>
-                    <connections>
-                        <outlet property="collectionView" destination="8td-rn-y2Y" id="EcT-0F-Ga1"/>
-                        <outlet property="plt1" destination="ukg-gr-OQY" id="mbr-rS-ffA"/>
-                        <outlet property="plt2" destination="LhE-e4-t0B" id="o4H-AW-CZx"/>
-                        <outlet property="plt3" destination="u8j-Ne-us2" id="ZQd-Hl-6SR"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hRe-Yf-vek" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="498.4375" y="29.882812499999996"/>
+            <point key="canvasLocation" x="-276.5625" y="29.882812499999996"/>
         </scene>
     </scenes>
 </document>

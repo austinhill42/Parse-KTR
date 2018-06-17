@@ -9,18 +9,25 @@
 import UIKit
 import TesseractOCR
 
-class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, G8TesseractDelegate {
     
+    @IBOutlet var mainView: UIView!
+    @IBOutlet weak var PLTView: UIView!
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var tf_ftn: UITextField!
     @IBOutlet weak var tf_testtype: UITextField!
-    @IBOutlet weak var tf_codelist: UITextView!
+    @IBOutlet weak var tv_codelist: UITextView!
     @IBOutlet weak var l_outfile: UILabel!
     @IBOutlet weak var sc_switch: UISegmentedControl!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
-    var codes = [UILabel]()
+    @IBOutlet weak var plt1: UITextField!
+    @IBOutlet weak var plt2: UITextField!
+    @IBOutlet weak var plt3: UITextField!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var outstring: String = ""
+    var cellsize = CGSize(width: 75, height: 50)
+    var labels = [UILabel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +35,15 @@ class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate 
         // the activity indicator was covered in testing, bring it to the front
         self.view.bringSubview(toFront: self.activityIndicator)
         
+        self.view.sendSubview(toBack: self.PLTView)
+        self.PLTView.isHidden = true
+        
         // assign the view controller as the code lists delegate to do something when editing
-        tf_codelist.delegate = self
+        tv_codelist.delegate = self
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,19 +51,51 @@ class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate 
         // Dispose of any resources that can be recreated.
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return labels.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
+        
+        cell.label = labels[indexPath.item]
+        cell.contentView.addSubview(cell.label)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return cellsize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return 5.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return 2.0
+    }
+    
     // for typing in the plt codes, load the plt code "keyboard" view controller
     func textViewDidBeginEditing(_ textView: UITextView) {
         
-        // get the main storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        // get the plt code "keyboard" view controller from the main storyboard
-        let controller = storyboard.instantiateViewController(withIdentifier: "PLTViewController")
-        
-        (controller as! PLTInputViewController).labels = self.codes
-        
-        // present the plt code "keyboard" view controller
-        self.present(controller, animated: true, completion: nil)
+        textView.endEditing(true)
+        self.view.bringSubview(toFront: PLTView)
+        PLTView.isHidden = false
         
     }
     
@@ -57,16 +103,13 @@ class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate 
         
             presentImagePicker()
     }
-    @IBAction func plt(_ sender: Any) {
-        
-    }
     
     @IBAction func btn_save(_ sender: Any) {
         
         let name: String = tf_name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
         let ftn: String = tf_ftn.text!
         let testtype: String = tf_testtype.text!
-        let codes: [String] = tf_codelist.text!.replacingOccurrences(of: ",", with: " ").replacingOccurrences(of: "  ", with: " ").components(separatedBy: " ")
+        let codes: [String] = tv_codelist.text!.replacingOccurrences(of: ",", with: " ").replacingOccurrences(of: "  ", with: " ").components(separatedBy: " ")
         let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
         l_outfile.text! = outfile
@@ -102,6 +145,96 @@ class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate 
         printcontroller.printFormatter = formatter
         
         printcontroller.present(animated: true, completionHandler: nil)
+    }
+    
+    @IBAction func btn_keypad(_ sender: UIButton) {
+        
+        if (plt1.text?.isEmpty)! {
+            plt1.text = sender.currentTitle
+        } else if (plt2.text?.isEmpty)! {
+            plt2.text = sender.currentTitle
+        } else {
+            plt3.text = sender.currentTitle
+        }
+    }
+    
+    // clear the currently entered code
+    @IBAction func btn_clear(_ sender: UIButton) {
+        
+        plt1.text = ""
+        plt2.text = ""
+        plt3.text = ""
+    }
+    
+    // delete the last number entered
+    @IBAction func btn_delete(_ sender: UIButton) {
+        
+        if !(plt3.text?.isEmpty)! {
+            plt3.text = ""
+        } else if !(plt2.text?.isEmpty)! {
+            plt2.text = ""
+        } else if !(plt1.text?.isEmpty)! {
+            plt1.text = ""
+        }
+    }
+    
+    // add the PLT code entered by the user to the list of PLT codes
+    @IBAction func btn_enter(_ sender: UIButton) {
+        
+        if !(plt1.text?.isEmpty)! && !(plt2.text?.isEmpty)! && !(plt3.text?.isEmpty)! {
+            
+            let indexPath = IndexPath(item: labels.count, section: 0)
+            let code = "PLT" + plt1.text! + plt2.text! + plt3.text!
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: cellsize.width, height: cellsize.height))
+            
+            
+            if Int(String(code.suffix(3)))! > 535 {
+                
+                let alert = UIAlertController(title: "Oops", message: "\(code) is not a valid PLT code", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let close = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+                
+                alert.addAction(close)
+                
+                // required for the ipad, tell the app where the image picker should appear on screen
+                if let popoverController = alert.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popoverController.permittedArrowDirections = []
+                    
+                }
+                
+                self.present(alert, animated:true, completion: nil)
+                
+            } else {
+                label.text = code
+                label.adjustsFontSizeToFitWidth = false
+                label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
+                
+                labels.append(label)
+                collectionView.insertItems(at: [indexPath])
+            }
+            
+            btn_clear(sender)
+        }
+    }
+    
+    // when done, reload the initial view controller
+    @IBAction func btn_done(_ sender: UIButton) {
+        
+        btn_clear(sender)
+        
+        var codes = [String]()
+        
+        for index in 0..<labels.count {
+            
+            codes.append(labels[index].text! + " ")
+            
+        }
+        
+        tv_codelist.text = codes.joined()
+        self.view.bringSubview(toFront: mainView)
+        PLTView.isHidden = true
     }
 
     func formatDPE(codes: [String], outstring: inout String) {
@@ -223,7 +356,7 @@ class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate 
                 DispatchQueue.main.async {
                     
                     // parse the tesseract text data and add them to the PLT codes textview
-                    self.tf_codelist.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
+                    self.tv_codelist.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
                     
                     // stop the activity indicator when done
                     self.activityIndicator.stopAnimating() }
