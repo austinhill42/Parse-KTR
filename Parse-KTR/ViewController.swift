@@ -164,26 +164,42 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
             presentImagePicker()
     }
     
+    // share the output file
+    @IBAction func btn_share(_ sender: UIButton) {
+        
+        // format the output to share
+        formatOutput()
+        
+        // create the activity view controller
+        let shareViewController = UIActivityViewController(activityItems: ["Share", outstring], applicationActivities: nil)
+        
+        // exclude activity items thar aren't relevent to this app
+        shareViewController.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.assignToContact, UIActivityType.postToFacebook, UIActivityType.postToFlickr, UIActivityType.postToTencentWeibo, UIActivityType.postToTwitter, UIActivityType.postToVimeo, UIActivityType.postToWeibo, UIActivityType.saveToCameraRoll]
+        
+        // required for the ipad, tell the app where the share view should appear on screen
+        if let popoverController = shareViewController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+
+        // show the share view controller
+        self.present(shareViewController, animated:true, completion: nil)
+    }
+    
     // save the output to a file
     @IBAction func btn_save(_ sender: Any) {
        
-        // get the name, FTN, testype, path toi teh current directory, and format the outfile name
+        // get the formatted output for saving
+        formatOutput()
+        
+        // get the name, FTN, testype, path to the current directory, and format the outfile name
         let name: String = tf_name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
         let ftn: String = tf_ftn.text!
         let testtype: String = tf_testtype.text!
         let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
-        
-        // add the initial header to the outfile
-        outstring = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text! + "\n\n"
-        
-        // format the outfile for DPE or CFI/Flight School
-        if sc_switch.selectedSegmentIndex == 0 {
-            formatDPE(codes: PLTCodes, outstring: &outstring)
-        }
-        else if sc_switch.selectedSegmentIndex == 1 {
-            formatCFI(codes: PLTCodes, outstring: &outstring)
-        }
         
         do {
             
@@ -205,11 +221,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     @IBAction func btn_print(_ sender: Any) {
         
         // format the output for printing
-        if sc_switch.selectedSegmentIndex == 0 {
-            formatDPE(codes: PLTCodes, outstring: &outstring)
-        } else {
-            formatCFI(codes: PLTCodes, outstring: &outstring)
-        }
+        formatOutput()
         
         // set the print controller and print info (using defaults)
         let printcontroller = UIPrintInteractionController.shared
@@ -377,6 +389,21 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         }
     }
     
+    // function to format the output
+    func formatOutput() {
+        
+        // add the initial header to the outfile
+        outstring = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text! + "\n\n"
+        
+        // format the outfile for DPE or CFI/Flight School
+        if sc_switch.selectedSegmentIndex == 0 {
+            formatDPE(codes: PLTCodes, outstring: &outstring)
+        }
+        else if sc_switch.selectedSegmentIndex == 1 {
+            formatCFI(codes: PLTCodes, outstring: &outstring)
+        }
+    }
+    
     // function to parse the PLT codes returned by OCR
     func parseOCR(_ string: String) -> [String] {
         
@@ -459,7 +486,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // add the close button to the alert controller
         alert.addAction(close)
         
-        // required for the ipad, tell the app where the image picker should appear on screen
+        // required for the ipad, tell the app where the alert view should appear on screen
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
