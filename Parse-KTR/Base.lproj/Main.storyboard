@@ -18,12 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iHn-eB-ANc">
-                                <rect key="frame" x="365" y="493" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
-                            </activityIndicatorView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kI8-DI-Et4">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="418"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -375,7 +369,6 @@
                     </view>
                     <connections>
                         <outlet property="PLTView" destination="b1V-7x-HIT" id="pai-mD-wK8"/>
-                        <outlet property="activityIndicator" destination="iHn-eB-ANc" id="y9M-ci-bDt"/>
                         <outlet property="collectionView" destination="bJm-39-UjN" id="z2s-dy-CGX"/>
                         <outlet property="mainView" destination="kI8-DI-Et4" id="Ea2-Ud-Zre"/>
                         <outlet property="plt1" destination="lbZ-Mg-68H" id="L7H-Mj-58r"/>

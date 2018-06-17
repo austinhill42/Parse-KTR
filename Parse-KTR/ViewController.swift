@@ -18,7 +18,6 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     @IBOutlet weak var tf_testtype: UITextField!
     @IBOutlet weak var tv_codelist: UITextView!
     @IBOutlet weak var sc_switch: UISegmentedControl!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var plt1: UITextField!
     @IBOutlet weak var plt2: UITextField!
     @IBOutlet weak var plt3: UITextField!
@@ -31,9 +30,6 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     // do stuff when the view loads
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // the activity indicator was covered in testing, bring it to the front
-        self.view.bringSubview(toFront: self.activityIndicator)
         
         // hide PLT keyboard for now
         self.PLTView.isHidden = true
@@ -152,6 +148,29 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // end editing so the user can't type anything
         textView.endEditing(true)
         
+        // add existing PLT codes to collection view
+        if !tv_codelist.text.isEmpty {
+            
+            // get an array of plt codes
+            let codes = tv_codelist.text.components(separatedBy: " ")
+            
+            // create index path to add collection view cells
+            var indexPath = IndexPath(item: 0, section: 0)
+            
+            // add each code to the PLT codes array and create a cell for each code
+            for code in codes {
+                
+                // add the PLT code to the array
+                PLTCodes.append(code)
+                
+                // add a cell to teh collection view
+                collectionView.insertItems(at: [indexPath])
+                
+                // incrememnt the index path
+                indexPath.item += 1
+            }
+        }
+        
         // show the PLT keyboard
         PLTView.isHidden = false
         
@@ -205,6 +224,27 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
             
             // attempt to write the formatted output to a file
             try outstring.write(toFile: path + "/" + outfile, atomically: false, encoding: String.Encoding.utf8)
+            
+            // Let the user know saving succeeded
+            
+            // create the alert controller
+            let alert = UIAlertController(title: "", message: "File Saved", preferredStyle: UIAlertControllerStyle.alert)
+            
+            // required for the ipad, tell the app where the alert view should appear on screen
+            if let popoverController = alert.popoverPresentationController {
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+                
+            }
+            
+            // show the slert
+            self.present(alert, animated:true, completion: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                
+                alert.dismiss(animated: true, completion: nil)
+            }
          
         // let the user know that saving failed
         } catch{
@@ -438,7 +478,19 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     func performImageRecognition(_ image: UIImage) {
         
         // this operation takes a while, show the user something's working
-        self.activityIndicator.startAnimating()
+        // create the alert controller
+        let alert = UIAlertController(title: "Performing OCR", message: "This will take a moment, please be patient", preferredStyle: UIAlertControllerStyle.alert)
+        
+        // required for the ipad, tell the app where the alert view should appear on screen
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        // show the slert
+        self.present(alert, animated:true, completion: nil)
         
         // put the OCR in a background thread
         DispatchQueue.global(qos: .background).async {
@@ -464,11 +516,14 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
                 // UI updates must go in the main thread
                 DispatchQueue.main.async {
                     
+                    // dismiss the alert when done
+                    alert.dismiss(animated: true, completion: nil)
+                    
                     // parse the tesseract text data and add them to the PLT codes textview
                     self.tv_codelist.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
                     
-                    // stop the activity indicator when done
-                    self.activityIndicator.stopAnimating() }
+                    
+                }
             }
         }
 
@@ -497,7 +552,6 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // show the slert
         self.present(alert, animated:true, completion: nil)
     }
-
 }
 
 // not sure
