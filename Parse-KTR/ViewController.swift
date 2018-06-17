@@ -13,6 +13,10 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var PLTView: UIView!
+    @IBOutlet weak var btn_print: UIButton!
+    @IBOutlet weak var btn_save: UIButton!
+    @IBOutlet weak var btn_share: UIButton!
+    @IBOutlet weak var btn_ocr: UIButton!
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var tf_ftn: UITextField!
     @IBOutlet weak var tf_testtype: UITextField!
@@ -120,6 +124,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         
         // remove the cell from the collection view
         self.collectionView.deleteItems(at: [indexPath])
+    
     }
  
     // set the cell size for all cells
@@ -151,6 +156,34 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         
         // end editing so the user can't type anything
         textView.endEditing(true)
+        
+        // hide the save, print, share, and OCR options so the user doesnt click them
+        // before they're done entering the PLT codes
+        btn_ocr.isHidden = true
+        btn_save.isHidden = true
+        btn_print.isHidden = true
+        btn_share.isHidden = true
+        
+        // clear the collection view so there are no duplicates
+        while PLTCodes.count > 0 {
+            
+            let indexPath = IndexPath(item: 0, section: 0)
+            
+            // get the cell that was selected
+            let cell = self.collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+            
+            // remove the label from the array
+            PLTCodes.remove(at: indexPath.item)
+            
+            // reset the cell's label to an empty string
+            // note: this is because the cell isn't deleted, just removed from the collection view
+            //       if the label isnt set to an empty string the cell could be reused and the old
+            //       label will show up over the new one
+            cell.label.text = ""
+            
+            // remove the cell from the collection view
+            self.collectionView.deleteItems(at: [indexPath])
+        }
         
         // add existing PLT codes to collection view
         if !tv_codelist.text.isEmpty {
@@ -298,11 +331,23 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         
         // determine where the keypad text should go
         if (plt1.text?.isEmpty)! {
+            
             plt1.text = sender.currentTitle
         } else if (plt2.text?.isEmpty)! {
+            
             plt2.text = sender.currentTitle
         } else {
+            
             plt3.text = sender.currentTitle
+            
+            // delay for a sixteenth of a second for the text to appear in the text field
+            // this code only for aesthetic purposes
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.0625) {
+                
+                // if all three numbers have been entered, enter the PLT code automatically
+                self.btn_enter(sender)
+            }
+            
         }
     }
     
@@ -330,30 +375,50 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     // add the PLT code entered by the user to the list of PLT codes
     @IBAction func btn_enter(_ sender: UIButton) {
         
-        // do nothing unless all 3 numbers for the PLT code are entered
-        if !(plt1.text?.isEmpty)! && !(plt2.text?.isEmpty)! && !(plt3.text?.isEmpty)! {
+        // at least one number has been entered
+        if !(plt1.text?.isEmpty)! {
+            
+            var code = ""
             
             // set the index path to the last item in the PLT codes array
             let indexPath = IndexPath(item: PLTCodes.count, section: 0)
+        
+            // if only one number has been entered
+            if (plt2.text?.isEmpty)! {
             
-            // set the PLT code in the correct format
-            let code = "PLT" + plt1.text! + plt2.text! + plt3.text!
+                // set the PLT code in the correct format
+                code = "PLT00" + plt1.text!
+                
+            // if two numbers have been entered
+            } else if (plt3.text?.isEmpty)! {
+                
+                // set the PLT code in the correct format
+                code = "PLT0" + plt1.text! + plt2.text!
             
-            // add the new PLT code label to the PLT codes array
-            PLTCodes.append(code)
-            
-            // add a new cell to the collectionview for the new PLT code
-            collectionView.insertItems(at: [indexPath])
+            // if three numbers have been entered
+            } else {
+                
+                // set the PLT code in the correct format
+                code = "PLT" + plt1.text! + plt2.text! + plt3.text!
+            }
             
             // don't let the user enter an incorrect code
             if Int(String(code.suffix(3)))! > 535 {
                 
                 showErrorAlert(title: "Oops", message: "\(code) is not a valid PLT code")
                 
+            } else {
+                
+                // add the new PLT code label to the PLT codes array
+                PLTCodes.append(code)
+                
+                // add a new cell to the collectionview for the new PLT code
+                collectionView.insertItems(at: [indexPath])
             }
             
             // clear the text fields for new input
             btn_clear(sender)
+            
         }
     }
     
@@ -371,6 +436,12 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         
         // hide the PLT keyboard again
         PLTView.isHidden = true
+        
+        // show the save, print, share, and OCR options again
+        btn_ocr.isHidden = false
+        btn_save.isHidden = false
+        btn_print.isHidden = false
+        btn_share.isHidden = false
     }
 
     // format the output for DPE
@@ -461,12 +532,28 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
             
             // if it starts with PLT then it's likely a proper code, grab it and remove it from the original string
             if originalString.hasPrefix("PLT") {
-                parsedString.append(String(originalString.prefix(6)))
-                originalString.removeSubrange(
-                    originalString.startIndex..<originalString.index(originalString.startIndex, offsetBy: 6))
                 
-                // append the parsed PLT code to the code array
-                codes.append(parsedString)
+                // create the character set for invalid characters
+                let charset = CharacterSet(charactersIn: "0123456789").inverted
+                
+                // get the 3 characters after PLT
+                let code = String(String(originalString.prefix(6)).suffix(3))
+                
+                // check if the numerical part of the code contains invalid characters
+                if code.rangeOfCharacter(from: charset) == nil {
+                    
+                    parsedString.append(String(originalString.prefix(6)))
+                    
+                    originalString.removeSubrange(originalString.startIndex..<originalString.index(originalString.startIndex, offsetBy: 6))
+                    
+                    // append the parsed PLT code to the code array
+                    codes.append(parsedString)
+                    
+                } else {
+                    // remove the first element and look for the code again
+                    originalString.removeFirst()
+                }
+                
             } else {
                 
                 // remove the first element and look for the code again

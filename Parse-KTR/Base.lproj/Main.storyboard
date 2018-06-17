@@ -369,6 +369,10 @@
                     </view>
                     <connections>
                         <outlet property="PLTView" destination="b1V-7x-HIT" id="pai-mD-wK8"/>
+                        <outlet property="btn_ocr" destination="ssX-ny-s0H" id="tJP-MO-sxe"/>
+                        <outlet property="btn_print" destination="LRX-dg-UVe" id="V1J-DW-UIx"/>
+                        <outlet property="btn_save" destination="02R-nk-Ipi" id="ySh-VQ-DgR"/>
+                        <outlet property="btn_share" destination="Ec4-9Z-GQM" id="EdL-c0-06D"/>
                         <outlet property="collectionView" destination="bJm-39-UjN" id="z2s-dy-CGX"/>
                         <outlet property="mainView" destination="kI8-DI-Et4" id="Ea2-Ud-Zre"/>
                         <outlet property="plt1" destination="lbZ-Mg-68H" id="L7H-Mj-58r"/>
