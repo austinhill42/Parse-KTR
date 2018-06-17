@@ -10,5 +10,5 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
 
-    
+    var label: UILabel!
 }

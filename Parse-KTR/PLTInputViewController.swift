@@ -20,30 +20,23 @@ class PLTInputViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet weak var plt3: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
     var viewController: ViewController = ViewController()
-    var cells = [UICollectionViewCell]()
     var cellsize = CGSize(width: 75, height: 50)
     var labels = [UILabel]()
-    var numcells = 0
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.numcells
+        return labels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        //let cell = collectionView.cellForItem(at: indexPath)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
         
-        //let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.bounds.size.width, height: cell.bounds.size.height))
-        //var title = UILabel(frame: CGRect(0, 0, cell.bounds.size.width, cell.bounds.size.height))
-        //cell.contentView.addSubview(title)
-        
-        //label.text = "testing"
-        //title.textColor = UIColor.yellowColor()
-        
+        cell.label = labels[indexPath.item]
+        cell.contentView.addSubview(cell.label)
+        //print("\n\n\n***  " + (cell?.label.text)! + " ***\n\n\n")
         return cell
     }
     
@@ -75,7 +68,7 @@ class PLTInputViewController: UIViewController, UICollectionViewDataSource, UICo
         //self.collectionView.backgroundColor = UIColor(red: 149, green: 191, blue: 255, alpha: 1)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     override func didReceiveMemoryWarning() {
@@ -119,7 +112,7 @@ class PLTInputViewController: UIViewController, UICollectionViewDataSource, UICo
         
         if !plt1.text.isEmpty && !plt2.text.isEmpty && !plt3.text.isEmpty {
             
-            let indexPath = IndexPath(item: numcells, section: 0)
+            let indexPath = IndexPath(item: labels.count, section: 0)
             let code = "PLT" + plt1.text + plt2.text + plt3.text
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: cellsize.width, height: cellsize.height))
             
@@ -147,9 +140,9 @@ class PLTInputViewController: UIViewController, UICollectionViewDataSource, UICo
                 label.adjustsFontSizeToFitWidth = false
                 label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
                 
-                numcells += 1
+                labels.append(label)
                 collectionView.insertItems(at: [indexPath])
-                collectionView.cellForItem(at: indexPath)?.contentView.addSubview(label)
+                //collectionView.cellForItem(at: indexPath)?.contentView.addSubview(label)
             }
             
             btn_clear(sender)
@@ -159,13 +152,13 @@ class PLTInputViewController: UIViewController, UICollectionViewDataSource, UICo
     // when done, reload the initial view controller
     @IBAction func btn_done(_ sender: UIButton) {
         
-        for index in 0..<numcells {
+        for index in 0..<labels.count {
             
-            let indexPath = IndexPath(item: index, section: 0)
-            let cell = collectionView.cellForItem(at: indexPath)
-            let label = cell?.contentView
+            //let indexPath = IndexPath(item: index, section: 0)
+            //let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell
+            //let label = cell?.label
             //print("\n\n** " + (label?.text!)! + " **\n\n")
-            viewController.tf_codelist.text.append(label.text + " ")
+            viewController.tf_codelist.text.append(labels[index].text! + " ")
             
         }
         

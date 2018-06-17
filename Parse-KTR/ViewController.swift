@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate 
     @IBOutlet weak var sc_switch: UISegmentedControl!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+    var codes = [UILabel]()
     var outstring: String = ""
     
     override func viewDidLoad() {
@@ -44,6 +45,8 @@ class ViewController: UIViewController, UITextViewDelegate, G8TesseractDelegate 
         
         // get the plt code "keyboard" view controller from the main storyboard
         let controller = storyboard.instantiateViewController(withIdentifier: "PLTViewController")
+        
+        (controller as! PLTInputViewController).labels = self.codes
         
         // present the plt code "keyboard" view controller
         self.present(controller, animated: true, completion: nil)
