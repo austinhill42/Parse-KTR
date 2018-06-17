@@ -71,9 +71,24 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // get the cell as my custom cell class
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
         
-        // set the cell's label text value
-        cell.label.text = PLTCodes[indexPath.item]
+        // create a new label for the new PLT code
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: cellsize.width, height: cellsize.height))
         
+        // don't suto adjust font, I set how it looks elsewhere
+        label.adjustsFontSizeToFitWidth = false
+        
+        // set the font
+        label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
+        
+        // set the label text to the PLT code
+        label.text = PLTCodes[indexPath.item]
+        
+        // set the cell's label to the new label
+        cell.label = label
+        
+        // add a tag to the cell's label for removal
+        cell.label.tag = 0
+ 
         // add the label to the subview to display it
         cell.contentView.addSubview(cell.label)
         
@@ -83,9 +98,30 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     // do stuff when the cell at the index path was selected
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        // get the cell that was selected
+        let cell = self.collectionView.cellForItem(at: indexPath) as! CollectionViewCell
         
+        // get the PLT code (only the numbers) from the cell
+        var plt = String((cell.label.text?.suffix(3))!)
+        
+        // populate the text fields with the PLT code
+        plt3.text = String(plt.removeLast())
+        plt2.text = String(plt.removeLast())
+        plt1.text = String(plt.removeLast())
+        
+        // remove the label from the array
+        PLTCodes.remove(at: indexPath.item)
+        
+        // reset the cell's label to an empty string
+        // note: this is because the cell isn't deleted, just removed from the collection view
+        //       if the label isnt set to an empty string the cell could be reused and the old
+        //       label will show up over the new one
+        cell.label.text = ""
+        
+        // remove the cell from the collection view
+        self.collectionView.deleteItems(at: [indexPath])
     }
-    
+ 
     // set the cell size for all cells
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -154,10 +190,12 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
             // attempt to write the formatted output to a file
             try outstring.write(toFile: path + "/" + outfile, atomically: false, encoding: String.Encoding.utf8)
          
-        // let the user know that savinf failed
+        // let the user know that saving failed
         } catch{
             
-            showErrorAlert(title: "Save Failed", message: "Failed to save file: \(outfile)")
+            // show an error saying that the save failed and include the error description for error reporting
+            showErrorAlert(title: "Save Failed", message: "Failed to save file: \(outfile)\n\n" +
+                "Error: \(error.localizedDescription)")
             
         }
         
@@ -245,32 +283,17 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
             // set the PLT code in the correct format
             let code = "PLT" + plt1.text! + plt2.text! + plt3.text!
             
-            // create a new label for the new PLT code
-            let label = UILabel(frame: CGRect(x: 0, y: 0, width: cellsize.width, height: cellsize.height))
+            // add the new PLT code label to the PLT codes array
+            PLTCodes.append(code)
             
+            // add a new cell to the collectionview for the new PLT code
+            collectionView.insertItems(at: [indexPath])
             
             // don't let the user enter an incorrect code
             if Int(String(code.suffix(3)))! > 535 {
                 
                 showErrorAlert(title: "Oops", message: "\(code) is not a valid PLT code")
                 
-            // if the code has been entered correctly
-            } else {
-                
-                // set the label text to the formatted code
-                label.text = code
-                
-                // don't suto adjust font, I set it how it looks best elsewhere
-                label.adjustsFontSizeToFitWidth = false
-                
-                // set the font
-                label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
-                
-                // add the new PLT code label to the PLT codes array
-                PLTCodes.append(label.text!)
-                
-                // add a new cell to the collectionview for the new PLT code
-                collectionView.insertItems(at: [indexPath])
             }
             
             // clear the text fields for new input
@@ -284,8 +307,11 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // clear the text fields so an old code isn't still there if they need to add more
         btn_clear(sender)
         
+        // sort the PLT codes before putting them in the cpode list
+        PLTCodes.sort()
+        
         // set the codelist text view to the entered codes
-        tv_codelist.text = PLTCodes.joined()
+        tv_codelist.text = PLTCodes.joined(separator: " ")
         
         // hide the PLT keyboard again
         PLTView.isHidden = true
