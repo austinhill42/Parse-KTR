@@ -17,7 +17,6 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     @IBOutlet weak var tf_ftn: UITextField!
     @IBOutlet weak var tf_testtype: UITextField!
     @IBOutlet weak var tv_codelist: UITextView!
-    @IBOutlet weak var l_outfile: UILabel!
     @IBOutlet weak var sc_switch: UISegmentedControl!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var plt1: UITextField!
@@ -27,22 +26,26 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     
     var outstring: String = ""
     var cellsize = CGSize(width: 75, height: 50)
-    var labels = [UILabel]()
+    var PLTCodes = [String]()
     
+    // do stuff when the view loads
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // the activity indicator was covered in testing, bring it to the front
         self.view.bringSubview(toFront: self.activityIndicator)
         
-        self.view.sendSubview(toBack: self.PLTView)
+        // hide PLT keyboard for now
         self.PLTView.isHidden = true
         
         // assign the view controller as the code lists delegate to do something when editing
         tv_codelist.delegate = self
         
+        // assign the view controller as the delegate adn data source for the collection view
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        // register the custom collection view cell class and set a reuse identifier for the cells
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
@@ -51,24 +54,39 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // Dispose of any resources that can be recreated.
     }
     
+    // set the number of sections in the collection view to 1
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
+    // return the number of items in the section i.e. the number of PLT codes (the collection view is built around the PLTCodes array)
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return labels.count
+        return PLTCodes.count
     }
     
+    
+    // get the cell at the index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        // get the cell as my custom cell class
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
         
-        cell.label = labels[indexPath.item]
+        // set the cell's label text value
+        cell.label.text = PLTCodes[indexPath.item]
+        
+        // add the label to the subview to display it
         cell.contentView.addSubview(cell.label)
         
         return cell
     }
     
+    // do stuff when the cell at the index path was selected
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+    }
+    
+    // set the cell size for all cells
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -76,6 +94,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         return cellsize
     }
     
+    // set the spacing between adjacent cells
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -83,6 +102,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         return 5.0
     }
     
+    // set the spacing between lines of cells
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -93,63 +113,96 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     // for typing in the plt codes, load the plt code "keyboard" view controller
     func textViewDidBeginEditing(_ textView: UITextView) {
         
+        // end editing so the user can't type anything
         textView.endEditing(true)
-        self.view.bringSubview(toFront: PLTView)
+        
+        // show the PLT keyboard
         PLTView.isHidden = false
         
     }
     
+    // start the OCR process when the OCR button is pressed
     @IBAction func btn_ocr(_ sender: Any) {
         
+            // show the image picker to select the image for OCR
             presentImagePicker()
     }
     
+    // save the output to a file
     @IBAction func btn_save(_ sender: Any) {
-        
-        
+       
+        // get the name, FTN, testype, path toi teh current directory, and format the outfile name
         let name: String = tf_name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
         let ftn: String = tf_ftn.text!
         let testtype: String = tf_testtype.text!
-        let codes: [String] = tv_codelist.text!.replacingOccurrences(of: ",", with: " ").replacingOccurrences(of: "  ", with: " ").components(separatedBy: " ")
         let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
-        l_outfile.text! = outfile
         
+        // add the initial header to the outfile
         outstring = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text! + "\n\n"
         
+        // format the outfile for DPE or CFI/Flight School
         if sc_switch.selectedSegmentIndex == 0 {
-            formatDPE(codes: codes, outstring: &outstring)
+            formatDPE(codes: PLTCodes, outstring: &outstring)
         }
         else if sc_switch.selectedSegmentIndex == 1 {
-            formatCFI(codes: codes, outstring: &outstring)
+            formatCFI(codes: PLTCodes, outstring: &outstring)
         }
         
         do {
-            try outstring.write(toFile: path + "/" + outfile, atomically: false, encoding: String.Encoding.utf8)
             
+            // attempt to write the formatted output to a file
+            try outstring.write(toFile: path + "/" + outfile, atomically: false, encoding: String.Encoding.utf8)
+         
+        // let the user know that savinf failed
         } catch{
-            print("FAILED")
+            
+            showErrorAlert(title: "Save Failed", message: "Failed to save file: \(outfile)")
+            
         }
+        
     }
     
+    // print the output
     @IBAction func btn_print(_ sender: Any) {
         
+        // format the output for printing
+        if sc_switch.selectedSegmentIndex == 0 {
+            formatDPE(codes: PLTCodes, outstring: &outstring)
+        } else {
+            formatCFI(codes: PLTCodes, outstring: &outstring)
+        }
+        
+        // set the print controller and print info (using defaults)
         let printcontroller = UIPrintInteractionController.shared
         let printinfo = UIPrintInfo(dictionary: nil)
         
+        // set the output type
         printinfo.outputType = UIPrintInfoOutputType.general
+        
+        // set the job name
         printinfo.jobName = "PLT Print Job"
+        
+        // give the print controller the print info
         printcontroller.printInfo = printinfo
         
+        // set the formatter
         let formatter = UISimpleTextPrintFormatter(text: outstring)
+        
+        // set the margins
         formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+        
+        // give the print controller the format
         printcontroller.printFormatter = formatter
         
+        // show the print controller
         printcontroller.present(animated: true, completionHandler: nil)
     }
     
+    // do stuff when the PLT keyboard keypad buttons are pressed
     @IBAction func btn_keypad(_ sender: UIButton) {
         
+        // determine where the keypad text should go
         if (plt1.text?.isEmpty)! {
             plt1.text = sender.currentTitle
         } else if (plt2.text?.isEmpty)! {
@@ -170,6 +223,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     // delete the last number entered
     @IBAction func btn_delete(_ sender: UIButton) {
         
+        // determine which text field had the last number entered and delete it
         if !(plt3.text?.isEmpty)! {
             plt3.text = ""
         } else if !(plt2.text?.isEmpty)! {
@@ -182,40 +236,44 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     // add the PLT code entered by the user to the list of PLT codes
     @IBAction func btn_enter(_ sender: UIButton) {
         
+        // do nothing unless all 3 numbers for the PLT code are entered
         if !(plt1.text?.isEmpty)! && !(plt2.text?.isEmpty)! && !(plt3.text?.isEmpty)! {
             
-            let indexPath = IndexPath(item: labels.count, section: 0)
+            // set the index path to the last item in the PLT codes array
+            let indexPath = IndexPath(item: PLTCodes.count, section: 0)
+            
+            // set the PLT code in the correct format
             let code = "PLT" + plt1.text! + plt2.text! + plt3.text!
+            
+            // create a new label for the new PLT code
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: cellsize.width, height: cellsize.height))
             
             
+            // don't let the user enter an incorrect code
             if Int(String(code.suffix(3)))! > 535 {
                 
-                let alert = UIAlertController(title: "Oops", message: "\(code) is not a valid PLT code", preferredStyle: UIAlertControllerStyle.alert)
+                showErrorAlert(title: "Oops", message: "\(code) is not a valid PLT code")
                 
-                let close = UIAlertAction(title: "Close", style: .cancel, handler: nil)
-                
-                alert.addAction(close)
-                
-                // required for the ipad, tell the app where the image picker should appear on screen
-                if let popoverController = alert.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                    popoverController.permittedArrowDirections = []
-                    
-                }
-                
-                self.present(alert, animated:true, completion: nil)
-                
+            // if the code has been entered correctly
             } else {
+                
+                // set the label text to the formatted code
                 label.text = code
+                
+                // don't suto adjust font, I set it how it looks best elsewhere
                 label.adjustsFontSizeToFitWidth = false
+                
+                // set the font
                 label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
                 
-                labels.append(label)
+                // add the new PLT code label to the PLT codes array
+                PLTCodes.append(label.text!)
+                
+                // add a new cell to the collectionview for the new PLT code
                 collectionView.insertItems(at: [indexPath])
             }
             
+            // clear the text fields for new input
             btn_clear(sender)
         }
     }
@@ -223,21 +281,17 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
     // when done, reload the initial view controller
     @IBAction func btn_done(_ sender: UIButton) {
         
+        // clear the text fields so an old code isn't still there if they need to add more
         btn_clear(sender)
         
-        var codes = [String]()
+        // set the codelist text view to the entered codes
+        tv_codelist.text = PLTCodes.joined()
         
-        for index in 0..<labels.count {
-            
-            codes.append(labels[index].text! + " ")
-            
-        }
-        
-        tv_codelist.text = codes.joined()
-        self.view.bringSubview(toFront: mainView)
+        // hide the PLT keyboard again
         PLTView.isHidden = true
     }
 
+    // format the output for DPE
     func formatDPE(codes: [String], outstring: inout String) {
         
         do {
@@ -253,7 +307,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
                 for pltcode in pltcodes {
                     let plt = pltcode.prefix(6)
                     
-                    if (plt == code || plt == "PLT" + code || plt == "PLT0" + code || plt == "PLT00" + code) {
+                    if plt == code {
                         outstring += "______  " + pltcode + "\n\n\n"
                     }
                     
@@ -264,7 +318,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         }
     }
     
-    // format the output for CFI
+    // format the output for CFI/Flight School
     func formatCFI(codes: [String], outstring: inout String) {
         
         do {
@@ -286,7 +340,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
                 for pltcode in pltcodes {
                     let plt = pltcode.prefix(6)
                     
-                    if (plt == code || plt == "PLT" + code || plt == "PLT0" + code || plt == "PLT00" + code)  {
+                    if plt == code {
                         outstring += "____ ____  ____ ____  ____ ____  " + pltcode + "\n\n\n"
                     }
                     
@@ -297,6 +351,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         }
     }
     
+    // function to parse the PLT codes returned by OCR
     func parseOCR(_ string: String) -> [String] {
         
         var originalString = string
@@ -326,11 +381,11 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         return codes
     }
     
+    // perform the image recognition with Tesseract
     func performImageRecognition(_ image: UIImage) {
         
         // this operation takes a while, show the user something's working
         self.activityIndicator.startAnimating()
-        l_outfile.text = ""
         
         // put the OCR in a background thread
         DispatchQueue.global(qos: .background).async {
@@ -364,6 +419,30 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
             }
         }
 
+    }
+    
+    // function to show a standard error alert window with a title, message, and close button
+    func showErrorAlert(title: String, message: String) {
+        
+        // create the alert controller
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        // create the close button
+        let close = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+        
+        // add the close button to the alert controller
+        alert.addAction(close)
+        
+        // required for the ipad, tell the app where the image picker should appear on screen
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        // show the slert
+        self.present(alert, animated:true, completion: nil)
     }
 
 }
