@@ -100,10 +100,14 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // get the PLT code (only the numbers) from the cell
         var plt = String((cell.label.text?.suffix(3))!)
         
-        // populate the text fields with the PLT code
-        plt3.text = String(plt.removeLast())
-        plt2.text = String(plt.removeLast())
-        plt1.text = String(plt.removeLast())
+        // only populate the text fields if the string is long enough
+        if plt.count > 2 {
+         
+            // populate the text fields with the PLT code
+            plt3.text = String(plt.removeLast())
+            plt2.text = String(plt.removeLast())
+            plt1.text = String(plt.removeLast())
+        }
         
         // remove the label from the array
         PLTCodes.remove(at: indexPath.item)
