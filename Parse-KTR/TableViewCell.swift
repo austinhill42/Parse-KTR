@@ -8,7 +8,8 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
+class TableViewCell: UITableViewCell {
 
-    weak var label: UILabel!
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var textview: UITextView!
 }

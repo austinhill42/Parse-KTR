@@ -9,44 +9,31 @@
 import UIKit
 import TesseractOCR
 
-class ViewController: UIViewController, UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, G8TesseractDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UITableViewDelegate, UITableViewDataSource, G8TesseractDelegate {
     
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var PLTView: UIView!
-    @IBOutlet weak var btn_print: UIButton!
-    @IBOutlet weak var btn_save: UIButton!
-    @IBOutlet weak var btn_share: UIButton!
-    @IBOutlet weak var btn_ocr: UIButton!
-    @IBOutlet weak var tf_name: UITextField!
-    @IBOutlet weak var tf_ftn: UITextField!
-    @IBOutlet weak var tf_testtype: UITextField!
-    @IBOutlet weak var tv_codelist: UITextView!
-    @IBOutlet weak var sc_switch: UISegmentedControl!
-    @IBOutlet weak var plt1: UITextField!
-    @IBOutlet weak var plt2: UITextField!
-    @IBOutlet weak var plt3: UITextField!
-    @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navbar: UINavigationBar!
     
     var outstring: String = ""
     var cellsize = CGSize(width: 75, height: 50)
     var PLTCodes = [String]()
+    var tableViewLabels = ["Applicant's Name", "FTN", "Test Type", "PLT Codes"]
+    
     
     // do stuff when the view loads
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // hide PLT keyboard for now
-        self.PLTView.isHidden = true
+        // set the view controller as the delegate for the table view and navigation bar
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.navbar.delegate = self
         
-        // assign the view controller as the code lists delegate to do something when editing
-        tv_codelist.delegate = self
-        
-        // assign the view controller as the delegate adn data source for the collection view
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        // register the custom collection view cell class and set a reuse identifier for the cells
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        // setup the table view
+        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,103 +41,30 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // Dispose of any resources that can be recreated.
     }
     
-    // set the number of sections in the collection view to 1
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+        // number of rows in the table view
+        return tableViewLabels.count
     }
     
-    // return the number of items in the section i.e. the number of PLT codes (the collection view is built around the PLTCodes array)
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PLTCodes.count
-    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    
-    // get the cell at the index path
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // get the table view cell
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cell") as! TableViewCell
         
-        // get the cell as my custom cell class
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
+        // set the cell's background color and size
+        cell.backgroundColor = UIColor.groupTableViewBackground
+        cell.sizeThatFits(CGSize(width: 600, height: 100))
         
-        // create a new label for the new PLT code
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: cellsize.width, height: cellsize.height))
-        
-        // don't suto adjust font, I set how it looks elsewhere
-        label.adjustsFontSizeToFitWidth = false
-        
-        // set the font
-        label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
-        
-        // set the label text to the PLT code
-        label.text = PLTCodes[indexPath.item]
-        
-        // set the cell's label to the new label
-        cell.label = label
-        
-        // add a tag to the cell's label for removal
-        cell.label.tag = 0
- 
-        // add the label to the subview to display it
-        cell.contentView.addSubview(cell.label)
+        // set the cell's content data
+        cell.label.text = tableViewLabels[indexPath.item]
+        cell.textview.delegate = self
         
         return cell
     }
+}
     
-    // do stuff when the cell at the index path was selected
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        // get the cell that was selected
-        let cell = self.collectionView.cellForItem(at: indexPath) as! CollectionViewCell
-        
-        // get the PLT code (only the numbers) from the cell
-        var plt = String((cell.label.text?.suffix(3))!)
-        
-        // only populate the text fields if the string is long enough
-        if plt.count > 2 {
-         
-            // populate the text fields with the PLT code
-            plt3.text = String(plt.removeLast())
-            plt2.text = String(plt.removeLast())
-            plt1.text = String(plt.removeLast())
-        }
-        
-        // remove the label from the array
-        PLTCodes.remove(at: indexPath.item)
-        
-        // reset the cell's label to an empty string
-        // note: this is because the cell isn't deleted, just removed from the collection view
-        //       if the label isnt set to an empty string the cell could be reused and the old
-        //       label will show up over the new one
-        cell.label.text = ""
-        
-        // remove the cell from the collection view
-        self.collectionView.deleteItems(at: [indexPath])
-    
-    }
- 
-    // set the cell size for all cells
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return cellsize
-    }
-    
-    // set the spacing between adjacent cells
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        
-        return 5.0
-    }
-    
-    // set the spacing between lines of cells
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        
-        return 2.0
-    }
-    
+    /*
     // for typing in the plt codes, load the plt code "keyboard" view controller
     func textViewDidBeginEditing(_ textView: UITextView) {
         
@@ -619,6 +533,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         }
 
     }
+ 
     
     // function to show a standard error alert window with a title, message, and close button
     func showErrorAlert(title: String, message: String) {
@@ -643,7 +558,7 @@ class ViewController: UIViewController, UITextViewDelegate, UICollectionViewData
         // show the slert
         self.present(alert, animated:true, completion: nil)
     }
-}
+
 
 // not sure
 extension ViewController: UINavigationControllerDelegate {
@@ -737,6 +652,7 @@ extension UIImage {
         return scaledImage
     }
 }
+*/
 
 
 
