@@ -9,12 +9,13 @@
 import UIKit
 import TesseractOCR
 
-class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UITableViewDelegate, UITableViewDataSource, G8TesseractDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, G8TesseractDelegate {
     
     @IBOutlet var mainView: UIView!
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var PLTView: UIView!
     
-    @IBOutlet weak var tableView: UITableView!
+    //@IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navbar: UINavigationBar!
     
     var outstring: String = ""
@@ -28,40 +29,57 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         super.viewDidLoad()
         
         // set the view controller as the delegate for the table view and navigation bar
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.navbar.delegate = self
+        //self.tableView.delegate = self
+        //self.tableView.dataSource = self
+        //self.navbar.delegate = self
         
         // setup the table view
-        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
+        //self.tableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        containerView.layer.cornerRadius = 6.0
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    /*
+    // function to return the number of rows in teh table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
         // number of rows in the table view
         return tableViewLabels.count
     }
     
+    // function to create the table view cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
         // get the table view cell
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cell") as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TableViewCell
+        
+        // create a label and text view for the cell
+        let label = UILabel(frame: CGRect(x: 15, y: 38, width: 160, height: 25))
+        let textview = UITextView(frame: CGRect(x: 310, y: 35, width: 275, height: 30))
         
         // set the cell's background color and size
         cell.backgroundColor = UIColor.groupTableViewBackground
         cell.sizeThatFits(CGSize(width: 600, height: 100))
         
         // set the cell's content data
+        cell.label = label
         cell.label.text = tableViewLabels[indexPath.item]
+        cell.textview = textview
+        cell.textview.sizeToFit()
         cell.textview.delegate = self
         
+        // add the cells content to the content view to be displayed
+        cell.contentView.addSubview(cell.label)
+        cell.contentView.addSubview(cell.textview)
+        
         return cell
-    }
+    }*/
 }
     
     /*
