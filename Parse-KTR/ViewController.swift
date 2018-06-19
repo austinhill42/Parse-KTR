@@ -39,20 +39,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         //self.tableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
         
         containerView.layer.cornerRadius = 6.0
-        
-        var frame = self.containerView.frame
-        
-        if self.view.frame.height > self.view.frame.width {
-            
-            frame.size.height = 560
-            
-        } else {
-            
-            frame.size.height = 450
-        }
-        
-        self.containerView.frame = frame
-        
+ 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -61,24 +48,6 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             
             self.tableViewController = vc
         }
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super .viewWillTransition(to: size, with: coordinator)
-        
-        var frame = self.containerView.frame
-        
-        if self.view.frame.height > self.view.frame.width {
-            
-            frame.size.height = 560
-            
-        } else {
-            
-            frame.size.height = 450
-        }
-        
-        self.containerView.frame = frame
-        
     }
     
     override func didReceiveMemoryWarning() {

@@ -15,46 +15,8 @@ class TableViewController: UITableViewController {
     
         self.tableView.estimatedRowHeight = 0
         
-        var frame = self.tableView.frame
-        
-        if self.view.frame.height > self.view.frame.width {
-            
-            frame.size.height = 560
-            
-        } else {
-            
-            frame.size.height = 450
-        }
-        
-        self.tableView.frame = frame
+        self.preferredContentSize.height = 560
+
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super .viewWillTransition(to: size, with: coordinator)
-        
-        var frame = self.tableView.frame
-        
-        if self.view.frame.height > self.view.frame.width {
-            
-            frame.size.height = 560
-            
-        } else {
-            
-            frame.size.height = 450
-        }
-        
-        self.tableView.frame = frame
-        
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if self.tableView.frame.height > self.tableView.frame.width {
-            
-            return 100
-        } else {
-            
-            return 75
-        }
-    }
+ 
 }
