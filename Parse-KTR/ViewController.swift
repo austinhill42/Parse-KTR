@@ -11,6 +11,9 @@ import TesseractOCR
 
 class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, G8TesseractDelegate {
     
+    private var tableViewController: TableViewController!
+    private var tableView: UITableView!
+    
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var PLTView: UIView!
@@ -22,7 +25,6 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     var cellsize = CGSize(width: 75, height: 50)
     var PLTCodes = [String]()
     var tableViewLabels = ["Applicant's Name", "FTN", "Test Type", "PLT Codes"]
-    
     
     // do stuff when the view loads
     override func viewDidLoad() {
@@ -38,6 +40,44 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         containerView.layer.cornerRadius = 6.0
         
+        var frame = self.containerView.frame
+        
+        if self.view.frame.height > self.view.frame.width {
+            
+            frame.size.height = 560
+            
+        } else {
+            
+            frame.size.height = 450
+        }
+        
+        self.containerView.frame = frame
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        if let vc = segue.destination as? TableViewController, segue.identifier == "segue" {
+            
+            self.tableViewController = vc
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super .viewWillTransition(to: size, with: coordinator)
+        
+        var frame = self.containerView.frame
+        
+        if self.view.frame.height > self.view.frame.width {
+            
+            frame.size.height = 560
+            
+        } else {
+            
+            frame.size.height = 450
+        }
+        
+        self.containerView.frame = frame
         
     }
     
@@ -45,6 +85,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     /*
     // function to return the number of rows in teh table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
