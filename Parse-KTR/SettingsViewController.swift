@@ -11,10 +11,10 @@ import Foundation
 
 class SettingsViewController: UIViewController {
  
-    private var userDefaults = UserDefaults.standard
-    private var tableViewController: SettingsTableViewController!
-    private var tableView: UITableView!
-    private var viewController: ViewController!
+    var userDefaults = UserDefaults.standard
+    var tableViewController: SettingsTableViewController!
+    var tableView: UITableView!
+    var viewController: ViewController!
     
     @IBOutlet weak var containerView: UIView!
     
@@ -24,6 +24,12 @@ class SettingsViewController: UIViewController {
         // add nice looking rounded corners to the container view
         self.containerView.layer.cornerRadius = 6.0
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        darkMode(userDefaults.bool(forKey: "dark"))
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,12 +44,20 @@ class SettingsViewController: UIViewController {
             
             self.tableViewController = vc
             self.tableView = tableViewController.tableView
-        }
-        
-        if let vc = segue.source as? ViewController, segue.identifier == "settings" {
-            
-            self.viewController = vc
+            self.tableViewController.settingsViewController = self
         }
     }
-
+    
+    func darkMode(_ value: Bool) {
+        
+        if value {
+            
+            self.view.backgroundColor = userDefaults.color(forKey: "viewDark")
+            self.navigationController?.navigationBar.barTintColor = userDefaults.color(forKey: "navigationBarDark")
+        } else {
+            
+            self.view.backgroundColor = userDefaults.color(forKey: "viewLight")
+            self.navigationController?.navigationBar.barTintColor = userDefaults.color(forKey: "navigationBarLight")
+        }
+    }
 }

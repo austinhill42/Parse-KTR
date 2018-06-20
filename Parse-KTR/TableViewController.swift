@@ -10,7 +10,8 @@ import UIKit
 
 class TableViewController: UITableViewController, UITextViewDelegate {
 
-    private var userDefaults = UserDefaults.standard
+    var userDefaults = UserDefaults.standard
+    var viewController: ViewController!
     
     @IBOutlet weak var name: UITextView!
     @IBOutlet weak var ftn: UITextView!
@@ -29,6 +30,8 @@ class TableViewController: UITableViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        darkMode(userDefaults.bool(forKey: "dark"))
         
         // set the defaults if they don't exist yet
         if userDefaults.string(forKey: "output") == nil {
@@ -71,6 +74,53 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         }
         
         return true
+    }
+    
+    func darkMode(_ value: Bool) {
+        
+        if value {
+            
+            for cell in self.tableView.visibleCells {
+                
+                cell.backgroundColor = userDefaults.color(forKey: "tableCellDark")
+                
+                for view in cell.contentView.subviews {
+                    
+                    if view is UILabel {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "labelDark")
+                    } else if view is UITextView {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "textViewDark")
+                    } else if view is UIPickerView {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "pickerDark")
+                    }
+                }
+            }
+            
+        } else {
+            
+            for cell in self.tableView.visibleCells {
+                
+                cell.backgroundColor = userDefaults.color(forKey: "tableCellLight")
+                
+                for view in cell.contentView.subviews {
+                    
+                    if view is UILabel {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "labelLight")
+                    } else if view is UITextView {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "textViewLight")
+                    } else if view is UIPickerView {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "pickerLight")
+                    }
+                }
+            }
+            
+        }
     }
  
     

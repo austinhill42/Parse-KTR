@@ -10,7 +10,8 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    private var userDefaults = UserDefaults.standard
+    var userDefaults = UserDefaults.standard
+    var settingsViewController: SettingsViewController!
     
     @IBOutlet weak var outputSwitch: UISegmentedControl!
     @IBOutlet weak var codePicker: UIPickerView!
@@ -43,12 +44,30 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         // initialize the output data
         outputTypes = ["Evaluator", "Instructor"]
         
+        // set user dark mode color defaults
+        userDefaults.set(color: UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1), forKey: "viewDark")
+        userDefaults.set(color: UIColor.darkGray, forKey: "tableCellDark")
+        userDefaults.set(color: UIColor.clear, forKey: "labelDark")
+        userDefaults.set(color: UIColor(red: 92/255, green: 94/255, blue: 102/255, alpha: 1), forKey: "textViewDark")
+        userDefaults.set(color: UIColor(red: 92/255, green: 94/255, blue: 102/255, alpha: 1), forKey: "pickerDark")
+        userDefaults.set(color: UIColor.black, forKey: "navigationBarDark")
+        userDefaults.set(color: UIColor.darkGray, forKey: "switchDark")
+        // set user light mode color defaults
+        userDefaults.set(color: UIColor.white, forKey: "viewLight")
+        userDefaults.set(color: UIColor.groupTableViewBackground, forKey: "tableCellLight")
+        userDefaults.set(color: UIColor.clear, forKey: "labelLight")
+        userDefaults.set(color: UIColor.white, forKey: "textViewLight")
+        userDefaults.set(color: UIColor.white, forKey: "pickerLight")
+        userDefaults.set(color: UIColor.clear, forKey: "navigationBarLight")
+        userDefaults.set(color: UIColor.clear, forKey: "switchLight")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // show the correct switch setting
+        darkMode(userDefaults.bool(forKey: "dark"))
+        
+        // show the correct segmented control setting
         if userDefaults.string(forKey: "output") == outputTypes[0] {
             outputSwitch.selectedSegmentIndex = 0
         } else {
@@ -64,6 +83,9 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
                 break
             }
         }
+        
+        // show the correct switch setting
+        darkModeSwitch.isOn = userDefaults.bool(forKey: "dark")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -77,6 +99,14 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         let outputSwitchIndex = self.outputSwitch.selectedSegmentIndex
         self.userDefaults.set(self.outputTypes[outputSwitchIndex], forKey: "output")
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let vc = segue.source as? SettingsViewController, segue.identifier == "segue" {
+            
+            self.settingsViewController = vc
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,4 +126,101 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         
         return codeTypes[row]
     }
+    
+    // switch to dark mode when the switch is toggled
+    @IBAction func switchToggled(_ sender: UISwitch) {
+        
+        if sender.isOn {
+            userDefaults.set(true, forKey: "dark")
+        } else {
+            userDefaults.set(false, forKey: "dark")
+        }
+        
+        darkMode(userDefaults.bool(forKey: "dark"))
+    }
+    
+    func darkMode(_ value: Bool) {
+        
+        if value {
+            
+            for cell in self.tableView.visibleCells {
+                
+                cell.backgroundColor = userDefaults.color(forKey: "tableCellDark")
+                
+                for view in cell.contentView.subviews {
+                    
+                    if view is UILabel {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "labelDark")
+                    } else if view is UITextView {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "textViewDark")
+                    } else if view is UIPickerView {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "pickerDark")
+                    } else if view is UISwitch {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "switchDark")
+                    }
+                }
+            }
+            
+        } else {
+            
+            for cell in self.tableView.visibleCells {
+                
+                cell.backgroundColor = userDefaults.color(forKey: "tableCellLight")
+                
+                for view in cell.contentView.subviews {
+                    
+                    if view is UILabel {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "labelLight")
+                    } else if view is UITextView {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "textViewLight")
+                    } else if view is UIPickerView {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "pickerLight")
+                    } else if view is UISwitch {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "switchLight")
+                    }
+                }
+            }
+            
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

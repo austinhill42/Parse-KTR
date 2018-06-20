@@ -33,18 +33,21 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // change the name of the view to "Done" so it shows "Done" as the back button
-        self.navigationItem.title = "Done"
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // change the nae of the view controller back to "Parse-KTR"
         self.navigationItem.title = "Parse-KTR"
+        
+        darkMode(userDefaults.bool(forKey: "dark"))
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // change the name of the view to "Done" so it shows "Done" as the back button
+        self.navigationItem.title = "Done"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -54,12 +57,14 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             
             self.tableViewController = vc
             self.tableView = tableViewController.tableView
+            self.tableViewController.viewController = self
         }
         
         // initialize the settings view controller when it loads
         if let vc = segue.destination as? SettingsViewController, segue.identifier == "settings" {
             
             self.settingsViewController = vc
+            self.settingsViewController.viewController = self
         }
     }
     
@@ -478,6 +483,46 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         self.present(alert, animated:true, completion: nil)
     }
     
+    func darkMode(_ value: Bool) {
+        
+        if value {
+            
+            self.view.backgroundColor = userDefaults.color(forKey: "viewDark")
+            self.navigationController?.navigationBar.barTintColor = userDefaults.color(forKey: "navigationBarDark")
+        } else {
+            
+            self.view.backgroundColor = userDefaults.color(forKey: "viewLight")
+            self.navigationController?.navigationBar.barTintColor = userDefaults.color(forKey: "navigationBarLight")
+        }
+    }
+    
+}
+
+extension UserDefaults {
+    
+    func set(color: UIColor?, forKey key: String) {
+       
+        var colorData: NSData?
+        
+        if let color = color {
+            
+            colorData = NSKeyedArchiver.archivedData(withRootObject: color) as NSData?
+        }
+        
+        set(colorData, forKey: key)
+    }
+    
+    func color(forKey key: String) -> UIColor? {
+        
+        var color: UIColor?
+        
+        if let colorData = data(forKey: key) {
+            
+            color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor
+        }
+        
+        return color
+    }
 }
     
     /*
