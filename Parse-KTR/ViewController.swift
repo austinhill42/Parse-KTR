@@ -11,6 +11,8 @@ import TesseractOCR
 
 class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, G8TesseractDelegate {
     
+    private var userDefaults = UserDefaults.standard
+    
     var settingsViewController: SettingsViewController!
     var tableViewController: TableViewController!
     var tableView: UITableView!
@@ -132,7 +134,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     func print() {
         
         // format the output for printing
-        formatOutput()
+        formatOutput(&outstring)
         
         // set the print controller and print info (using defaults)
         let printcontroller = UIPrintInteractionController.shared
@@ -164,7 +166,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     func save() {
         
         // get the formatted output for saving
-        formatOutput()
+        formatOutput(&outstring)
         
         // get the name, FTN, testype, path to the current directory, and format the outfile name
         let name: String = tableViewController.name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
@@ -214,7 +216,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     func share() {
         
         // format the output to share
-        formatOutput()
+        formatOutput(&outstring)
         
         // create the activity view controller
         let shareViewController = UIActivityViewController(activityItems: ["Share", outstring], applicationActivities: nil)
@@ -394,83 +396,62 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         return codes
     }
     
-    // format the output for DPE
-    func formatDPE(codes: [String], outstring: inout String) {
+    // function to format the output
+    func formatOutput(_ outstring: inout String) {
         
-        do {
+        // get the list of codes
+        let KTRCodes = tableViewController.KTRCodes.text.components(separatedBy: " ")
+        
+        // get the path to the KTR codes file
+        let pltpath = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
+        
+        var space: String!
+        
+        // add the initial header to the outfile
+        outstring = "Name: " + tableViewController.name.text! + "  FTN: " + tableViewController.ftn.text! + "\n\n"
+        
+        // format the outfile for DPE or CFI/Flight School
+        if userDefaults.string(forKey: "output") == "Evaluator" {
             
-            // get the current app directory to save the file
-            let pltpath: String = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
-            
-            // get the code list from the codes file for camparing to the user entered codes
-            let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
-            
-            // find the code in the file that matches the code entered by the user and add it to the output
-            for code in codes {
-                for pltcode in pltcodes {
-                    let plt = pltcode.prefix(6)
-                    
-                    if plt == code {
-                        outstring += "______  " + pltcode + "\n\n\n"
-                    }
-                    
-                }
-            }
-        } catch {
-            
+            // set the spacers
+            space = "______  "
         }
-    }
-    
-    // format the output for CFI/Flight School
-    func formatCFI(codes: [String], outstring: inout String) {
-        
-        do {
-            
-            // get the current app directory to save the file
-            let pltpath: String = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
-            
-            // get the code list from the codes file for camparing to the user entered codes
-            let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
+        else if userDefaults.string(forKey: "output") == "Instructor" {
             
             // add the file header
             outstring +=
                 "Re-Train" + "     Validate" + "      Tested" + "\n" +
                 "Date By" + "      Date By" + "      Date By" + "\n\n"
             
+            // set the spacers
+            space = "____ ____  ____ ____  ____ ____  "
+        }
+        
+        do {
+            
+            // get the code list from the codes file for camparing to the user entered codes
+            let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
             
             // find the code in the file that matches the code entered by the user and add it to the output
-            for code in codes {
+            for code in KTRCodes {
                 for pltcode in pltcodes {
                     let plt = pltcode.prefix(6)
                     
                     if plt == code {
-                        outstring += "____ ____  ____ ____  ____ ____  " + pltcode + "\n\n\n"
+                        outstring += space + pltcode + "\n\n\n"
                     }
                     
                 }
             }
         } catch {
             
+            // show an error saying that the codes file failed to load
+            // and include the error description for error reporting
+            showErrorAlert(title: "Error", message: "Failed to read from file: \(pltpath)\n\n" +
+                "Error: \(error.localizedDescription)")
+            
         }
-    }
-    
-    // function to format the output
-    func formatOutput() {
-        
-        // add the initial header to the outfile
-        outstring = "Name: " + tableViewController.name.text! + "  FTN: " + tableViewController.ftn.text! + "\n\n"
-        
-        formatDPE(codes: tableViewController.KTRCodes.text.components(separatedBy: " "), outstring: &outstring)
-        
-        /*
-        // format the outfile for DPE or CFI/Flight School
-        if sc_switch.selectedSegmentIndex == 0 {
-            formatDPE(codes: PLTCodes, outstring: &outstring)
-        }
-        else if sc_switch.selectedSegmentIndex == 1 {
-            formatCFI(codes: PLTCodes, outstring: &outstring)
-        }
- */
+ 
     }
     
     // function to show a standard error alert window with a title, message, and close button
