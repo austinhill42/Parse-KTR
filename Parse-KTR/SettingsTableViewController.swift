@@ -14,6 +14,7 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     @IBOutlet weak var outputSwitch: UISegmentedControl!
     @IBOutlet weak var codePicker: UIPickerView!
+    @IBOutlet weak var darkModeSwitch: UISwitch!
     
     var codeTypes = [String]()
     var outputTypes = [String]()
@@ -28,6 +29,9 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         
         // make the output switch larger
         self.outputSwitch.transform = CGAffineTransform(scaleX: 1.13, y: 1.25)
+        
+        // make the dark mode switch larger
+        self.darkModeSwitch.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
         
         // set the view oontroller as the delegate and data source for the picker
         self.codePicker.dataSource = self

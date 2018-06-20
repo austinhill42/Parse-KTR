@@ -74,7 +74,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PnJ-w9-WQl">
-                                <rect key="frame" x="92" y="222" width="584" height="200"/>
+                                <rect key="frame" x="92" y="222" width="584" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="GTE-IN-r9k" kind="embed" identifier="segue" id="5lp-g3-QEo"/>
@@ -313,7 +313,7 @@
             <objects>
                 <tableViewController id="GTE-IN-r9k" customClass="SettingsTableViewController" customModule="Parse_KTR" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="hys-ob-bIb">
-                        <rect key="frame" x="0.0" y="0.0" width="584" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="584" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
@@ -362,13 +362,36 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <pickerView tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U7J-1g-hh7">
-                                                    <rect key="frame" x="273" y="0.0" width="300" height="100"/>
+                                                    <rect key="frame" x="258" y="0.0" width="300" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="GTE-IN-r9k" id="MJP-SR-iCL"/>
                                                         <outlet property="delegate" destination="GTE-IN-r9k" id="lsD-P4-Qrn"/>
                                                     </connections>
                                                 </pickerView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="BEY-kt-5qJ">
+                                        <rect key="frame" x="0.0" y="200" width="584" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BEY-kt-5qJ" id="bou-ei-5Oi">
+                                            <rect key="frame" x="0.0" y="0.0" width="584" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dark Mode:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="70" translatesAutoresizingMaskIntoConstraints="NO" id="W8A-zu-T3J">
+                                                    <rect key="frame" x="17" y="27" width="137" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zhj-aA-7ie">
+                                                    <rect key="frame" x="383" y="31" width="49" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                </switch>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -388,6 +411,7 @@
                     </tableView>
                     <connections>
                         <outlet property="codePicker" destination="U7J-1g-hh7" id="2gJ-HS-G1t"/>
+                        <outlet property="darkModeSwitch" destination="Zhj-aA-7ie" id="c9V-fO-ybp"/>
                         <outlet property="outputSwitch" destination="XCZ-Gd-Vfj" id="oYm-sd-1wm"/>
                     </connections>
                 </tableViewController>
