@@ -84,7 +84,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     
     @IBAction func cameraButton(_ sender: Any) {
         
-        
+        presentImagePicker()
     }
     
     @IBAction func settingsButton(_ sender: Any) {
@@ -94,25 +94,26 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     
     @IBAction func clearButton(_ sender: Any) {
         
-        for section in 0 ..< 2 {
+        for section in 0 ..< tableView.numberOfSections {
+            
             for item in 0 ..< tableView.numberOfRows(inSection: section) {
                 
                 // get the cell corresponding to the given index path
                 // then get the text field from the cell's content view
                 // then set its text to an empty string
                 (tableView.cellForRow(at: IndexPath(item: item, section: section))?.contentView.viewWithTag(1) as? UITextView)?.text = ""
-                
             }
         }
         
-       // (tableView.cellForRow(at: IndexPath(item: 0, section: 0))?.contentView.viewWithTag(0) as? UITextView)?.
+        (tableView.cellForRow(at: IndexPath(item: 0, section: 0))?.contentView.viewWithTag(1) as? UITextView)?.becomeFirstResponder()
+        
     }
     
     // print the output
     func print() {
         
         // format the output for printing
-        //formatOutput()
+        formatOutput()
         
         // set the print controller and print info (using defaults)
         let printcontroller = UIPrintInteractionController.shared
@@ -144,7 +145,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     func save() {
         
         // get the formatted output for saving
-        //formatOutput()
+        formatOutput()
         
         // get the name, FTN, testype, path to the current directory, and format the outfile name
         let name: String = tableViewController.name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
@@ -194,7 +195,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     func share() {
         
         // format the output to share
-        //formatOutput()
+        formatOutput()
         
         // create the activity view controller
         let shareViewController = UIActivityViewController(activityItems: ["Share", outstring], applicationActivities: nil)
@@ -372,6 +373,85 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         }
         
         return codes
+    }
+    
+    // format the output for DPE
+    func formatDPE(codes: [String], outstring: inout String) {
+        
+        do {
+            
+            // get the current app directory to save the file
+            let pltpath: String = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
+            
+            // get the code list from the codes file for camparing to the user entered codes
+            let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
+            
+            // find the code in the file that matches the code entered by the user and add it to the output
+            for code in codes {
+                for pltcode in pltcodes {
+                    let plt = pltcode.prefix(6)
+                    
+                    if plt == code {
+                        outstring += "______  " + pltcode + "\n\n\n"
+                    }
+                    
+                }
+            }
+        } catch {
+            
+        }
+    }
+    
+    // format the output for CFI/Flight School
+    func formatCFI(codes: [String], outstring: inout String) {
+        
+        do {
+            
+            // get the current app directory to save the file
+            let pltpath: String = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
+            
+            // get the code list from the codes file for camparing to the user entered codes
+            let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
+            
+            // add the file header
+            outstring +=
+                "Re-Train" + "     Validate" + "      Tested" + "\n" +
+                "Date By" + "      Date By" + "      Date By" + "\n\n"
+            
+            
+            // find the code in the file that matches the code entered by the user and add it to the output
+            for code in codes {
+                for pltcode in pltcodes {
+                    let plt = pltcode.prefix(6)
+                    
+                    if plt == code {
+                        outstring += "____ ____  ____ ____  ____ ____  " + pltcode + "\n\n\n"
+                    }
+                    
+                }
+            }
+        } catch {
+            
+        }
+    }
+    
+    // function to format the output
+    func formatOutput() {
+        
+        // add the initial header to the outfile
+        outstring = "Name: " + tableViewController.name.text! + "  FTN: " + tableViewController.ftn.text! + "\n\n"
+        
+        formatDPE(codes: tableViewController.KTRCodes.text.components(separatedBy: " "), outstring: &outstring)
+        
+        /*
+        // format the outfile for DPE or CFI/Flight School
+        if sc_switch.selectedSegmentIndex == 0 {
+            formatDPE(codes: PLTCodes, outstring: &outstring)
+        }
+        else if sc_switch.selectedSegmentIndex == 1 {
+            formatCFI(codes: PLTCodes, outstring: &outstring)
+        }
+ */
     }
     
 }
@@ -555,81 +635,6 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         btn_save.isHidden = false
         btn_print.isHidden = false
         btn_share.isHidden = false
-    }
-
-    // format the output for DPE
-    func formatDPE(codes: [String], outstring: inout String) {
-        
-        do {
-            
-            // get the current app directory to save the file
-            let pltpath: String = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
-            
-            // get the code list from the codes file for camparing to the user entered codes
-            let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
-            
-            // find the code in the file that matches the code entered by the user and add it to the output
-            for code in codes {
-                for pltcode in pltcodes {
-                    let plt = pltcode.prefix(6)
-                    
-                    if plt == code {
-                        outstring += "______  " + pltcode + "\n\n\n"
-                    }
-                    
-                }
-            }
-        } catch {
-            
-        }
-    }
-    
-    // format the output for CFI/Flight School
-    func formatCFI(codes: [String], outstring: inout String) {
-        
-        do {
-            
-            // get the current app directory to save the file
-            let pltpath: String = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
-            
-            // get the code list from the codes file for camparing to the user entered codes
-            let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
-            
-            // add the file header
-            outstring +=
-                "Re-Train" + "     Validate" + "      Tested" + "\n" +
-                "Date By" + "      Date By" + "      Date By" + "\n\n"
-            
-            
-            // find the code in the file that matches the code entered by the user and add it to the output
-            for code in codes {
-                for pltcode in pltcodes {
-                    let plt = pltcode.prefix(6)
-                    
-                    if plt == code {
-                        outstring += "____ ____  ____ ____  ____ ____  " + pltcode + "\n\n\n"
-                    }
-                    
-                }
-            }
-        } catch {
-            
-        }
-    }
-    
-    // function to format the output
-    func formatOutput() {
-        
-        // add the initial header to the outfile
-        outstring = "Name: " + tf_name.text! + "  FTN: " + tf_ftn.text! + "\n\n"
-        
-        // format the outfile for DPE or CFI/Flight School
-        if sc_switch.selectedSegmentIndex == 0 {
-            formatDPE(codes: PLTCodes, outstring: &outstring)
-        }
-        else if sc_switch.selectedSegmentIndex == 1 {
-            formatCFI(codes: PLTCodes, outstring: &outstring)
-        }
     }
  
     // function to show a standard error alert window with a title, message, and close button
