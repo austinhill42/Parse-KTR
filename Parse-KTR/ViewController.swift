@@ -9,35 +9,23 @@
 import UIKit
 import TesseractOCR
 
-class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, G8TesseractDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, G8TesseractDelegate {
     
     private var tableViewController: TableViewController!
     private var tableView: UITableView!
     
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var PLTView: UIView!
     
-    //@IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navbar: UINavigationBar!
     
     var outstring: String = ""
-    var cellsize = CGSize(width: 75, height: 50)
-    var PLTCodes = [String]()
-    var tableViewLabels = ["Applicant's Name", "FTN", "Test Type", "PLT Codes"]
     
     // do stuff when the view loads
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // set the view controller as the delegate for the table view and navigation bar
-        //self.tableView.delegate = self
-        //self.tableView.dataSource = self
-        //self.navbar.delegate = self
-        
-        // setup the table view
-        //self.tableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
-        
+        // add nice looking rounded corners to the container view
         containerView.layer.cornerRadius = 6.0
  
     }
@@ -47,6 +35,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         if let vc = segue.destination as? TableViewController, segue.identifier == "segue" {
             
             self.tableViewController = vc
+            self.tableView = tableViewController.tableView
         }
     }
     
@@ -55,41 +44,336 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // Dispose of any resources that can be recreated.
     }
     
-    /*
-    // function to return the number of rows in teh table view
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    @IBAction func actionButton(_ sender: Any) {
     
-        // number of rows in the table view
-        return tableViewLabels.count
+        // create the popover for the available actions
+        let actionPopover = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // set the print button properties
+        let printButton = UIAlertAction(title: "Print",
+                                       style: .default,
+                                       handler: { (alert) in self.print()})
+        
+        // set the save button properties
+        let saveButton = UIAlertAction(title: "Save",
+                                       style: .default,
+                                       handler: { (alert) in self.save()})
+        
+        // set the share button properties
+        let shareButton = UIAlertAction(title: "Share",
+                                         style: .default,
+                                         handler: { (alert) in self.share()})
+        
+        // add the buttons to the popover
+        actionPopover.addAction(printButton)
+        actionPopover.addAction(saveButton)
+        actionPopover.addAction(shareButton)
+        
+        // required for the ipad, tell the app where the image picker should appear on screen
+        if let popoverController = actionPopover.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        // show the image picker
+        self.present(actionPopover, animated: true, completion: nil)
+    
     }
     
-    // function to create the table view cells
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    @IBAction func cameraButton(_ sender: Any) {
+        
+        
+    }
     
-        // get the table view cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TableViewCell
+    @IBAction func settingsButton(_ sender: Any) {
         
-        // create a label and text view for the cell
-        let label = UILabel(frame: CGRect(x: 15, y: 38, width: 160, height: 25))
-        let textview = UITextView(frame: CGRect(x: 310, y: 35, width: 275, height: 30))
         
-        // set the cell's background color and size
-        cell.backgroundColor = UIColor.groupTableViewBackground
-        cell.sizeThatFits(CGSize(width: 600, height: 100))
+    }
+    
+    @IBAction func clearButton(_ sender: Any) {
         
-        // set the cell's content data
-        cell.label = label
-        cell.label.text = tableViewLabels[indexPath.item]
-        cell.textview = textview
-        cell.textview.sizeToFit()
-        cell.textview.delegate = self
+        for section in 0 ..< 2 {
+            for item in 0 ..< tableView.numberOfRows(inSection: section) {
+                
+                // get the cell corresponding to the given index path
+                // then get the text field from the cell's content view
+                // then set its text to an empty string
+                (tableView.cellForRow(at: IndexPath(item: item, section: section))?.contentView.viewWithTag(1) as? UITextView)?.text = ""
+                
+            }
+        }
         
-        // add the cells content to the content view to be displayed
-        cell.contentView.addSubview(cell.label)
-        cell.contentView.addSubview(cell.textview)
+       // (tableView.cellForRow(at: IndexPath(item: 0, section: 0))?.contentView.viewWithTag(0) as? UITextView)?.
+    }
+    
+    // print the output
+    func print() {
         
-        return cell
-    }*/
+        // format the output for printing
+        //formatOutput()
+        
+        // set the print controller and print info (using defaults)
+        let printcontroller = UIPrintInteractionController.shared
+        let printinfo = UIPrintInfo(dictionary: nil)
+        
+        // set the output type
+        printinfo.outputType = UIPrintInfoOutputType.general
+        
+        // set the job name
+        printinfo.jobName = "PLT Print Job"
+        
+        // give the print controller the print info
+        printcontroller.printInfo = printinfo
+        
+        // set the formatter
+        let formatter = UISimpleTextPrintFormatter(text: outstring)
+        
+        // set the margins
+        formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+        
+        // give the print controller the format
+        printcontroller.printFormatter = formatter
+        
+        // show the print controller
+        printcontroller.present(animated: true, completionHandler: nil)
+    }
+    
+    // save the output to a file
+    func save() {
+        
+        // get the formatted output for saving
+        //formatOutput()
+        
+        // get the name, FTN, testype, path to the current directory, and format the outfile name
+        let name: String = tableViewController.name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
+        let ftn: String = tableViewController.ftn.text!
+        let testtype: String = tableViewController.testType.text!
+        let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
+        
+        do {
+            
+            // attempt to write the formatted output to a file
+            try outstring.write(toFile: path + "/" + outfile, atomically: false, encoding: String.Encoding.utf8)
+            
+            // Let the user know saving succeeded
+            
+            // create the alert controller
+            let alert = UIAlertController(title: "", message: "File Saved", preferredStyle: UIAlertControllerStyle.alert)
+            
+            // required for the ipad, tell the app where the alert view should appear on screen
+            if let popoverController = alert.popoverPresentationController {
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+                
+            }
+            
+            // show the slert
+            self.present(alert, animated:true, completion: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                
+                alert.dismiss(animated: true, completion: nil)
+            }
+            
+            // let the user know that saving failed
+        } catch{
+            
+            // show an error saying that the save failed and include the error description for error reporting
+            //showErrorAlert(title: "Save Failed", message: "Failed to save file: \(outfile)\n\n" +
+            //    "Error: \(error.localizedDescription)")
+            
+        }
+        
+    }
+    
+    // share the output file
+    func share() {
+        
+        // format the output to share
+        //formatOutput()
+        
+        // create the activity view controller
+        let shareViewController = UIActivityViewController(activityItems: ["Share", outstring], applicationActivities: nil)
+        
+        // exclude activity items thar aren't relevent to this app
+        shareViewController.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.assignToContact, UIActivityType.postToFacebook, UIActivityType.postToFlickr, UIActivityType.postToTencentWeibo, UIActivityType.postToTwitter, UIActivityType.postToVimeo, UIActivityType.postToWeibo, UIActivityType.saveToCameraRoll]
+        
+        // required for the ipad, tell the app where the share view should appear on screen
+        if let popoverController = shareViewController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        // show the share view controller
+        self.present(shareViewController, animated:true, completion: nil)
+    }
+    
+    // present the image picker so the user can choose to take a photo or use one from their photo library
+    func presentImagePicker() {
+        
+        
+        // create the image picker
+        let imagePickerActionSheet = UIAlertController(title: "Take/Upload Image", message: nil, preferredStyle: .actionSheet)
+        
+        // make sure the camera is available before adding it as an option
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            
+            // set the camera button properties
+            let cameraButton = UIAlertAction(title: "Take Photo",
+                                             style: .default,
+                                             handler: { (alert) ->Void in
+                                                let imagePicker = UIImagePickerController()
+                                                imagePicker.delegate = self
+                                                imagePicker.sourceType = .camera
+                                                self.present(imagePicker, animated: true)
+            })
+            
+            // add the camera as an option for the image picker
+            imagePickerActionSheet.addAction(cameraButton)
+        }
+        
+        // set the library button properties
+        let libraryButton = UIAlertAction(title: "Choose Existing",
+                                          style: .default,
+                                          handler: { (alert) -> Void in
+                                            let imagePicker = UIImagePickerController()
+                                            imagePicker.delegate = self
+                                            imagePicker.sourceType = .photoLibrary
+                                            self.present(imagePicker, animated: true)
+        })
+        
+        // add the liobrary button as an option
+        imagePickerActionSheet.addAction(libraryButton)
+        
+        // required for the ipad, tell the app where the image picker should appear on screen
+        if let popoverController = imagePickerActionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        // show the image picker
+        self.present(imagePickerActionSheet, animated: true, completion: nil)
+        
+    }
+    
+    // image picker controller
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        
+        // use the image selected by the user from the image picker
+        let scaledImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        // when the image picker goes away, call the image recognition function
+        dismiss(animated: true, completion: { self.performImageRecognition(scaledImage!)})
+    }
+    
+    // perform the image recognition with Tesseract
+    func performImageRecognition(_ image: UIImage) {
+        
+        // this operation takes a while, show the user something's working
+        // create the alert controller
+        let alert = UIAlertController(title: "Performing OCR", message: "This will take a moment, please be patient", preferredStyle: UIAlertControllerStyle.alert)
+        
+        // required for the ipad, tell the app where the alert view should appear on screen
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        // show the slert
+        self.present(alert, animated:true, completion: nil)
+        
+        // put the OCR in a background thread
+        DispatchQueue.global(qos: .background).async {
+            
+            // select english as the detected language
+            if let tesseract = G8Tesseract(language: "eng") {
+                
+                // not entirely sure
+                tesseract.delegate = self
+                
+                // set engine mode to the most accurate one
+                tesseract.engineMode = .tesseractCubeCombined
+                
+                // let tesseract know that there are paragraph breaks
+                tesseract.pageSegmentationMode = .auto
+                
+                // convert the image to black and white to help improve recognition
+                tesseract.image = image.g8_blackAndWhite()
+                
+                // perform the OCR
+                tesseract.recognize()
+                
+                // UI updates must go in the main thread
+                DispatchQueue.main.async {
+                    
+                    // dismiss the alert when done
+                    alert.dismiss(animated: true, completion: nil)
+                    
+                    // parse the tesseract text data and add them to the PLT codes textview
+                    self.tableViewController.KTRCodes.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
+                    
+                    
+                }
+            }
+        }
+    }
+    
+    // function to parse the PLT codes returned by OCR
+    func parseOCR(_ string: String) -> [String] {
+        
+        var originalString = string
+        var codes = [String]()
+        
+        // loop while the string isn't empty and is large enough to contain a code
+        while !originalString.isEmpty && originalString.count > 6{
+            
+            var parsedString = ""
+            
+            // if it starts with PLT then it's likely a proper code, grab it and remove it from the original string
+            if originalString.hasPrefix("PLT") {
+                
+                // create the character set for invalid characters
+                let charset = CharacterSet(charactersIn: "0123456789").inverted
+                
+                // get the 3 characters after PLT
+                let code = String(String(originalString.prefix(6)).suffix(3))
+                
+                // check if the numerical part of the code contains invalid characters
+                if code.rangeOfCharacter(from: charset) == nil {
+                    
+                    parsedString.append(String(originalString.prefix(6)))
+                    
+                    originalString.removeSubrange(originalString.startIndex..<originalString.index(originalString.startIndex, offsetBy: 6))
+                    
+                    // append the parsed PLT code to the code array
+                    codes.append(parsedString)
+                    
+                } else {
+                    // remove the first element and look for the code again
+                    originalString.removeFirst()
+                }
+                
+            } else {
+                
+                // remove the first element and look for the code again
+                originalString.removeFirst()
+            }
+            
+        }
+        
+        return codes
+    }
+    
 }
     
     /*
@@ -154,120 +438,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         PLTView.isHidden = false
         
     }
-    
-    // start the OCR process when the OCR button is pressed
-    @IBAction func btn_ocr(_ sender: Any) {
-        
-            // show the image picker to select the image for OCR
-            presentImagePicker()
-    }
-    
-    // share the output file
-    @IBAction func btn_share(_ sender: UIButton) {
-        
-        // format the output to share
-        formatOutput()
-        
-        // create the activity view controller
-        let shareViewController = UIActivityViewController(activityItems: ["Share", outstring], applicationActivities: nil)
-        
-        // exclude activity items thar aren't relevent to this app
-        shareViewController.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.assignToContact, UIActivityType.postToFacebook, UIActivityType.postToFlickr, UIActivityType.postToTencentWeibo, UIActivityType.postToTwitter, UIActivityType.postToVimeo, UIActivityType.postToWeibo, UIActivityType.saveToCameraRoll]
-        
-        // required for the ipad, tell the app where the share view should appear on screen
-        if let popoverController = shareViewController.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-            
-        }
-
-        // show the share view controller
-        self.present(shareViewController, animated:true, completion: nil)
-    }
-    
-    // save the output to a file
-    @IBAction func btn_save(_ sender: Any) {
-       
-        // get the formatted output for saving
-        formatOutput()
-        
-        // get the name, FTN, testype, path to the current directory, and format the outfile name
-        let name: String = tf_name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
-        let ftn: String = tf_ftn.text!
-        let testtype: String = tf_testtype.text!
-        let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
-        
-        do {
-            
-            // attempt to write the formatted output to a file
-            try outstring.write(toFile: path + "/" + outfile, atomically: false, encoding: String.Encoding.utf8)
-            
-            // Let the user know saving succeeded
-            
-            // create the alert controller
-            let alert = UIAlertController(title: "", message: "File Saved", preferredStyle: UIAlertControllerStyle.alert)
-            
-            // required for the ipad, tell the app where the alert view should appear on screen
-            if let popoverController = alert.popoverPresentationController {
-                popoverController.sourceView = self.view
-                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                popoverController.permittedArrowDirections = []
-                
-            }
-            
-            // show the slert
-            self.present(alert, animated:true, completion: nil)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                
-                alert.dismiss(animated: true, completion: nil)
-            }
-         
-        // let the user know that saving failed
-        } catch{
-            
-            // show an error saying that the save failed and include the error description for error reporting
-            showErrorAlert(title: "Save Failed", message: "Failed to save file: \(outfile)\n\n" +
-                "Error: \(error.localizedDescription)")
-            
-        }
-        
-    }
-    
-    // print the output
-    @IBAction func btn_print(_ sender: Any) {
-        
-        // format the output for printing
-        formatOutput()
-        
-        // set the print controller and print info (using defaults)
-        let printcontroller = UIPrintInteractionController.shared
-        let printinfo = UIPrintInfo(dictionary: nil)
-        
-        // set the output type
-        printinfo.outputType = UIPrintInfoOutputType.general
-        
-        // set the job name
-        printinfo.jobName = "PLT Print Job"
-        
-        // give the print controller the print info
-        printcontroller.printInfo = printinfo
-        
-        // set the formatter
-        let formatter = UISimpleTextPrintFormatter(text: outstring)
-        
-        // set the margins
-        formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
-        
-        // give the print controller the format
-        printcontroller.printFormatter = formatter
-        
-        // show the print controller
-        printcontroller.present(animated: true, completionHandler: nil)
-    }
-    
+ 
     // do stuff when the PLT keyboard keypad buttons are pressed
     @IBAction func btn_keypad(_ sender: UIButton) {
         
@@ -460,109 +631,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             formatCFI(codes: PLTCodes, outstring: &outstring)
         }
     }
-    
-    // function to parse the PLT codes returned by OCR
-    func parseOCR(_ string: String) -> [String] {
-        
-        var originalString = string
-        var codes = [String]()
-        
-        // loop while the string isn't empty and is large enough to contain a code
-        while !originalString.isEmpty && originalString.count > 6{
-           
-            var parsedString = ""
-            
-            // if it starts with PLT then it's likely a proper code, grab it and remove it from the original string
-            if originalString.hasPrefix("PLT") {
-                
-                // create the character set for invalid characters
-                let charset = CharacterSet(charactersIn: "0123456789").inverted
-                
-                // get the 3 characters after PLT
-                let code = String(String(originalString.prefix(6)).suffix(3))
-                
-                // check if the numerical part of the code contains invalid characters
-                if code.rangeOfCharacter(from: charset) == nil {
-                    
-                    parsedString.append(String(originalString.prefix(6)))
-                    
-                    originalString.removeSubrange(originalString.startIndex..<originalString.index(originalString.startIndex, offsetBy: 6))
-                    
-                    // append the parsed PLT code to the code array
-                    codes.append(parsedString)
-                    
-                } else {
-                    // remove the first element and look for the code again
-                    originalString.removeFirst()
-                }
-                
-            } else {
-                
-                // remove the first element and look for the code again
-                originalString.removeFirst()
-            }
-            
-        }
-        
-        return codes
-    }
-    
-    // perform the image recognition with Tesseract
-    func performImageRecognition(_ image: UIImage) {
-        
-        // this operation takes a while, show the user something's working
-        // create the alert controller
-        let alert = UIAlertController(title: "Performing OCR", message: "This will take a moment, please be patient", preferredStyle: UIAlertControllerStyle.alert)
-        
-        // required for the ipad, tell the app where the alert view should appear on screen
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-            
-        }
-        
-        // show the slert
-        self.present(alert, animated:true, completion: nil)
-        
-        // put the OCR in a background thread
-        DispatchQueue.global(qos: .background).async {
-            
-            // select english as the detected language
-            if let tesseract = G8Tesseract(language: "eng") {
-            
-                // not entirely sure
-                tesseract.delegate = self
-                
-                // set engine mode to the most accurate one
-                tesseract.engineMode = .tesseractCubeCombined
-                
-                // let tesseract know that there are paragraph breaks
-                tesseract.pageSegmentationMode = .auto
-                
-                // convert the image to black and white to help improve recognition
-                tesseract.image = image.g8_blackAndWhite()
-                
-                // perform the OCR
-                tesseract.recognize()
-                
-                // UI updates must go in the main thread
-                DispatchQueue.main.async {
-                    
-                    // dismiss the alert when done
-                    alert.dismiss(animated: true, completion: nil)
-                    
-                    // parse the tesseract text data and add them to the PLT codes textview
-                    self.tv_codelist.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
-                    
-                    
-                }
-            }
-        }
-
-    }
  
-    
     // function to show a standard error alert window with a title, message, and close button
     func showErrorAlert(title: String, message: String) {
         
@@ -586,102 +655,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // show the slert
         self.present(alert, animated:true, completion: nil)
     }
-
-
-// not sure
-extension ViewController: UINavigationControllerDelegate {
-    
-}
-
-extension ViewController: UIImagePickerControllerDelegate {
-
-    // present the image picker so the user can choose to take  a photo or use one from their photo library
-    func presentImagePicker() {
-        
-        
-        // create the image picker actionsheet with a descriptive title
-        let imagePickerActionSheet = UIAlertController(title: "Take/Upload Image", message: nil, preferredStyle: .actionSheet)
-        
-        // make sure the camera is available before adding it as an option
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            
-            // set the camera button properties
-            let cameraButton = UIAlertAction(title: "Take Photo",
-                                             style: .default,
-                                             handler: { (alert) ->Void in
-                                                let imagePicker = UIImagePickerController()
-                                                imagePicker.delegate = self
-                                                imagePicker.sourceType = .camera
-                                                self.present(imagePicker, animated: true)
-            })
-            
-            // add the camera as an option for the image picker
-            imagePickerActionSheet.addAction(cameraButton)
-        }
-        
-        // set the library button properties
-        let libraryButton = UIAlertAction(title: "Choose Existing",
-                                          style: .default,
-                                          handler: { (alert) -> Void in
-                                            let imagePicker = UIImagePickerController()
-                                            imagePicker.delegate = self
-                                            imagePicker.sourceType = .photoLibrary
-                                            self.present(imagePicker, animated: true)
-        })
-        
-        // add the liobrary button as an option
-        imagePickerActionSheet.addAction(libraryButton)
-        
-        // required for the ipad, tell the app where the image picker should appear on screen
-        if let popoverController = imagePickerActionSheet.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-            
-        }
-        
-        // show the image picker
-        self.present(imagePickerActionSheet, animated: true, completion: nil)
-        
-    }
-    
-    // image picker controller, called in the background I think
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        
-        // use the image selected by the user from the image picker
-        let scaledImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        
-        // when the image picker goes away, call the image recognition function
-        dismiss(animated: true, completion: { self.performImageRecognition(scaledImage!)})
-    }
-    
-}
-
-extension UIImage {
-    
-    // function to scale the image, not currently used
-    func scaleImage(_ maxDimension: CGFloat) -> UIImage? {
-        
-        var scaledSize = CGSize(width: maxDimension, height: maxDimension)
-        
-        if size.width > size.height {
-            let scaleFactor = size.height / size.width
-            scaledSize.height = scaledSize.width * scaleFactor
-        } else {
-            let scaleFactor = size.width / size.height
-            scaledSize.width = scaledSize.height * scaleFactor
-        }
-        
-        UIGraphicsBeginImageContext(scaledSize)
-        draw(in: CGRect(origin: .zero, size: scaledSize))
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return scaledImage
-    }
-}
 */
-
 
 
 
