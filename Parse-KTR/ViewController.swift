@@ -11,8 +11,9 @@ import TesseractOCR
 
 class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, G8TesseractDelegate {
     
-    private var tableViewController: TableViewController!
-    private var tableView: UITableView!
+    var settingsViewController: SettingsViewController!
+    var tableViewController: TableViewController!
+    var tableView: UITableView!
     
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -27,15 +28,36 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         // add nice looking rounded corners to the container view
         containerView.layer.cornerRadius = 6.0
- 
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // change the name of the view to "Done" so it shows "Done" as the back button
+        self.navigationItem.title = "Done"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // change the nae of the view controller back to "Parse-KTR"
+        self.navigationItem.title = "Parse-KTR"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
+        // initialize the table view controller and table view when they load
         if let vc = segue.destination as? TableViewController, segue.identifier == "segue" {
             
             self.tableViewController = vc
             self.tableView = tableViewController.tableView
+        }
+        
+        // initialize the settings view controller when it loads
+        if let vc = segue.destination as? SettingsViewController, segue.identifier == "settings" {
+            
+            self.settingsViewController = vc
         }
     }
     
@@ -86,12 +108,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         presentImagePicker()
     }
-    
-    @IBAction func settingsButton(_ sender: Any) {
-        
-        
-    }
-    
+
     @IBAction func clearButton(_ sender: Any) {
         
         for section in 0 ..< tableView.numberOfSections {
@@ -99,14 +116,16 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             for item in 0 ..< tableView.numberOfRows(inSection: section) {
                 
                 // get the cell corresponding to the given index path
-                // then get the text field from the cell's content view
-                // then set its text to an empty string
-                (tableView.cellForRow(at: IndexPath(item: item, section: section))?.contentView.viewWithTag(1) as? UITextView)?.text = ""
+                // then get the text view from the cell's content view
+                let textview = (tableView.cellForRow(at: IndexPath(item: item, section: section))?.contentView.viewWithTag(1) as? UITextView)
+                
+                // set the text view text to an empty string
+                textview?.text = ""
+                
+                // stop editing
+                textview?.resignFirstResponder()
             }
         }
-        
-        (tableView.cellForRow(at: IndexPath(item: 0, section: 0))?.contentView.viewWithTag(1) as? UITextView)?.becomeFirstResponder()
-        
     }
     
     // print the output
@@ -184,8 +203,8 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         } catch{
             
             // show an error saying that the save failed and include the error description for error reporting
-            //showErrorAlert(title: "Save Failed", message: "Failed to save file: \(outfile)\n\n" +
-            //    "Error: \(error.localizedDescription)")
+            showErrorAlert(title: "Save Failed", message: "Failed to save file: \(outfile)\n\n" +
+                "Error: \(error.localizedDescription)")
             
         }
         
@@ -454,6 +473,30 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
  */
     }
     
+    // function to show a standard error alert window with a title, message, and close button
+    func showErrorAlert(title: String, message: String) {
+        
+        // create the alert controller
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        // create the close button
+        let close = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+        
+        // add the close button to the alert controller
+        alert.addAction(close)
+        
+        // required for the ipad, tell the app where the alert view should appear on screen
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        // show the slert
+        self.present(alert, animated:true, completion: nil)
+    }
+    
 }
     
     /*
@@ -635,30 +678,6 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         btn_save.isHidden = false
         btn_print.isHidden = false
         btn_share.isHidden = false
-    }
- 
-    // function to show a standard error alert window with a title, message, and close button
-    func showErrorAlert(title: String, message: String) {
-        
-        // create the alert controller
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        // create the close button
-        let close = UIAlertAction(title: "Close", style: .cancel, handler: nil)
-        
-        // add the close button to the alert controller
-        alert.addAction(close)
-        
-        // required for the ipad, tell the app where the alert view should appear on screen
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-            
-        }
-        
-        // show the slert
-        self.present(alert, animated:true, completion: nil)
     }
 */
 

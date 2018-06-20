@@ -10,10 +10,14 @@ import UIKit
 
 class TableViewController: UITableViewController, UITextViewDelegate {
 
+    private var userDefaults = UserDefaults.standard
+    
     @IBOutlet weak var name: UITextView!
     @IBOutlet weak var ftn: UITextView!
     @IBOutlet weak var testType: UITextView!
     @IBOutlet weak var KTRCodes: UITextView!
+    @IBOutlet weak var outputType: UILabel!
+    @IBOutlet weak var codeType: UILabel!
     
     var textViews: Dictionary<String, UITextView?>!
     
@@ -21,6 +25,24 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         super .viewDidLoad()
     
         self.tableView.estimatedRowHeight = 0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // set the defaults if they don't exist yet
+        if userDefaults.string(forKey: "output") == nil {
+            userDefaults.set("Evaluator", forKey: "output")
+            print("\n\n** HERE **\n\n")
+        }
+        
+        if userDefaults.string(forKey: "code") == nil {
+            userDefaults.set("PLT", forKey: "code")
+        }
+        
+        // get and display the user default settings
+        outputType.text = "Output: " + userDefaults.string(forKey: "output")!
+        codeType.text = "KTR Code: " + userDefaults.string(forKey: "code")!
         
     }
     

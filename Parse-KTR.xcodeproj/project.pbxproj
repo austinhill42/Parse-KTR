@@ -10,6 +10,8 @@
 		117F5C231C97B66A2A9DFFF4 /* Pods_Parse_KTRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1DF906F094383C5E6D46B9F /* Pods_Parse_KTRTests.framework */; };
 		7A16A0D92FD2783ECA5EF914 /* Pods_Parse_KTR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89935D6B394436D6A020B33F /* Pods_Parse_KTR.framework */; };
 		AB5DAEDC27B3E03ACC88169B /* Pods_Parse_KTRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651A20CA3A7100A18995 /* Pods_Parse_KTRTests.framework */; };
+		D947A48920D9F58700D57799 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D947A48820D9F58700D57799 /* SettingsViewController.swift */; };
+		D947A48B20D9F7F600D57799 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D947A48A20D9F7F600D57799 /* SettingsTableViewController.swift */; };
 		D948651920CA3A1C00A18995 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651820CA3A1B00A18995 /* libstdc++.tbd */; };
 		D948655220CCDFF400A18995 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948655120CCDFF400A18995 /* TesseractOCR.framework */; };
 		D948655320CCDFFB00A18995 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651E20CA3AAB00A18995 /* CoreImage.framework */; };
@@ -42,6 +44,8 @@
 		61F11E905742391E347E5909 /* Pods-Parse-KTRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parse-KTRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Parse-KTRTests/Pods-Parse-KTRTests.release.xcconfig"; sourceTree = "<group>"; };
 		89935D6B394436D6A020B33F /* Pods_Parse_KTR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Parse_KTR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1DF906F094383C5E6D46B9F /* Pods_Parse_KTRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Parse_KTRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D947A48820D9F58700D57799 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D947A48A20D9F7F600D57799 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D948651820CA3A1B00A18995 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		D948651A20CA3A7100A18995 /* Pods_Parse_KTRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Parse_KTRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D948651C20CA3AA300A18995 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +145,8 @@
 			children = (
 				D99724B9201C3B0A00FD3B08 /* ALL_PLTS.txt */,
 				D99724941FEDB1E500FD3B08 /* AppDelegate.swift */,
+				D947A48A20D9F7F600D57799 /* SettingsTableViewController.swift */,
+				D947A48820D9F58700D57799 /* SettingsViewController.swift */,
 				D9D146F220D30D4800DA1970 /* TableViewController.swift */,
 				D99724961FEDB1E500FD3B08 /* ViewController.swift */,
 				D99724981FEDB1E500FD3B08 /* Main.storyboard */,
@@ -327,8 +333,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D99724971FEDB1E500FD3B08 /* ViewController.swift in Sources */,
+				D947A48B20D9F7F600D57799 /* SettingsTableViewController.swift in Sources */,
 				D9D146F320D30D4800DA1970 /* TableViewController.swift in Sources */,
 				D99724951FEDB1E500FD3B08 /* AppDelegate.swift in Sources */,
+				D947A48920D9F58700D57799 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
