@@ -12,6 +12,7 @@ class TableViewController: UITableViewController, UITextViewDelegate {
 
     var userDefaults = UserDefaults.standard
     var viewController: ViewController!
+    var tableViewCell: TableViewCell!
     
     @IBOutlet weak var name: UITextView!
     @IBOutlet weak var ftn: UITextView!
@@ -47,6 +48,30 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         outputType.text = "Output: " + userDefaults.string(forKey: "output")!
         codeType.text = "KTR Code: " + userDefaults.string(forKey: "code")!
         darkmode.text = "Dark Mode: " + (userDefaults.bool(forKey: "dark") ? "On" : "Off")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        // hide the keyboard if it isn't the one being touched
+        if touches.first?.view != self.viewController.keyboardViewController.view && viewController.keyboardShowing{
+            
+            self.viewController.hideKeyboard(0.75)
+        }
+        
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        textView.endEditing(true)
+        
+        if textView.restorationIdentifier == "keyboard" {
+            
+            if !viewController.keyboardShowing {
+            
+                self.viewController.showKeyboard()
+            }
+        }
     }
     
     // when enter is pressed, ignore it and go to the next text view

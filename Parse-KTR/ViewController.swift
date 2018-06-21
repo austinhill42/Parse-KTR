@@ -16,13 +16,16 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     var settingsViewController: SettingsViewController!
     var tableViewController: TableViewController!
     var tableView: UITableView!
+    var keyboardViewController: KeyboardViewController!
     
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var keyboardContainerView: UIView!
     
     @IBOutlet weak var navbar: UINavigationBar!
     
     var outstring: String = ""
+    var keyboardShowing = true
     
     // do stuff when the view loads
     override func viewDidLoad() {
@@ -39,6 +42,12 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // change the nae of the view controller back to "Parse-KTR"
         self.navigationItem.title = "Parse-KTR"
         
+        // move the keyboard out of the way
+        if keyboardShowing {
+            
+            hideKeyboard(0)
+        }
+        
         // set user dark mode color defaults
         userDefaults.set(color: UIColor(red: 10/255, green: 10/255, blue: 10/255, alpha: 1), forKey: "viewDark")
         userDefaults.set(color: UIColor(red: 30/255, green: 30/255, blue: 60/255, alpha: 1), forKey: "tableCellDark")
@@ -52,6 +61,8 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         userDefaults.set(color: UIColor.clear, forKey: "switchDark")
         userDefaults.set(color: UIColor.clear, forKey: "segmentedControlDark")
         userDefaults.set(color: UIColor.black, forKey: "tableViewCellSeperatorDark")
+        userDefaults.set(color: UIColor(red: 30/255, green: 30/255, blue: 60/255, alpha: 1), forKey: "buttonDark")
+        userDefaults.set(color: UIColor.blue, forKey: "buttonTextDark")
         
         // set user light mode color defaults
         userDefaults.set(color: UIColor.white, forKey: "viewLight")
@@ -66,8 +77,28 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         userDefaults.set(color: UIColor.clear, forKey: "switchLight")
         userDefaults.set(color: UIColor.clear, forKey: "segmentedControlLight")
         userDefaults.set(color: UIColor.white, forKey: "tableViewCellSeperatorLight")
-
+        userDefaults.set(color: UIColor.groupTableViewBackground, forKey: "buttonLight")
+        userDefaults.set(color: UIColor.black, forKey: "buttonTextLight")
+        
         darkMode(userDefaults.bool(forKey: "dark"))
+
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        //if keyboardShowing {
+           
+        //    hideKeyboard(0)
+        //}
+        
+        //self.view.frame.origin.y = 0
+        //self.keyboardViewController.view.frame.origin.y = size.width
+        //self.keyboardViewController.view.frame.origin.x = size.width
+        //let frame = CGRect(x: size.height, y: size.width, width: self.keyboardViewController.view.frame.height, height: self.keyboardViewController.view.frame.width)
+        
+        //self.keyboardViewController.view.frame = frame
+        //self.keyboardShowing = false
 
     }
     
@@ -94,6 +125,53 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             self.settingsViewController = vc
             self.settingsViewController.viewController = self
         }
+        
+        if let vc = segue.destination as? KeyboardViewController, segue.identifier == "keyboard" {
+            
+            self.keyboardViewController = vc
+            self.keyboardViewController.viewController = self
+            
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        // hide the keyboard if it isn't the one being touched
+        if touches.first?.view != self.keyboardViewController.view && keyboardShowing {
+            
+            hideKeyboard(0.75)
+            
+            self.view.layoutSubviews()
+            self.view.setNeedsLayout()
+            self.keyboardViewController.view.layoutSubviews()
+            self.keyboardViewController.view.setNeedsLayout()
+            
+            keyboardShowing = false
+        }
+        
+    }
+    
+    func showKeyboard() {
+        
+        UIView.animate(withDuration: 0.75,
+                       animations: {
+                        self.keyboardContainerView.frame.origin.y = self.view.frame.height - (self.keyboardContainerView.frame.height / 2)
+                        
+                        self.view.frame.origin.y -= self.keyboardContainerView.frame.height / 2 })
+        
+        keyboardShowing = true
+    }
+    
+    func hideKeyboard(_ duration: TimeInterval) {
+        
+        UIView.animate(withDuration: duration,
+                       animations: {
+                        self.keyboardContainerView.frame.origin.y = self.view.frame.height
+                        
+                        self.view.frame.origin.y = 0 })
+        
+        keyboardShowing = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -109,7 +187,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // set the print button properties
         let printButton = UIAlertAction(title: "Print",
                                        style: .default,
-                                       handler: { (alert) in self.print()})
+                                       handler: { (alert) in self.btn_print()})
         
         // set the save button properties
         let saveButton = UIAlertAction(title: "Save",
@@ -164,7 +242,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     }
     
     // print the output
-    func print() {
+    func btn_print() {
         
         // format the output for printing
         formatOutput(&outstring)
@@ -626,123 +704,7 @@ extension UserDefaults {
         
     }
  
-    // do stuff when the PLT keyboard keypad buttons are pressed
-    @IBAction func btn_keypad(_ sender: UIButton) {
-        
-        // determine where the keypad text should go
-        if (plt1.text?.isEmpty)! {
-            
-            plt1.text = sender.currentTitle
-        } else if (plt2.text?.isEmpty)! {
-            
-            plt2.text = sender.currentTitle
-        } else {
-            
-            plt3.text = sender.currentTitle
-            
-            // delay for a sixteenth of a second for the text to appear in the text field
-            // this code only for aesthetic purposes
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.0625) {
-                
-                // if all three numbers have been entered, enter the PLT code automatically
-                self.btn_enter(sender)
-            }
-            
-        }
-    }
     
-    // clear the currently entered code
-    @IBAction func btn_clear(_ sender: UIButton) {
-        
-        plt1.text = ""
-        plt2.text = ""
-        plt3.text = ""
-    }
-    
-    // delete the last number entered
-    @IBAction func btn_delete(_ sender: UIButton) {
-        
-        // determine which text field had the last number entered and delete it
-        if !(plt3.text?.isEmpty)! {
-            plt3.text = ""
-        } else if !(plt2.text?.isEmpty)! {
-            plt2.text = ""
-        } else if !(plt1.text?.isEmpty)! {
-            plt1.text = ""
-        }
-    }
-    
-    // add the PLT code entered by the user to the list of PLT codes
-    @IBAction func btn_enter(_ sender: UIButton) {
-        
-        // at least one number has been entered
-        if !(plt1.text?.isEmpty)! {
-            
-            var code = ""
-            
-            // set the index path to the last item in the PLT codes array
-            let indexPath = IndexPath(item: PLTCodes.count, section: 0)
-        
-            // if only one number has been entered
-            if (plt2.text?.isEmpty)! {
-            
-                // set the PLT code in the correct format
-                code = "PLT00" + plt1.text!
-                
-            // if two numbers have been entered
-            } else if (plt3.text?.isEmpty)! {
-                
-                // set the PLT code in the correct format
-                code = "PLT0" + plt1.text! + plt2.text!
-            
-            // if three numbers have been entered
-            } else {
-                
-                // set the PLT code in the correct format
-                code = "PLT" + plt1.text! + plt2.text! + plt3.text!
-            }
-            
-            // don't let the user enter an incorrect code
-            if Int(String(code.suffix(3)))! > 535 {
-                
-                showErrorAlert(title: "Oops", message: "\(code) is not a valid PLT code")
-                
-            } else {
-                
-                // add the new PLT code label to the PLT codes array
-                PLTCodes.append(code)
-                
-                // add a new cell to the collectionview for the new PLT code
-                collectionView.insertItems(at: [indexPath])
-            }
-            
-            // clear the text fields for new input
-            btn_clear(sender)
-            
-        }
-    }
-    
-    // when done, reload the initial view controller
-    @IBAction func btn_done(_ sender: UIButton) {
-        
-        // clear the text fields so an old code isn't still there if they need to add more
-        btn_clear(sender)
-        
-        // sort the PLT codes before putting them in the cpode list
-        PLTCodes.sort()
-        
-        // set the codelist text view to the entered codes
-        tv_codelist.text = PLTCodes.joined(separator: " ")
-        
-        // hide the PLT keyboard again
-        PLTView.isHidden = true
-        
-        // show the save, print, share, and OCR options again
-        btn_ocr.isHidden = false
-        btn_save.isHidden = false
-        btn_print.isHidden = false
-        btn_share.isHidden = false
-    }
 */
 
 
