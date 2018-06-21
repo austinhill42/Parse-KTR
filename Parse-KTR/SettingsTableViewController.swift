@@ -12,7 +12,16 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     var userDefaults = UserDefaults.standard
     var settingsViewController: SettingsViewController!
-    
+    /*
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        
+        if userDefaults.bool(forKey: "dark") {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
+    */
     @IBOutlet weak var outputSwitch: UISegmentedControl!
     @IBOutlet weak var codePicker: UIPickerView!
     @IBOutlet weak var darkModeSwitch: UISwitch!
@@ -44,22 +53,7 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         // initialize the output data
         outputTypes = ["Evaluator", "Instructor"]
         
-        // set user dark mode color defaults
-        userDefaults.set(color: UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1), forKey: "viewDark")
-        userDefaults.set(color: UIColor.darkGray, forKey: "tableCellDark")
-        userDefaults.set(color: UIColor.clear, forKey: "labelDark")
-        userDefaults.set(color: UIColor(red: 92/255, green: 94/255, blue: 102/255, alpha: 1), forKey: "textViewDark")
-        userDefaults.set(color: UIColor(red: 92/255, green: 94/255, blue: 102/255, alpha: 1), forKey: "pickerDark")
-        userDefaults.set(color: UIColor.black, forKey: "navigationBarDark")
-        userDefaults.set(color: UIColor.darkGray, forKey: "switchDark")
-        // set user light mode color defaults
-        userDefaults.set(color: UIColor.white, forKey: "viewLight")
-        userDefaults.set(color: UIColor.groupTableViewBackground, forKey: "tableCellLight")
-        userDefaults.set(color: UIColor.clear, forKey: "labelLight")
-        userDefaults.set(color: UIColor.white, forKey: "textViewLight")
-        userDefaults.set(color: UIColor.white, forKey: "pickerLight")
-        userDefaults.set(color: UIColor.clear, forKey: "navigationBarLight")
-        userDefaults.set(color: UIColor.clear, forKey: "switchLight")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,7 +135,14 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     func darkMode(_ value: Bool) {
         
+        settingsViewController.darkMode(userDefaults.bool(forKey: "dark"))
+        settingsViewController.viewController.darkMode(userDefaults.bool(forKey: "dark"))
+        
         if value {
+            
+            navigationController?.navigationBar.barStyle = .black
+            tableView.separatorColor = userDefaults.color(forKey: "tableViewCellSeperatorDark")
+
             
             for cell in self.tableView.visibleCells {
                 
@@ -152,20 +153,29 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
                     if view is UILabel {
                         
                         view.backgroundColor = userDefaults.color(forKey: "labelDark")
+                        (view as? UILabel)?.textColor = userDefaults.color(forKey: "labelTextDark")
                     } else if view is UITextView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "textViewDark")
+                        (view as? UITextView)?.textColor = userDefaults.color(forKey: "textViewTextDark")
                     } else if view is UIPickerView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "pickerDark")
                     } else if view is UISwitch {
                         
                         view.backgroundColor = userDefaults.color(forKey: "switchDark")
+                    } else if view is UISegmentedControl {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "segmentedControlDark")
                     }
                 }
             }
             
         } else {
+            
+            navigationController?.navigationBar.barStyle = .default
+            tableView.separatorColor = userDefaults.color(forKey: "tableViewCellSeperatorLight")
+            
             
             for cell in self.tableView.visibleCells {
                 
@@ -176,15 +186,20 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
                     if view is UILabel {
                         
                         view.backgroundColor = userDefaults.color(forKey: "labelLight")
+                        (view as? UILabel)?.textColor = userDefaults.color(forKey: "labelTextlight")
                     } else if view is UITextView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "textViewLight")
+                        (view as? UITextView)?.textColor = userDefaults.color(forKey: "textViewTextLight")
                     } else if view is UIPickerView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "pickerLight")
                     } else if view is UISwitch {
                         
                         view.backgroundColor = userDefaults.color(forKey: "switchLight")
+                    } else if view is UISegmentedControl {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "segmentedControlLight")
                     }
                 }
             }

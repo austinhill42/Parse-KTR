@@ -19,6 +19,7 @@ class TableViewController: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var KTRCodes: UITextView!
     @IBOutlet weak var outputType: UILabel!
     @IBOutlet weak var codeType: UILabel!
+    @IBOutlet weak var darkmode: UILabel!
     
     var textViews: Dictionary<String, UITextView?>!
     
@@ -36,7 +37,6 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         // set the defaults if they don't exist yet
         if userDefaults.string(forKey: "output") == nil {
             userDefaults.set("Evaluator", forKey: "output")
-            print("\n\n** HERE **\n\n")
         }
         
         if userDefaults.string(forKey: "code") == nil {
@@ -46,7 +46,7 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         // get and display the user default settings
         outputType.text = "Output: " + userDefaults.string(forKey: "output")!
         codeType.text = "KTR Code: " + userDefaults.string(forKey: "code")!
-        
+        darkmode.text = "Dark Mode: " + (userDefaults.bool(forKey: "dark") ? "On" : "Off")
     }
     
     // when enter is pressed, ignore it and go to the next text view
@@ -80,6 +80,8 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         
         if value {
             
+            tableView.separatorColor = userDefaults.color(forKey: "tableViewCellSeperatorDark")
+            
             for cell in self.tableView.visibleCells {
                 
                 cell.backgroundColor = userDefaults.color(forKey: "tableCellDark")
@@ -89,9 +91,11 @@ class TableViewController: UITableViewController, UITextViewDelegate {
                     if view is UILabel {
                         
                         view.backgroundColor = userDefaults.color(forKey: "labelDark")
+                        (view as? UILabel)?.textColor = userDefaults.color(forKey: "labelTextDark")
                     } else if view is UITextView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "textViewDark")
+                        (view as? UITextView)?.textColor = userDefaults.color(forKey: "textViewTextDark")
                     } else if view is UIPickerView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "pickerDark")
@@ -101,6 +105,8 @@ class TableViewController: UITableViewController, UITextViewDelegate {
             
         } else {
             
+            tableView.separatorColor = userDefaults.color(forKey: "tableViewCellSeperatorLight")
+
             for cell in self.tableView.visibleCells {
                 
                 cell.backgroundColor = userDefaults.color(forKey: "tableCellLight")
@@ -110,9 +116,11 @@ class TableViewController: UITableViewController, UITextViewDelegate {
                     if view is UILabel {
                         
                         view.backgroundColor = userDefaults.color(forKey: "labelLight")
+                        (view as? UILabel)?.textColor = userDefaults.color(forKey: "labelTextlight")
                     } else if view is UITextView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "textViewLight")
+                        (view as? UITextView)?.textColor = userDefaults.color(forKey: "textViewTextLight")
                     } else if view is UIPickerView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "pickerLight")

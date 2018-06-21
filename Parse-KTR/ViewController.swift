@@ -39,6 +39,34 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // change the nae of the view controller back to "Parse-KTR"
         self.navigationItem.title = "Parse-KTR"
         
+        // set user dark mode color defaults
+        userDefaults.set(color: UIColor(red: 10/255, green: 10/255, blue: 10/255, alpha: 1), forKey: "viewDark")
+        userDefaults.set(color: UIColor(red: 30/255, green: 30/255, blue: 60/255, alpha: 1), forKey: "tableCellDark")
+        userDefaults.set(color: UIColor.clear, forKey: "labelDark")
+        userDefaults.set(color: UIColor.white, forKey: "labelTextDark")
+        userDefaults.set(color: UIColor(red: 92/255, green: 94/255, blue: 102/255, alpha: 1), forKey: "textViewDark")
+        userDefaults.set(color: UIColor.white, forKey: "textViewTextDark")
+        userDefaults.set(color: UIColor(red: 92/255, green: 94/255, blue: 102/255, alpha: 1), forKey: "pickerDark")
+        userDefaults.set(color: UIColor.black, forKey: "navigationBarDark")
+        userDefaults.set(color: UIColor.white, forKey: "navigationBarTextDark")
+        userDefaults.set(color: UIColor.clear, forKey: "switchDark")
+        userDefaults.set(color: UIColor.clear, forKey: "segmentedControlDark")
+        userDefaults.set(color: UIColor.black, forKey: "tableViewCellSeperatorDark")
+        
+        // set user light mode color defaults
+        userDefaults.set(color: UIColor.white, forKey: "viewLight")
+        userDefaults.set(color: UIColor.groupTableViewBackground, forKey: "tableCellLight")
+        userDefaults.set(color: UIColor.clear, forKey: "labelLight")
+        userDefaults.set(color: UIColor.black, forKey: "labelTextLight")
+        userDefaults.set(color: UIColor.white, forKey: "textViewLight")
+        userDefaults.set(color: UIColor.black, forKey: "textViewTextLight")
+        userDefaults.set(color: UIColor.white, forKey: "pickerLight")
+        userDefaults.set(color: UIColor.lightGray, forKey: "navigationBarLight")
+        userDefaults.set(color: UIColor.black, forKey: "navigationBarTextLight")
+        userDefaults.set(color: UIColor.clear, forKey: "switchLight")
+        userDefaults.set(color: UIColor.clear, forKey: "segmentedControlLight")
+        userDefaults.set(color: UIColor.white, forKey: "tableViewCellSeperatorLight")
+
         darkMode(userDefaults.bool(forKey: "dark"))
 
     }
@@ -487,12 +515,22 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         if value {
             
+            navigationController?.navigationBar.barStyle = .black
+
             self.view.backgroundColor = userDefaults.color(forKey: "viewDark")
             self.navigationController?.navigationBar.barTintColor = userDefaults.color(forKey: "navigationBarDark")
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: userDefaults.color(forKey: "navigationBarTextDark")!]
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: userDefaults.color(forKey: "navigationBarTextDark")!]
+            
         } else {
             
+            navigationController?.navigationBar.barStyle = .default
+
             self.view.backgroundColor = userDefaults.color(forKey: "viewLight")
             self.navigationController?.navigationBar.barTintColor = userDefaults.color(forKey: "navigationBarLight")
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: userDefaults.color(forKey: "navigationBarTextLight")!]
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: userDefaults.color(forKey: "navigationBarTextLight")!]
+            
         }
     }
     
