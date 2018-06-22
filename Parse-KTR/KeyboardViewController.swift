@@ -14,6 +14,7 @@ class KeyboardViewController: UIViewController {
     
     var viewController: ViewController!
     var tap: UITapGestureRecognizer!
+    var codes = [String]()
     
     @IBOutlet weak var plt1: UITextField!
     @IBOutlet weak var plt2: UITextField!
@@ -43,9 +44,11 @@ class KeyboardViewController: UIViewController {
         if (plt1.text?.isEmpty)! {
             
             plt1.text = sender.currentTitle
+            
         } else if (plt2.text?.isEmpty)! {
             
             plt2.text = sender.currentTitle
+            
         } else {
             
             plt3.text = sender.currentTitle
@@ -122,16 +125,24 @@ class KeyboardViewController: UIViewController {
                 // append the code to the codes text view
                 self.viewController.tableViewController.KTRCodes.text.append(code)
                 
+                // sort the KTR codes before putting them in the code list
+                codes = self.viewController.tableViewController.KTRCodes.text.components(separatedBy: " ")
+                codes.removeLast()
+                codes.sort()
+                
+                // empty the cose list
+                self.viewController.tableViewController.KTRCodes.text.removeAll()
+                
+                // add the codes seperated by a space (spaces werent added using the joined function for some reason)
+                for code in codes {
+                    self.viewController.tableViewController.KTRCodes.text.append(code + " ")
+                }
+                
+                // make the text view scroll to the end when text goes beyond the visible length
                 let string = self.viewController.tableViewController.KTRCodes.text
                 let range = NSMakeRange((string?.endIndex.encodedOffset)!, 0)
-                
                 self.viewController.tableViewController.KTRCodes.scrollRangeToVisible(range)
                 
-                // add the new PLT code label to the PLT codes array
-              //  PLTCodes.append(code)
-                
-                // add a new cell to the collectionview for the new PLT code
-              //  collectionView.insertItems(at: [indexPath])
             }
             
             // clear the text fields for new input
@@ -145,12 +156,6 @@ class KeyboardViewController: UIViewController {
         
         // clear the text fields so an old code isn't still there if they need to add more
         btn_clear(sender)
-        
-        // sort the PLT codes before putting them in the cpode list
-       // PLTCodes.sort()
-        
-        // set the codelist text view to the entered codes
-        //tv_codelist.text = PLTCodes.joined(separator: " ")
         
         // hide the KTR keyboard again
         viewController.hideKeyboard()

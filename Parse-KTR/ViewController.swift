@@ -259,9 +259,6 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             
         }
 
-//        actionPopover.setValue(UIFont.boldSystemFont(ofSize: 25), forKey: "attributedTitle")
-//        actionPopover.setValue(UIFont.systemFont(ofSize: 20), forKey: "attributedMessage")
-//
         // add the buttons to the popover
         actionPopover.addAction(clear)
         actionPopover.addAction(cancel)

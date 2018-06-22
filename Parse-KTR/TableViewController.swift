@@ -23,9 +23,6 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
     @IBOutlet weak var darkmode: UILabel!
     @IBOutlet weak var hideKeyboard: UILabel!
     
-    var textViews: Dictionary<String, UITextView?>!
-    var visibleRows = [IndexPath]()
-    
     override func viewDidLoad() {
         super .viewDidLoad()
     
@@ -56,7 +53,6 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
     }
     
     @IBAction func handleTap(recognizer: UITapGestureRecognizer) {
-        print("\n** tap works **\n")
         
         if recognizer.view is UITextView {
             
@@ -66,7 +62,7 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                 var startIndex = point
                 var endIndex = point
                 var text: String!
-                
+                print("\n**\(self.KTRCodes.offset(from: point!, to: self.KTRCodes.endOfDocument))**\n")
                 while true {
                     
                     // if the first character in the text in the range from start index to end index doesn't equal "P"
@@ -74,6 +70,12 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                         
                         // move the start index one character to the left
                         startIndex = self.KTRCodes.position(from: startIndex!, offset: -1)
+                        
+                        // make sure the start index isn't before the start of the string
+                        if startIndex == nil {
+                            
+                            startIndex = self.KTRCodes.beginningOfDocument
+                        }
                     }
                     
                     // if the last character in the text in the range from start index to end index doesn't equal " "
@@ -81,6 +83,12 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                         
                         // move the end index one character to the right
                         endIndex = self.KTRCodes.position(from: endIndex!, offset: 1)
+                        
+                        // make sure the end index isn't after the end of the string
+                        if endIndex == nil {
+                            
+                            endIndex = self.KTRCodes.endOfDocument
+                        }
                     }
                     
                     // if the first character is "P" and the last character is " " in the text in the range from
@@ -92,9 +100,14 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                     }
                 }
                 
-                text = self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)
+                // the code as a string, with PLT and the space removed
+                text = String(String((self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.dropFirst(3))!).dropLast())
+                self.KTRCodes.replace(self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!, withText: "")
                 
-                print("\n\n** \(text) **\n\n")
+                // put the code in the keyboard
+                self.viewController.keyboardViewController.plt1.text = String(text.removeFirst())
+                self.viewController.keyboardViewController.plt2.text = String(text.removeFirst())
+                self.viewController.keyboardViewController.plt3.text = String(text.removeFirst())
             }
         }
     }
@@ -107,31 +120,6 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
         }
     }
     
-//    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-//        coordinator.animate(
-//            alongsideTransition: {
-//                context in
-//
-//                // Save the visible row position
-//                self.visibleRows = self.tableView.indexPathsForVisibleRows!
-//
-//                context.viewController(forKey: UITransitionContextViewControllerKey.from)},
-//
-//            completion: { context in
-//
-//                // Scroll to the saved position prior to screen rotate
-//                self.tableView.scrollToRow(at: self.visibleRows[0], at: .top, animated: false)
-//        })
-//    }
-//
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//
-//        //self.view.layoutIfNeeded()
-//        self.tableView.selectRow(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.top)
-//        self.tableView.layoutIfNeeded()
-//    }
-//    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
@@ -151,19 +139,6 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
     
         return true
     }
-//
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//
-//        if textView.restorationIdentifier == "keyboard" {
-//
-//            textView.endEditing(true)
-//
-//            if !viewController.keyboardShowing {
-//
-//                self.viewController.showKeyboard()
-//            }
-//        }
-//    }
     
     // when enter is pressed, ignore it and go to the next text view
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
