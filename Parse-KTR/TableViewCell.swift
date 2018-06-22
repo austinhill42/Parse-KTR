@@ -30,7 +30,7 @@ class TableViewCell: UITableViewCell {
             // hide the keyboard if it isn't the one being touched
             if touches.first?.view != viewController.viewController.keyboardViewController.view && viewController.viewController.keyboardShowing{
                
-                viewController.viewController.hideKeyboard(0.75)
+                viewController.viewController.hideKeyboard()
                 
             }
         }

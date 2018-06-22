@@ -26,6 +26,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     
     var outstring: String = ""
     var keyboardShowing = true
+    var containerViewOrigin: CGFloat!
     
     // do stuff when the view loads
     override func viewDidLoad() {
@@ -41,6 +42,9 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         // change the nae of the view controller back to "Parse-KTR"
         self.navigationItem.title = "Parse-KTR"
+        
+        // set the initial container view origin
+        containerViewOrigin = self.containerView.frame.origin.y
         
         // move the keyboard out of the way
         if keyboardShowing {
@@ -87,19 +91,11 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        //if keyboardShowing {
+        // hide the keyboard on transition if the user sets it
+        if userDefaults.bool(forKey: "hidekeyboard") && keyboardShowing {
            
-        //    hideKeyboard(0)
-        //}
-        
-        //self.view.frame.origin.y = 0
-        //self.keyboardViewController.view.frame.origin.y = size.width
-        //self.keyboardViewController.view.frame.origin.x = size.width
-        //let frame = CGRect(x: size.height, y: size.width, width: self.keyboardViewController.view.frame.height, height: self.keyboardViewController.view.frame.width)
-        
-        //self.keyboardViewController.view.frame = frame
-        //self.keyboardShowing = false
-
+            hideKeyboard(0)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -126,6 +122,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             self.settingsViewController.viewController = self
         }
         
+        // initialize the keyboard view controller when it shows
         if let vc = segue.destination as? KeyboardViewController, segue.identifier == "keyboard" {
             
             self.keyboardViewController = vc
@@ -140,37 +137,46 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // hide the keyboard if it isn't the one being touched
         if touches.first?.view != self.keyboardViewController.view && keyboardShowing {
             
-            hideKeyboard(0.75)
-            
-            self.view.layoutSubviews()
-            self.view.setNeedsLayout()
-            self.keyboardViewController.view.layoutSubviews()
-            self.keyboardViewController.view.setNeedsLayout()
-            
-            keyboardShowing = false
+            hideKeyboard()
         }
         
     }
     
+    // function to show the keyboard
     func showKeyboard() {
         
+        // move both the keyboard and container view up with animation
         UIView.animate(withDuration: 0.75,
                        animations: {
-                        self.keyboardContainerView.frame.origin.y = self.view.frame.height - (self.keyboardContainerView.frame.height / 2)
+                        self.keyboardContainerView.frame.origin.y = self.view.frame.height - (self.keyboardContainerView.frame.height)
                         
-                        self.view.frame.origin.y -= self.keyboardContainerView.frame.height / 2 })
+                        self.containerView.frame.origin.y -= self.keyboardContainerView.frame.height / 2})
         
+        // set the keyboard as showing
         keyboardShowing = true
     }
     
-    func hideKeyboard(_ duration: TimeInterval) {
+    // function to hide the keyboard
+    func hideKeyboard(_ duration: TimeInterval...) {
         
-        UIView.animate(withDuration: duration,
+        let time: TimeInterval!
+        
+        // some places hide the keyboard immediately, others hide with animation
+        // this allows for both
+        if duration.isEmpty {
+            time = 0.75
+        } else {
+            time = duration.first
+        }
+        
+        // move both the keyboard view and the container view back down with animation
+        UIView.animate(withDuration: time,
                        animations: {
                         self.keyboardContainerView.frame.origin.y = self.view.frame.height
                         
-                        self.view.frame.origin.y = 0 })
+                        self.containerView.frame.origin.y = self.containerViewOrigin })
         
+        // set the keyboard as not showing
         keyboardShowing = false
     }
     

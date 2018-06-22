@@ -34,8 +34,6 @@ class KeyboardViewController: UIViewController {
         
         darkmode(userDefaults.bool(forKey: "dark"))
         
-        //self.view.layoutSubviews()
-        //self.view.setNeedsLayout()
     }
     
     // do stuff when the KTR keyboard keypad buttons are pressed
@@ -146,8 +144,8 @@ class KeyboardViewController: UIViewController {
         // set the codelist text view to the entered codes
         //tv_codelist.text = PLTCodes.joined(separator: " ")
         
-        // hide the PLT keyboard again
-       // PLTView.isHidden = true
+        // hide the KTR keyboard again
+        viewController.hideKeyboard()
         
     }
     

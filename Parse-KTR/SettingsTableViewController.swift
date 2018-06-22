@@ -25,6 +25,7 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
     @IBOutlet weak var outputSwitch: UISegmentedControl!
     @IBOutlet weak var codePicker: UIPickerView!
     @IBOutlet weak var darkModeSwitch: UISwitch!
+    @IBOutlet weak var hideKeyboardSwitch: UISwitch!
     
     var codeTypes = [String]()
     var outputTypes = [String]()
@@ -42,6 +43,8 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         
         // make the dark mode switch larger
         self.darkModeSwitch.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+        // make the hide keyboard switch larger
+        self.hideKeyboardSwitch.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
         
         // set the view oontroller as the delegate and data source for the picker
         self.codePicker.dataSource = self
@@ -80,6 +83,9 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         
         // show the correct switch setting
         darkModeSwitch.isOn = userDefaults.bool(forKey: "dark")
+        
+        // show the correct switch setting
+        hideKeyboardSwitch.isOn = userDefaults.bool(forKey: "hidekeyboard")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -124,15 +130,25 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
     // switch to dark mode when the switch is toggled
     @IBAction func switchToggled(_ sender: UISwitch) {
         
-        if sender.isOn {
-            userDefaults.set(true, forKey: "dark")
-        } else {
-            userDefaults.set(false, forKey: "dark")
-        }
+        if sender.restorationIdentifier == "darkmode" {
+           
+            if sender.isOn {
+                userDefaults.set(true, forKey: "dark")
+            } else {
+                userDefaults.set(false, forKey: "dark")
+            }
         
-        darkMode(userDefaults.bool(forKey: "dark"))
+            darkMode(userDefaults.bool(forKey: "dark"))
+            
+        } else if sender.restorationIdentifier == "hidekeyboard" {
+            
+            if sender.isOn {
+                userDefaults.set(true, forKey: "hidekeyboard")
+            } else {
+                userDefaults.set(false, forKey: "hidekeyboard")
+            }
+        }
     }
-    
     func darkMode(_ value: Bool) {
         
         settingsViewController.darkMode(userDefaults.bool(forKey: "dark"))

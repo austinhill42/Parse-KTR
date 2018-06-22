@@ -21,8 +21,10 @@ class TableViewController: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var outputType: UILabel!
     @IBOutlet weak var codeType: UILabel!
     @IBOutlet weak var darkmode: UILabel!
+    @IBOutlet weak var hideKeyboard: UILabel!
     
     var textViews: Dictionary<String, UITextView?>!
+    var visibleRows = [IndexPath]()
     
     override func viewDidLoad() {
         super .viewDidLoad()
@@ -32,6 +34,8 @@ class TableViewController: UITableViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.tableView.contentInsetAdjustmentBehavior = .always
         
         darkMode(userDefaults.bool(forKey: "dark"))
         
@@ -48,24 +52,52 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         outputType.text = "Output: " + userDefaults.string(forKey: "output")!
         codeType.text = "KTR Code: " + userDefaults.string(forKey: "code")!
         darkmode.text = "Dark Mode: " + (userDefaults.bool(forKey: "dark") ? "On" : "Off")
+        hideKeyboard.text = "Hide Keyboard on Device Rotation: " + (userDefaults.bool(forKey: "hidekeyboard") ? "On" : "Off")
     }
     
+    
+    
+//    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+//        coordinator.animate(
+//            alongsideTransition: {
+//                context in
+//
+//                // Save the visible row position
+//                self.visibleRows = self.tableView.indexPathsForVisibleRows!
+//
+//                context.viewController(forKey: UITransitionContextViewControllerKey.from)},
+//
+//            completion: { context in
+//
+//                // Scroll to the saved position prior to screen rotate
+//                self.tableView.scrollToRow(at: self.visibleRows[0], at: .top, animated: false)
+//        })
+//    }
+//
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//
+//        //self.view.layoutIfNeeded()
+//        self.tableView.selectRow(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.top)
+//        self.tableView.layoutIfNeeded()
+//    }
+//    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
         // hide the keyboard if it isn't the one being touched
         if touches.first?.view != self.viewController.keyboardViewController.view && viewController.keyboardShowing{
             
-            self.viewController.hideKeyboard(0.75)
+            self.viewController.hideKeyboard()
         }
         
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         
-        textView.endEditing(true)
-        
         if textView.restorationIdentifier == "keyboard" {
+            
+            textView.endEditing(true)
             
             if !viewController.keyboardShowing {
             
