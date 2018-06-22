@@ -193,17 +193,17 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // set the print button properties
         let printButton = UIAlertAction(title: "Print",
                                        style: .default,
-                                       handler: { (alert) in self.btn_print()})
+                                       handler: { (alert) in self.printOutput()})
         
         // set the save button properties
         let saveButton = UIAlertAction(title: "Save",
                                        style: .default,
-                                       handler: { (alert) in self.save()})
+                                       handler: { (alert) in self.saveOutput()})
         
         // set the share button properties
         let shareButton = UIAlertAction(title: "Share",
                                          style: .default,
-                                         handler: { (alert) in self.share()})
+                                         handler: { (alert) in self.shareOutput()})
         
         // add the buttons to the popover
         actionPopover.addAction(printButton)
@@ -230,6 +230,56 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
 
     @IBAction func clearButton(_ sender: Any) {
         
+        // create the popover for the available actions
+        let actionPopover = UIAlertController(title: "Are you sure?", message: "This action will clear all fields. It is irreversible.", preferredStyle: .actionSheet)
+    
+        // set the save button properties
+        let clear = UIAlertAction(title: "Clear",
+                                       style: .default,
+                                       handler: { (alert) in self.clear()})
+        
+        // set the share button properties
+        let cancel = UIAlertAction(title: "Cancel",
+                                        style: .cancel,
+                                        handler: nil)
+        
+        if userDefaults.bool(forKey: "dark") {
+            
+            clear.setValue(userDefaults.color(forKey: "labelTextDark"), forKey: "titleTextColor")
+            cancel.setValue(userDefaults.color(forKey: "labelTextDark"), forKey: "titleTextColor")
+            actionPopover.view.backgroundColor = UIColor.clear
+            actionPopover.view.subviews.first?.backgroundColor = userDefaults.color(forKey: "viewDark")
+
+        } else {
+            
+            clear.setValue(userDefaults.color(forKey: "labelTextLight"), forKey: "titleTextColor")
+            cancel.setValue(userDefaults.color(forKey: "labelTextLight"), forKey: "titleTextColor")
+            actionPopover.view.backgroundColor = userDefaults.color(forKey: "viewLight")
+            actionPopover.view.subviews.first?.backgroundColor = userDefaults.color(forKey: "viewLight")
+            
+        }
+
+//        actionPopover.setValue(UIFont.boldSystemFont(ofSize: 25), forKey: "attributedTitle")
+//        actionPopover.setValue(UIFont.systemFont(ofSize: 20), forKey: "attributedMessage")
+//
+        // add the buttons to the popover
+        actionPopover.addAction(clear)
+        actionPopover.addAction(cancel)
+        
+        // required for the ipad, tell the app where the image picker should appear on screen
+        if let popoverController = actionPopover.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
+        // show the actionsheet
+        self.present(actionPopover, animated: true, completion: nil)
+    }
+    
+    // function to clear all editable fields
+    func clear() {
+        
         for section in 0 ..< tableView.numberOfSections {
             
             for item in 0 ..< tableView.numberOfRows(inSection: section) {
@@ -248,7 +298,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     }
     
     // print the output
-    func btn_print() {
+    func printOutput() {
         
         // format the output for printing
         formatOutput(&outstring)
@@ -280,7 +330,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     }
     
     // save the output to a file
-    func save() {
+    func saveOutput() {
         
         // get the formatted output for saving
         formatOutput(&outstring)
@@ -330,7 +380,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     }
     
     // share the output file
-    func share() {
+    func shareOutput() {
         
         // format the output to share
         formatOutput(&outstring)

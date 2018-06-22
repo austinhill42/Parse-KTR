@@ -58,12 +58,54 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
     @IBAction func handleTap(recognizer: UITapGestureRecognizer) {
         print("\n** tap works **\n")
         
+        if recognizer.view is UITextView {
+            
+            if !((recognizer.view as? UITextView)?.text.isEmpty)! {
+             
+                let point = self.KTRCodes.closestPosition(to: recognizer.location(in: recognizer.view))
+                var startIndex = point
+                var endIndex = point
+                var text: String!
+                
+                while true {
+                    
+                    // if the first character in the text in the range from start index to end index doesn't equal "P"
+                    if self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.first != "P" {
+                        
+                        // move the start index one character to the left
+                        startIndex = self.KTRCodes.position(from: startIndex!, offset: -1)
+                    }
+                    
+                    // if the last character in the text in the range from start index to end index doesn't equal " "
+                    if self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.last != " " {
+                        
+                        // move the end index one character to the right
+                        endIndex = self.KTRCodes.position(from: endIndex!, offset: 1)
+                    }
+                    
+                    // if the first character is "P" and the last character is " " in the text in the range from
+                    // start index to end index, code is found, exit the loop
+                    if self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.first == "P" &&
+                        self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.last == " " {
+                            
+                        break
+                    }
+                }
+                
+                text = self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)
+                
+                print("\n\n** \(text) **\n\n")
+            }
+        }
+    }
+    
+    @IBAction func addButton(_ sender: UIButton) {
+        
         if !viewController.keyboardShowing {
             
             self.viewController.showKeyboard()
         }
     }
-    
     
 //    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
 //        coordinator.animate(
@@ -173,6 +215,10 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                     } else if view is UIPickerView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "pickerDark")
+                    } else if view is UIButton {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "buttonDark")
+                        (view as? UIButton)?.titleLabel?.textColor = userDefaults.color(forKey: "buttonTextDark")
                     }
                 }
             }
@@ -198,6 +244,10 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                     } else if view is UIPickerView {
                         
                         view.backgroundColor = userDefaults.color(forKey: "pickerLight")
+                    } else if view is UIButton {
+                        
+                        view.backgroundColor = userDefaults.color(forKey: "buttonLight")
+                        (view as? UIButton)?.titleLabel?.textColor = userDefaults.color(forKey: "buttonTextLight")
                     }
                 }
             }
