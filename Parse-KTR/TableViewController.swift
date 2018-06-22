@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableViewController: UITableViewController, UITextViewDelegate {
+class TableViewController: UITableViewController, UITextViewDelegate, UIGestureRecognizerDelegate {
 
     var userDefaults = UserDefaults.standard
     var viewController: ViewController!
@@ -55,6 +55,14 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         hideKeyboard.text = "Hide Keyboard on Device Rotation: " + (userDefaults.bool(forKey: "hidekeyboard") ? "On" : "Off")
     }
     
+    @IBAction func handleTap(recognizer: UITapGestureRecognizer) {
+        print("\n** tap works **\n")
+        
+        if !viewController.keyboardShowing {
+            
+            self.viewController.showKeyboard()
+        }
+    }
     
     
 //    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -86,25 +94,34 @@ class TableViewController: UITableViewController, UITextViewDelegate {
         super.touchesBegan(touches, with: event)
         
         // hide the keyboard if it isn't the one being touched
-        if touches.first?.view != self.viewController.keyboardViewController.view && viewController.keyboardShowing{
+        if touches.first?.view != self.viewController.keyboardViewController.view && viewController.keyboardShowing {
             
             self.viewController.hideKeyboard()
         }
         
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         
         if textView.restorationIdentifier == "keyboard" {
-            
-            textView.endEditing(true)
-            
-            if !viewController.keyboardShowing {
-            
-                self.viewController.showKeyboard()
-            }
+            return false
         }
+    
+        return true
     }
+//
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//
+//        if textView.restorationIdentifier == "keyboard" {
+//
+//            textView.endEditing(true)
+//
+//            if !viewController.keyboardShowing {
+//
+//                self.viewController.showKeyboard()
+//            }
+//        }
+//    }
     
     // when enter is pressed, ignore it and go to the next text view
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

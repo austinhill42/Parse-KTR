@@ -13,6 +13,7 @@ class KeyboardViewController: UIViewController {
     private var userDefaults = UserDefaults.standard
     
     var viewController: ViewController!
+    var tap: UITapGestureRecognizer!
     
     @IBOutlet weak var plt1: UITextField!
     @IBOutlet weak var plt2: UITextField!
@@ -21,7 +22,6 @@ class KeyboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,27 +97,35 @@ class KeyboardViewController: UIViewController {
             if (plt2.text?.isEmpty)! {
                 
                 // set the PLT code in the correct format
-                code = "PLT00" + plt1.text!
+                code = "PLT00" + plt1.text! + " "
                 
                 // if two numbers have been entered
             } else if (plt3.text?.isEmpty)! {
                 
                 // set the PLT code in the correct format
-                code = "PLT0" + plt1.text! + plt2.text!
+                code = "PLT0" + plt1.text! + plt2.text! + " "
                 
                 // if three numbers have been entered
             } else {
                 
                 // set the PLT code in the correct format
-                code = "PLT" + plt1.text! + plt2.text! + plt3.text!
+                code = "PLT" + plt1.text! + plt2.text! + plt3.text! + " "
             }
             
             // don't let the user enter an incorrect code
-            if Int(String(code.suffix(3)))! > 535 {
+            if Int(String(String(code.dropLast()).suffix(3)))! > 535 {
                 
-                viewController.showErrorAlert(title: "Oops", message: "\(code) is not a valid PLT code")
+                viewController.showErrorAlert(title: "Oops", message: "\(code)is not a valid PLT code")
                 
             } else {
+                
+                // append the code to the codes text view
+                self.viewController.tableViewController.KTRCodes.text.append(code)
+                
+                let string = self.viewController.tableViewController.KTRCodes.text
+                let range = NSMakeRange((string?.endIndex.encodedOffset)!, 0)
+                
+                self.viewController.tableViewController.KTRCodes.scrollRangeToVisible(range)
                 
                 // add the new PLT code label to the PLT codes array
               //  PLTCodes.append(code)
