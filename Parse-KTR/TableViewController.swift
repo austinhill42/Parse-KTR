@@ -36,15 +36,6 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
         
         darkMode(userDefaults.bool(forKey: "dark"))
         
-        // set the defaults if they don't exist yet
-        if userDefaults.string(forKey: "output") == nil {
-            userDefaults.set("Evaluator", forKey: "output")
-        }
-        
-        if userDefaults.string(forKey: "code") == nil {
-            userDefaults.set("PLT", forKey: "code")
-        }
-        
         // get and display the user default settings
         outputType.text = "Output: " + userDefaults.string(forKey: "output")!
         codeType.text = "KTR Code: " + userDefaults.string(forKey: "code")!
@@ -62,11 +53,11 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                 var startIndex = point
                 var endIndex = point
                 var text: String!
-                print("\n**\(self.KTRCodes.offset(from: point!, to: self.KTRCodes.endOfDocument))**\n")
+                
                 while true {
                     
                     // if the first character in the text in the range from start index to end index doesn't equal "P"
-                    if self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.first != "P" {
+                    if self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.first != userDefaults.string(forKey: "code")?.first {
                         
                         // move the start index one character to the left
                         startIndex = self.KTRCodes.position(from: startIndex!, offset: -1)
@@ -93,7 +84,7 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                     
                     // if the first character is "P" and the last character is " " in the text in the range from
                     // start index to end index, code is found, exit the loop
-                    if self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.first == "P" &&
+                    if self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.first == userDefaults.string(forKey: "code")?.first &&
                         self.KTRCodes.text(in: self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!)?.last == " " {
                             
                         break

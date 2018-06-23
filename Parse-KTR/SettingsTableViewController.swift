@@ -12,57 +12,41 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     var userDefaults = UserDefaults.standard
     var settingsViewController: SettingsViewController!
-    /*
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        
-        if userDefaults.bool(forKey: "dark") {
-            return .lightContent
-        } else {
-            return .default
-        }
-    }
-    */
+    
     @IBOutlet weak var outputSwitch: UISegmentedControl!
     @IBOutlet weak var codePicker: UIPickerView!
     @IBOutlet weak var darkModeSwitch: UISwitch!
     @IBOutlet weak var hideKeyboardSwitch: UISwitch!
     
-    var codeTypes = [String]()
-    var outputTypes = [String]()
+    // initialize the output and picker data
+    let codeTypes = ["PLT", "RIG", "IAR", "AMG", "AMA", "AMP"]
+    let outputTypes = ["Evaluator", "Instructor"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.estimatedRowHeight = 0
         
-        // show the picker selection
-        self.codePicker.showsSelectionIndicator = true
+        // set the view oontroller as the delegate and data source for the picker
+        self.codePicker.dataSource = self
+        self.codePicker.delegate = self
         
         // make the output switch larger
         self.outputSwitch.transform = CGAffineTransform(scaleX: 1.13, y: 1.25)
         
         // make the dark mode switch larger
         self.darkModeSwitch.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+        
         // make the hide keyboard switch larger
         self.hideKeyboardSwitch.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
-        
-        // set the view oontroller as the delegate and data source for the picker
-        self.codePicker.dataSource = self
-        self.codePicker.delegate = self
-        
-        // initialize the picker data
-        codeTypes = ["PLT"]
-        
-        // initialize the output data
-        outputTypes = ["Evaluator", "Instructor"]
-        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        darkMode(userDefaults.bool(forKey: "dark"))
+        // show the picker selection
+        self.codePicker.showsSelectionIndicator = true
         
         // show the correct segmented control setting
         if userDefaults.string(forKey: "output") == outputTypes[0] {
@@ -86,6 +70,9 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         
         // show the correct switch setting
         hideKeyboardSwitch.isOn = userDefaults.bool(forKey: "hidekeyboard")
+        
+        darkMode(userDefaults.bool(forKey: "dark"))
+    
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,6 +85,9 @@ class SettingsTableViewController: UITableViewController, UIPickerViewDelegate, 
         // get the selected index from the switch and add it to the database
         let outputSwitchIndex = self.outputSwitch.selectedSegmentIndex
         self.userDefaults.set(self.outputTypes[outputSwitchIndex], forKey: "output")
+        
+        // change the nae of the view controller back to "Parse-KTR"
+        self.settingsViewController.viewController.navigationItem.title = "Parse-KTR"
         
     }
     

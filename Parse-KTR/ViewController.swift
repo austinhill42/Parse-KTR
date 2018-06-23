@@ -35,24 +35,15 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // add nice looking rounded corners to the container view
         containerView.layer.cornerRadius = 6.0
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // change the nae of the view controller back to "Parse-KTR"
-        self.navigationItem.title = "Parse-KTR"
-        
-        // set the initial container view origin
-        containerViewOrigin = self.containerView.frame.origin.y
-        
-        // move the keyboard out of the way
-        if keyboardShowing {
+        if userDefaults.string(forKey: "code") == nil {
             
-            hideKeyboard(0)
+            userDefaults.set("PLT", forKey: "code")
         }
         
-        userDefaults.set("PLT", forKey: "code")
+        if userDefaults.string(forKey: "output") == nil {
+            
+            userDefaults.set("Evaluator", forKey: "output")
+        }
         
         // set user dark mode color defaults
         userDefaults.set(color: UIColor(red: 10/255, green: 10/255, blue: 10/255, alpha: 1), forKey: "viewDark")
@@ -85,6 +76,20 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         userDefaults.set(color: UIColor.white, forKey: "tableViewCellSeperatorLight")
         userDefaults.set(color: UIColor.groupTableViewBackground, forKey: "buttonLight")
         userDefaults.set(color: UIColor.black, forKey: "buttonTextLight")
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // set the initial container view origin
+        containerViewOrigin = self.containerView.frame.origin.y
+        
+        // move the keyboard out of the way
+        if keyboardShowing {
+            
+            hideKeyboard(0)
+        }
         
         darkMode(userDefaults.bool(forKey: "dark"))
 
@@ -310,7 +315,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         printinfo.outputType = UIPrintInfoOutputType.general
         
         // set the job name
-        printinfo.jobName = "KTR Print Job"
+        printinfo.jobName = "Parse-KTR Print Job"
         
         // give the print controller the print info
         printcontroller.printInfo = printinfo
@@ -543,7 +548,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             var parsedString = ""
             
             // if it starts with PLT then it's likely a proper code, grab it and remove it from the original string
-            if originalString.hasPrefix("PLT") {
+            if originalString.hasPrefix(userDefaults.string(forKey: "code")!) {
                 
                 // create the character set for invalid characters
                 let charset = CharacterSet(charactersIn: "0123456789Oo").inverted
@@ -584,10 +589,16 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     func formatOutput(_ outstring: inout String) {
         
         // get the list of codes
-        let KTRCodes = tableViewController.KTRCodes.text.components(separatedBy: " ")
+        var KTRCodes = tableViewController.KTRCodes.text.components(separatedBy: " ")
+        
+        // codes entered by the user have a space at the end, remove it
+        if KTRCodes.last == "" {
+            
+            KTRCodes.removeLast()
+        }
         
         // get the path to the KTR codes file
-        let pltpath = Bundle.main.path(forResource: "ALL_PLTS", ofType: "txt")!
+        let KTRPath = Bundle.main.path(forResource: "ALL_KTR_CODES", ofType: "txt")!
         
         var space: String!
         
@@ -614,15 +625,17 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         do {
             
             // get the code list from the codes file for camparing to the user entered codes
-            let pltcodes: [String] = try String(contentsOfFile: pltpath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
+            let KTRCodesFromFile: [String] = try String(contentsOfFile: KTRPath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
             
             // find the code in the file that matches the code entered by the user and add it to the output
             for code in KTRCodes {
-                for pltcode in pltcodes {
-                    let plt = pltcode.prefix(6)
+                for ktrcode in KTRCodesFromFile {
+                    let ktr = ktrcode.prefix(6)
                     
-                    if plt == code {
-                        outstring += space + pltcode + "\n\n\n"
+                    if ktr == code {
+                        
+                        print("\n\n**\(code)**   **\(ktr)\n\n")
+                        outstring += space + ktrcode + "\n\n\n"
                     }
                     
                 }
@@ -631,7 +644,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             
             // show an error saying that the codes file failed to load
             // and include the error description for error reporting
-            showErrorAlert(title: "Error", message: "Failed to read from file: \(pltpath)\n\n" +
+            showErrorAlert(title: "Error", message: "Failed to read from file: \(KTRPath)\n\n" +
                 "Error: \(error.localizedDescription)")
             
         }

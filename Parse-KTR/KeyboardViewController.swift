@@ -99,26 +99,46 @@ class KeyboardViewController: UIViewController {
             // if only one number has been entered
             if (ktr2.text?.isEmpty)! {
                 
-                // set the PLT code in the correct format
+                // set the KTR code in the correct format
                 code = userDefaults.string(forKey: "code")! + "00" + ktr1.text! + " "
                 
                 // if two numbers have been entered
             } else if (ktr3.text?.isEmpty)! {
                 
-                // set the PLT code in the correct format
+                // set the KTR code in the correct format
                 code = userDefaults.string(forKey: "code")! + "0" + ktr1.text! + ktr2.text! + " "
                 
                 // if three numbers have been entered
             } else {
                 
-                // set the PLT code in the correct format
+                // set the KTR code in the correct format
                 code = userDefaults.string(forKey: "code")! + ktr1.text! + ktr2.text! + ktr3.text! + " "
             }
             
+            var maxCode: Int
+            
+            switch userDefaults.string(forKey: "code") {
+                
+            case "PLT":
+                maxCode = 537
+            case "RIG":
+                maxCode = 44
+            case "IAR":
+                maxCode = 32
+            case "AMG":
+                maxCode = 116
+            case "AMA":
+                maxCode = 102
+            case "AMP":
+                maxCode = 073
+            default:
+                maxCode = 999
+            }
+            
             // don't let the user enter an incorrect code
-            if Int(String(String(code.dropLast()).suffix(3)))! > 535 {
+            if Int(String(String(code.dropLast()).suffix(3)))! > maxCode {
 
-                viewController.showErrorAlert(title: "Oops", message: "\(code)is not a valid \(String(describing: userDefaults.string(forKey: "code"))) code")
+                viewController.showErrorAlert(title: "Oops", message: "\(code)is not a valid \(userDefaults.string(forKey: "code")!) code")
             
             } else {
                 
@@ -160,6 +180,11 @@ class KeyboardViewController: UIViewController {
         // hide the KTR keyboard again
         viewController.hideKeyboard()
         
+    }
+    
+   @IBAction func unhighlight(_ button: UIButton) {
+        
+        button.isHighlighted = false
     }
     
     func darkmode(_ value: Bool) {

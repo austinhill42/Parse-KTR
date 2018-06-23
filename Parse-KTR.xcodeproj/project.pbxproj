@@ -18,14 +18,13 @@
 		D948655220CCDFF400A18995 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948655120CCDFF400A18995 /* TesseractOCR.framework */; };
 		D948655320CCDFFB00A18995 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651E20CA3AAB00A18995 /* CoreImage.framework */; };
 		D948655520CCE00C00A18995 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = D948655420CCE00C00A18995 /* tessdata */; };
+		D98F3D9320DECB8500C66C27 /* ALL_KTR_CODES.txt in Resources */ = {isa = PBXBuildFile; fileRef = D98F3D9220DECB8500C66C27 /* ALL_KTR_CODES.txt */; };
 		D99724951FEDB1E500FD3B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724941FEDB1E500FD3B08 /* AppDelegate.swift */; };
 		D99724971FEDB1E500FD3B08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724961FEDB1E500FD3B08 /* ViewController.swift */; };
 		D997249A1FEDB1E500FD3B08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D99724981FEDB1E500FD3B08 /* Main.storyboard */; };
 		D997249C1FEDB1E500FD3B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D997249B1FEDB1E500FD3B08 /* Assets.xcassets */; };
 		D997249F1FEDB1E500FD3B08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D997249D1FEDB1E500FD3B08 /* LaunchScreen.storyboard */; };
 		D99724AA1FEDB1E500FD3B08 /* Parse_KTRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724A91FEDB1E500FD3B08 /* Parse_KTRTests.swift */; };
-		D99724BA201C3B0A00FD3B08 /* ALL_PLTS.txt in Resources */ = {isa = PBXBuildFile; fileRef = D99724B9201C3B0A00FD3B08 /* ALL_PLTS.txt */; };
-		D99724BB201C3B0A00FD3B08 /* ALL_PLTS.txt in Resources */ = {isa = PBXBuildFile; fileRef = D99724B9201C3B0A00FD3B08 /* ALL_PLTS.txt */; };
 		D9D146F320D30D4800DA1970 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D146F220D30D4800DA1970 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +57,7 @@
 		D948652220CCBEB400A18995 /* GPUImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GPUImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D948655120CCDFF400A18995 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D948655420CCE00C00A18995 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		D98F3D9220DECB8500C66C27 /* ALL_KTR_CODES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ALL_KTR_CODES.txt; sourceTree = "<group>"; };
 		D99724911FEDB1E500FD3B08 /* Parse-KTR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parse-KTR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99724941FEDB1E500FD3B08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D99724961FEDB1E500FD3B08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,7 +68,6 @@
 		D99724A51FEDB1E500FD3B08 /* Parse-KTRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Parse-KTRTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99724A91FEDB1E500FD3B08 /* Parse_KTRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parse_KTRTests.swift; sourceTree = "<group>"; };
 		D99724AB1FEDB1E500FD3B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D99724B9201C3B0A00FD3B08 /* ALL_PLTS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ALL_PLTS.txt; sourceTree = "<group>"; };
 		D9D146F220D30D4800DA1970 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,7 +146,7 @@
 		D99724931FEDB1E500FD3B08 /* Parse-KTR */ = {
 			isa = PBXGroup;
 			children = (
-				D99724B9201C3B0A00FD3B08 /* ALL_PLTS.txt */,
+				D98F3D9220DECB8500C66C27 /* ALL_KTR_CODES.txt */,
 				D99724941FEDB1E500FD3B08 /* AppDelegate.swift */,
 				D936F5F820DC00D5005FAA9D /* KeyboardViewController.swift */,
 				D947A48A20D9F7F600D57799 /* SettingsTableViewController.swift */,
@@ -259,8 +258,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D997249F1FEDB1E500FD3B08 /* LaunchScreen.storyboard in Resources */,
-				D99724BA201C3B0A00FD3B08 /* ALL_PLTS.txt in Resources */,
 				D948655520CCE00C00A18995 /* tessdata in Resources */,
+				D98F3D9320DECB8500C66C27 /* ALL_KTR_CODES.txt in Resources */,
 				D997249C1FEDB1E500FD3B08 /* Assets.xcassets in Resources */,
 				D997249A1FEDB1E500FD3B08 /* Main.storyboard in Resources */,
 			);
@@ -270,7 +269,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D99724BB201C3B0A00FD3B08 /* ALL_PLTS.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
