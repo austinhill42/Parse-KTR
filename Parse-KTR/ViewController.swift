@@ -52,6 +52,8 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             hideKeyboard(0)
         }
         
+        userDefaults.set("PLT", forKey: "code")
+        
         // set user dark mode color defaults
         userDefaults.set(color: UIColor(red: 10/255, green: 10/255, blue: 10/255, alpha: 1), forKey: "viewDark")
         userDefaults.set(color: UIColor(red: 30/255, green: 30/255, blue: 60/255, alpha: 1), forKey: "tableCellDark")
@@ -308,7 +310,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         printinfo.outputType = UIPrintInfoOutputType.general
         
         // set the job name
-        printinfo.jobName = "PLT Print Job"
+        printinfo.jobName = "KTR Print Job"
         
         // give the print controller the print info
         printcontroller.printInfo = printinfo
@@ -442,7 +444,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
             popoverController.permittedArrowDirections = []
-            
+
         }
         
         // show the image picker
@@ -458,14 +460,29 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         // when the image picker goes away, call the image recognition function
         dismiss(animated: true, completion: { self.performImageRecognition(scaledImage!)})
+                
+                
     }
     
     // perform the image recognition with Tesseract
     func performImageRecognition(_ image: UIImage) {
         
+        var cancel = false
+        
         // this operation takes a while, show the user something's working
         // create the alert controller
         let alert = UIAlertController(title: "Performing OCR", message: "This will take a moment, please be patient", preferredStyle: UIAlertControllerStyle.alert)
+       
+        // create a cancel button to cancel OCR
+        let cancelButton = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: { (action: UIAlertAction!) in
+                cancel = true
+        })
+        
+        // add the button to the alert controller
+        alert.addAction(cancelButton)
         
         // required for the ipad, tell the app where the alert view should appear on screen
         if let popoverController = alert.popoverPresentationController {
@@ -499,16 +516,16 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
                 // perform the OCR
                 tesseract.recognize()
                 
-                // UI updates must go in the main thread
-                DispatchQueue.main.async {
+                 if !cancel {
+                    // UI updates must go in the main thread
+                    DispatchQueue.main.async {
                     
-                    // dismiss the alert when done
-                    alert.dismiss(animated: true, completion: nil)
+                        // dismiss the alert when done
+                        alert.dismiss(animated: true, completion: nil)
                     
-                    // parse the tesseract text data and add them to the PLT codes textview
-                    self.tableViewController.KTRCodes.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
-                    
-                    
+                        // parse the tesseract text data and add them to the PLT codes textview
+                        self.tableViewController.KTRCodes.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
+                    }
                 }
             }
         }
@@ -521,7 +538,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         var codes = [String]()
         
         // loop while the string isn't empty and is large enough to contain a code
-        while !originalString.isEmpty && originalString.count > 6{
+        while !originalString.isEmpty && originalString.count > 6 {
             
             var parsedString = ""
             
@@ -529,7 +546,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             if originalString.hasPrefix("PLT") {
                 
                 // create the character set for invalid characters
-                let charset = CharacterSet(charactersIn: "0123456789").inverted
+                let charset = CharacterSet(charactersIn: "0123456789Oo").inverted
                 
                 // get the 3 characters after PLT
                 let code = String(String(originalString.prefix(6)).suffix(3))
@@ -540,6 +557,9 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
                     parsedString.append(String(originalString.prefix(6)))
                     
                     originalString.removeSubrange(originalString.startIndex..<originalString.index(originalString.startIndex, offsetBy: 6))
+                    
+                    parsedString = parsedString.replacingOccurrences(of: "O", with: "0")
+                    parsedString = parsedString.replacingOccurrences(of: "o", with: "0")
                     
                     // append the parsed PLT code to the code array
                     codes.append(parsedString)

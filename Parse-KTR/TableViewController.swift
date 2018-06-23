@@ -105,9 +105,9 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
                 self.KTRCodes.replace(self.KTRCodes.textRange(from: startIndex!, to: endIndex!)!, withText: "")
                 
                 // put the code in the keyboard
-                self.viewController.keyboardViewController.plt1.text = String(text.removeFirst())
-                self.viewController.keyboardViewController.plt2.text = String(text.removeFirst())
-                self.viewController.keyboardViewController.plt3.text = String(text.removeFirst())
+                self.viewController.keyboardViewController.ktr1.text = String(text.removeFirst())
+                self.viewController.keyboardViewController.ktr2.text = String(text.removeFirst())
+                self.viewController.keyboardViewController.ktr3.text = String(text.removeFirst())
             }
         }
     }

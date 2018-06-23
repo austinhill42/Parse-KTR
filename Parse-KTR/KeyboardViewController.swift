@@ -16,9 +16,9 @@ class KeyboardViewController: UIViewController {
     var tap: UITapGestureRecognizer!
     var codes = [String]()
     
-    @IBOutlet weak var plt1: UITextField!
-    @IBOutlet weak var plt2: UITextField!
-    @IBOutlet weak var plt3: UITextField!
+    @IBOutlet weak var ktr1: UITextField!
+    @IBOutlet weak var ktr2: UITextField!
+    @IBOutlet weak var ktr3: UITextField!
     
     
     override func viewDidLoad() {
@@ -41,17 +41,17 @@ class KeyboardViewController: UIViewController {
     @IBAction func btn_keypad(_ sender: UIButton) {
         
         // determine where the keypad text should go
-        if (plt1.text?.isEmpty)! {
+        if (ktr1.text?.isEmpty)! {
             
-            plt1.text = sender.currentTitle
+            ktr1.text = sender.currentTitle
             
-        } else if (plt2.text?.isEmpty)! {
+        } else if (ktr2.text?.isEmpty)! {
             
-            plt2.text = sender.currentTitle
+            ktr2.text = sender.currentTitle
             
         } else {
             
-            plt3.text = sender.currentTitle
+            ktr3.text = sender.currentTitle
             
             // delay for a sixteenth of a second for the text to appear in the text field
             // this code only for aesthetic purposes
@@ -67,21 +67,21 @@ class KeyboardViewController: UIViewController {
     // clear the currently entered code
     @IBAction func btn_clear(_ sender: UIButton) {
         
-        plt1.text = ""
-        plt2.text = ""
-        plt3.text = ""
+        ktr1.text = ""
+        ktr2.text = ""
+        ktr3.text = ""
     }
     
     // delete the last number entered
     @IBAction func btn_delete(_ sender: UIButton) {
         
         // determine which text field had the last number entered and delete it
-        if !(plt3.text?.isEmpty)! {
-            plt3.text = ""
-        } else if !(plt2.text?.isEmpty)! {
-            plt2.text = ""
-        } else if !(plt1.text?.isEmpty)! {
-            plt1.text = ""
+        if !(ktr3.text?.isEmpty)! {
+            ktr3.text = ""
+        } else if !(ktr2.text?.isEmpty)! {
+            ktr2.text = ""
+        } else if !(ktr1.text?.isEmpty)! {
+            ktr1.text = ""
         }
     }
     
@@ -89,7 +89,7 @@ class KeyboardViewController: UIViewController {
     @IBAction func btn_enter(_ sender: UIButton) {
         
         // at least one number has been entered
-        if !(plt1.text?.isEmpty)! {
+        if !(ktr1.text?.isEmpty)! {
             
             var code = ""
             
@@ -97,29 +97,29 @@ class KeyboardViewController: UIViewController {
            // let indexPath = IndexPath(item: PLTCodes.count, section: 0)
             
             // if only one number has been entered
-            if (plt2.text?.isEmpty)! {
+            if (ktr2.text?.isEmpty)! {
                 
                 // set the PLT code in the correct format
-                code = "PLT00" + plt1.text! + " "
+                code = userDefaults.string(forKey: "code")! + "00" + ktr1.text! + " "
                 
                 // if two numbers have been entered
-            } else if (plt3.text?.isEmpty)! {
+            } else if (ktr3.text?.isEmpty)! {
                 
                 // set the PLT code in the correct format
-                code = "PLT0" + plt1.text! + plt2.text! + " "
+                code = userDefaults.string(forKey: "code")! + "0" + ktr1.text! + ktr2.text! + " "
                 
                 // if three numbers have been entered
             } else {
                 
                 // set the PLT code in the correct format
-                code = "PLT" + plt1.text! + plt2.text! + plt3.text! + " "
+                code = userDefaults.string(forKey: "code")! + ktr1.text! + ktr2.text! + ktr3.text! + " "
             }
             
             // don't let the user enter an incorrect code
             if Int(String(String(code.dropLast()).suffix(3)))! > 535 {
-                
-                viewController.showErrorAlert(title: "Oops", message: "\(code)is not a valid PLT code")
-                
+
+                viewController.showErrorAlert(title: "Oops", message: "\(code)is not a valid \(String(describing: userDefaults.string(forKey: "code"))) code")
+            
             } else {
                 
                 // append the code to the codes text view
