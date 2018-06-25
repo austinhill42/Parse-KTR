@@ -12,7 +12,6 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
 
     var userDefaults = UserDefaults.standard
     var viewController: ViewController!
-    var tableViewCell: TableViewCell!
     
     @IBOutlet weak var name: UITextView!
     @IBOutlet weak var ftn: UITextView!
@@ -118,16 +117,6 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
         ftn.endEditing(true)
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesBegan(touches, with: event)
-//        
-//        // hide the keyboard if it isn't the one being touched
-//        if touches.first?.view != self.viewController.keyboardViewController.view && viewController.keyboardShowing {
-//            
-//            self.viewController.hideKeyboard()
-//        }
-//        
-//    }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         
