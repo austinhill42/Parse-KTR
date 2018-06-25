@@ -9,7 +9,7 @@
 import UIKit
 import TesseractOCR
 
-class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, G8TesseractDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, G8TesseractDelegate {
     
     private var userDefaults = UserDefaults.standard
     
@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     var tableViewController: TableViewController!
     var tableView: UITableView!
     var keyboardViewController: KeyboardViewController!
+    var documentsViewController: DocumentsViewController!
     
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -136,6 +137,13 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             self.keyboardViewController.viewController = self
             
         }
+        
+        // initialize the documents view when it loads
+        if let vc = segue.destination as? DocumentsViewController, segue.identifier == "documents" {
+            
+            self.documentsViewController = vc
+            self.documentsViewController.viewController = self
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -185,6 +193,9 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         // set the keyboard as not showing
         keyboardShowing = false
+        
+        // clears the keyboard when hidden
+        self.keyboardViewController.clear()
     }
     
     override func didReceiveMemoryWarning() {
@@ -200,22 +211,27 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // set the print button properties
         let printButton = UIAlertAction(title: "Print",
                                        style: .default,
-                                       handler: { (alert) in self.printOutput()})
-        
-        // set the save button properties
-        let saveButton = UIAlertAction(title: "Save",
-                                       style: .default,
-                                       handler: { (alert) in self.saveOutput()})
+                                       handler: { (alert) in self.printOutput() })
         
         // set the share button properties
         let shareButton = UIAlertAction(title: "Share",
                                          style: .default,
-                                         handler: { (alert) in self.shareOutput()})
+                                         handler: { (alert) in self.shareOutput() })
+       
+        // set the save button properties
+        let saveButton = UIAlertAction(title: "Save",
+                                       style: .default,
+                                       handler: { (alert) in self.saveData() })
+        
+        let loadButton = UIAlertAction(title: "Load",
+                                       style: .default,
+                                       handler: { (alert) in self.load() })
         
         // add the buttons to the popover
         actionPopover.addAction(printButton)
-        actionPopover.addAction(saveButton)
         actionPopover.addAction(shareButton)
+        //actionPopover.addAction(saveButton)
+        //actionPopover.addAction(loadButton)
         
         // required for the ipad, tell the app where the image picker should appear on screen
         if let popoverController = actionPopover.popoverPresentationController {
@@ -334,17 +350,15 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     }
     
     // save the output to a file
-    func saveOutput() {
-        
-        // get the formatted output for saving
-        formatOutput(&outstring)
+    func saveData() {
         
         // get the name, FTN, testype, path to the current directory, and format the outfile name
         let name: String = tableViewController.name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
         let ftn: String = tableViewController.ftn.text!
         let testtype: String = tableViewController.testType.text!
         let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
+        let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".ktr"
+        let outstring = name + ";" + ftn + ";" + testtype + ";" + tableViewController.KTRCodes.text
         
         do {
             
@@ -367,7 +381,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             // show the slert
             self.present(alert, animated:true, completion: nil)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 
                 alert.dismiss(animated: true, completion: nil)
             }
@@ -386,12 +400,33 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     // share the output file
     func shareOutput() {
         
+        // get the name, FTN, testype, path to the current directory, and format the outfile name
+        let name: String = tableViewController.name.text!.split(separator: ",").joined().split(separator: " ").joined() as String
+        let ftn: String = tableViewController.ftn.text!
+        let testtype: String = tableViewController.testType.text!
+        let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let outfile: String = name + "--" + (ftn != "" ? (ftn + "--") : "") + testtype + ".txt"
+        let outstring = name + ";" + ftn + ";" + testtype + ";" + tableViewController.KTRCodes.text
+        
         // format the output to share
-        formatOutput(&outstring)
+        formatOutput(&self.outstring)
+        
+        do {
+       
+            // attempt to write the formatted output to a file
+            try outstring.write(toFile: path + "/" + outfile, atomically: false, encoding: String.Encoding.utf8)
+        
+        } catch {
+            // show an error saying that the save failed and include the error description for error reporting
+            showErrorAlert(title: "File Write Failed", message: "Failed to write to file: \(outfile)\n\n" +
+                "Error: \(error.localizedDescription)")
+        }
+        
+        let file = URL(fileURLWithPath: outfile, isDirectory: false, relativeTo: URL(fileURLWithPath: path, isDirectory: true))
         
         // create the activity view controller
-        let shareViewController = UIActivityViewController(activityItems: ["Share", outstring], applicationActivities: nil)
-        
+        let shareViewController = UIActivityViewController(activityItems: ["Share", file], applicationActivities: nil)
+
         // exclude activity items thar aren't relevent to this app
         shareViewController.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.assignToContact, UIActivityType.postToFacebook, UIActivityType.postToFlickr, UIActivityType.postToTencentWeibo, UIActivityType.postToTwitter, UIActivityType.postToVimeo, UIActivityType.postToWeibo, UIActivityType.saveToCameraRoll]
         
@@ -405,6 +440,39 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         // show the share view controller
         self.present(shareViewController, animated:true, completion: nil)
+    }
+    
+    
+    
+    func load() {
+        
+        performSegue(withIdentifier: "documents", sender: self)
+        
+        //let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        
+        do {
+           
+            let files = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            
+            for file in files  {
+            
+                if file.relativeString.hasSuffix(".ktr") {
+                
+                    label.text = file.relativeString.components(separatedBy: "/").last
+                    label.textColor = (userDefaults.bool(forKey: "dark") ? userDefaults.color(forKey: "labelTextDark") : userDefaults.color(forKey: "labelTextLight"))
+                    label.sizeToFit()
+                
+                    documentsViewController.labels.append(label)
+                }
+        }
+            
+        } catch {
+            
+        }
+        
     }
     
     // present the image picker so the user can choose to take a photo or use one from their photo library
@@ -458,7 +526,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     }
     
     // image picker controller
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+   @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         
         // use the image selected by the user from the image picker
         let scaledImage = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -525,11 +593,11 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
                     // UI updates must go in the main thread
                     DispatchQueue.main.async {
                     
+                        // parse the tesseract text data and add them to the PLT codes textview
+                        self.parseOCR(tesseract.recognizedText)
+                        
                         // dismiss the alert when done
                         alert.dismiss(animated: true, completion: nil)
-                    
-                        // parse the tesseract text data and add them to the PLT codes textview
-                        self.tableViewController.KTRCodes.text = self.parseOCR(tesseract.recognizedText).joined(separator: " ")
                     }
                 }
             }
@@ -537,18 +605,104 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     }
     
     // function to parse the PLT codes returned by OCR
-    func parseOCR(_ string: String) -> [String] {
+    func parseOCR(_ string: String) {
         
         var originalString = string
         var codes = [String]()
+        var name = ""
+        var testType = ""
+        var lookingForName = true
+        var lookingForTestType = true
         
+        originalString.removeFirst(100)
         // loop while the string isn't empty and is large enough to contain a code
         while !originalString.isEmpty && originalString.count > 6 {
             
             var parsedString = ""
             
+            if lookingForName && originalString.hasPrefix("NAME:") {
+                
+                // remove NAME:
+                originalString.removeFirst(5)
+                
+                while !originalString.hasPrefix("APPLICANT") {
+                    
+                    // append each character
+                    name.append(originalString.first!)
+                    
+                    // remove the now appended character
+                    originalString.removeFirst()
+                }
+                
+                // not looking for name anymore
+                lookingForName = false
+                
+                // UI updates must go in the main thread
+                DispatchQueue.main.async {
+                    
+                    // set the name text view
+                    self.tableViewController.name.text = name
+                }
+            }
+            
+            if lookingForTestType && originalString.hasPrefix("EXAM:") {
+                
+                // remove EXAM:
+                originalString.removeFirst(5)
+                
+                // go until you get to EXAM ID
+                while !originalString.hasPrefix("EXAM ID") {
+                    
+                    // append each character
+                    testType.append(originalString.first!)
+                    
+                    // remove the now appended character
+                    originalString.removeFirst()
+                }
+                
+                // found test type
+                lookingForTestType = false
+
+                // get the test type as string array to initialize the string
+                var test = testType.components(separatedBy: " ")
+                
+                // remove the empty string if needed
+                if test.last == "" {
+                    
+                    test.removeLast()
+                }
+                
+                // remove the empty string if needed
+                if test.first == "" {
+                    
+                    test.removeFirst()
+                }
+                
+                // set test type to empty string
+                testType = ""
+                
+                for string in test {
+                    
+                    // make sure it's not in parentheses
+                    if string.first != "(" {
+                        
+                        // append the first letter of each string in the test type
+                        testType.append(string.first!)
+                    }
+                }
+                // UI updates must go in the main thread
+                DispatchQueue.main.async {
+                    
+                    // set the test type as the initialization of teh test type
+                    self.tableViewController.testType.text = testType
+                }
+            }
+            
             // if it starts with PLT then it's likely a proper code, grab it and remove it from the original string
             if originalString.hasPrefix(userDefaults.string(forKey: "code")!) {
+                
+                lookingForName = false
+                lookingForTestType = false
                 
                 // create the character set for invalid characters
                 let charset = CharacterSet(charactersIn: "0123456789Oo").inverted
@@ -560,9 +714,10 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
                 if code.rangeOfCharacter(from: charset) == nil {
                     
                     parsedString.append(String(originalString.prefix(6)))
-                    
+                
                     originalString.removeSubrange(originalString.startIndex..<originalString.index(originalString.startIndex, offsetBy: 6))
                     
+                    // Tesseract sometimes comfuses zero with the letter O, let's fix that
                     parsedString = parsedString.replacingOccurrences(of: "O", with: "0")
                     parsedString = parsedString.replacingOccurrences(of: "o", with: "0")
                     
@@ -582,7 +737,12 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             
         }
         
-        return codes
+        // UI updates must go in the main thread
+        DispatchQueue.main.async {
+        
+            // add the found KTR codes to the code list
+            self.tableViewController.KTRCodes.text = codes.joined(separator: " ")
+        }
     }
     
     // function to format the output
@@ -605,24 +765,24 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // add the initial header to the outfile
         outstring = "Name: " + tableViewController.name.text! + "  FTN: " + tableViewController.ftn.text! + "\n\n"
         
-        // format the outfile for DPE or CFI/Flight School
-        if userDefaults.string(forKey: "output") == "Evaluator" {
-            
-            // set the spacers
-            space = "______  "
-        }
-        else if userDefaults.string(forKey: "output") == "Instructor" {
-            
-            // add the file header
-            outstring +=
-                "Re-Train" + "     Validate" + "      Tested" + "\n" +
-                "Date By" + "      Date By" + "      Date By" + "\n\n"
-            
-            // set the spacers
-            space = "____ ____  ____ ____  ____ ____  "
-        }
-        
         do {
+            
+            // format the outfile for DPE or CFI/Flight School
+            if userDefaults.string(forKey: "output") == "Evaluator" {
+            
+                // set the spacers
+                space = "______  "
+            }
+            else if userDefaults.string(forKey: "output") == "Instructor" {
+            
+                // add the file header
+                outstring +=
+                    "Re-Train" + "     Validate" + "      Tested" + "\n" +
+                    "Date By" + "      Date By" + "      Date By" + "\n\n"
+            
+                // set the spacers
+                space = "____ ____  ____ ____  ____ ____  "
+            }
             
             // get the code list from the codes file for camparing to the user entered codes
             let KTRCodesFromFile: [String] = try String(contentsOfFile: KTRPath, encoding: String.Encoding.utf8).components(separatedBy: "\n")
@@ -660,6 +820,8 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // create the close button
         let close = UIAlertAction(title: "Close", style: .cancel, handler: nil)
         
+        let report = UIAlertAction(title: "Report", style: .default, handler: { (alert) in self.report(error: message) })
+        
         // add the close button to the alert controller
         alert.addAction(close)
         
@@ -673,6 +835,11 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         // show the slert
         self.present(alert, animated:true, completion: nil)
+    }
+    
+    func report(error: String) {
+        
+        
     }
     
     func darkMode(_ value: Bool) {
@@ -726,72 +893,6 @@ extension UserDefaults {
         return color
     }
 }
-    
-    /*
-    // for typing in the plt codes, load the plt code "keyboard" view controller
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        
-        // end editing so the user can't type anything
-        textView.endEditing(true)
-        
-        // hide the save, print, share, and OCR options so the user doesnt click them
-        // before they're done entering the PLT codes
-        btn_ocr.isHidden = true
-        btn_save.isHidden = true
-        btn_print.isHidden = true
-        btn_share.isHidden = true
-        
-        // clear the collection view so there are no duplicates
-        while PLTCodes.count > 0 {
-            
-            let indexPath = IndexPath(item: 0, section: 0)
-            
-            // get the cell that was selected
-            let cell = self.collectionView.cellForItem(at: indexPath) as! CollectionViewCell
-            
-            // remove the label from the array
-            PLTCodes.remove(at: indexPath.item)
-            
-            // reset the cell's label to an empty string
-            // note: this is because the cell isn't deleted, just removed from the collection view
-            //       if the label isnt set to an empty string the cell could be reused and the old
-            //       label will show up over the new one
-            cell.label.text = ""
-            
-            // remove the cell from the collection view
-            self.collectionView.deleteItems(at: [indexPath])
-        }
-        
-        // add existing PLT codes to collection view
-        if !tv_codelist.text.isEmpty {
-            
-            // get an array of plt codes
-            let codes = tv_codelist.text.components(separatedBy: " ")
-            
-            // create index path to add collection view cells
-            var indexPath = IndexPath(item: 0, section: 0)
-            
-            // add each code to the PLT codes array and create a cell for each code
-            for code in codes {
-                
-                // add the PLT code to the array
-                PLTCodes.append(code)
-                
-                // add a cell to teh collection view
-                collectionView.insertItems(at: [indexPath])
-                
-                // incrememnt the index path
-                indexPath.item += 1
-            }
-        }
-        
-        // show the PLT keyboard
-        PLTView.isHidden = false
-        
-    }
- 
-    
-*/
 
 
 

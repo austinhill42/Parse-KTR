@@ -64,14 +64,6 @@ class KeyboardViewController: UIViewController {
         }
     }
     
-    // clear the currently entered code
-    @IBAction func btn_clear(_ sender: UIButton) {
-        
-        ktr1.text = ""
-        ktr2.text = ""
-        ktr3.text = ""
-    }
-    
     // delete the last number entered
     @IBAction func btn_delete(_ sender: UIButton) {
         
@@ -166,7 +158,7 @@ class KeyboardViewController: UIViewController {
             }
             
             // clear the text fields for new input
-            btn_clear(sender)
+            clear()
             
         }
     }
@@ -175,18 +167,38 @@ class KeyboardViewController: UIViewController {
     @IBAction func btn_done(_ sender: UIButton) {
         
         // clear the text fields so an old code isn't still there if they need to add more
-        btn_clear(sender)
+        clear()
         
         // hide the KTR keyboard again
         viewController.hideKeyboard()
         
     }
     
+    // don't highlight the buttons
    @IBAction func unhighlight(_ button: UIButton) {
         
         button.isHighlighted = false
     }
     
+    // long press delete clears the input
+    @IBAction func btn_deleteLongPress(_ sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == .began {
+            
+            clear()
+        }
+        
+    }
+    
+    // clear the currently entered code
+    func clear() {
+        
+        ktr1.text = ""
+        ktr2.text = ""
+        ktr3.text = ""
+    }
+    
+    // function to change the colors to dark mode
     func darkmode(_ value: Bool) {
         
         if value {

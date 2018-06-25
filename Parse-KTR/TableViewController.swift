@@ -36,9 +36,16 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
         
         darkMode(userDefaults.bool(forKey: "dark"))
         
-        // get and display the user default settings
-        outputType.text = "Output: " + userDefaults.string(forKey: "output")!
-        codeType.text = "KTR Code: " + userDefaults.string(forKey: "code")!
+        do {
+           
+            // get and display the user default settings
+            outputType.text = try "Output: " + userDefaults.string(forKey: "output")!
+            codeType.text = try "KTR Code: " + userDefaults.string(forKey: "code")!
+        
+        } catch {
+            
+            viewController.showErrorAlert(title: "Error", message: error.localizedDescription)
+        }
         darkmode.text = "Dark Mode: " + (userDefaults.bool(forKey: "dark") ? "On" : "Off")
         hideKeyboard.text = "Hide Keyboard on Device Rotation: " + (userDefaults.bool(forKey: "hidekeyboard") ? "On" : "Off")
     }
@@ -219,7 +226,5 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
             }
             
         }
-    }
- 
-    
+    }    
 }

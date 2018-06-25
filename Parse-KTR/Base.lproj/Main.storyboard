@@ -11,6 +11,27 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Documents View Controller-->
+        <scene sceneID="y63-UT-xIa">
+            <objects>
+                <tableViewController modalPresentationStyle="currentContext" id="nlJ-5Z-0c1" customClass="DocumentsViewController" customModule="Parse_KTR" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" sectionIndexMinimumDisplayRowCount="1" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Jlq-gg-x43">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="nlJ-5Z-0c1" id="2uP-dg-5Md"/>
+                            <outlet property="delegate" destination="nlJ-5Z-0c1" id="DDS-J1-6If"/>
+                        </connections>
+                    </tableView>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <size key="freeformSize" width="768" height="1024"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rNL-I6-fSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2109" y="-650"/>
+        </scene>
         <!--Parse-KTR-->
         <scene sceneID="ZUu-iz-Jtr">
             <objects>
@@ -26,8 +47,16 @@
                                     <segue destination="h4C-c4-ehZ" kind="embed" identifier="segue" id="hbT-rM-mEf"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyz-tW-Jkq">
+                                <rect key="frame" x="20" y="903" width="728" height="113"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Send any error reports, comments, suggestions, etc. to Parse.KTR@gmail.com. When sending an error report, please include the device model, iOS version, and a detailed description of the error.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fu3-L0-Pb7">
-                                <rect key="frame" x="0.0" y="584" width="768" height="431"/>
+                                <rect key="frame" x="-1" y="593" width="768" height="431"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="f01-Ef-xTr" kind="embed" identifier="keyboard" id="eRO-xm-7xL"/>
@@ -69,6 +98,9 @@
                         <outlet property="containerView" destination="Kfs-Vf-cKc" id="0Ig-d4-wo1"/>
                         <outlet property="keyboardContainerView" destination="Fu3-L0-Pb7" id="YtL-oG-m9s"/>
                         <outlet property="mainView" destination="6qy-UG-yo5" id="jci-7e-hE8"/>
+                        <segue destination="nlJ-5Z-0c1" kind="popoverPresentation" identifier="documents" popoverAnchorView="6qy-UG-yo5" id="qRP-In-F64">
+                            <popoverArrowDirection key="popoverArrowDirection"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DGv-fl-8Lq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -110,44 +142,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ee-0b-qo1">
-                                <rect key="frame" x="20" y="210" width="129" height="69"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
-                                <state key="normal" title="Clear"/>
-                                <connections>
-                                    <action selector="btn_clear:" destination="f01-Ef-xTr" eventType="touchUpInside" id="UDR-Qt-xiU"/>
-                                    <action selector="unhighlight:" destination="f01-Ef-xTr" eventType="touchUpInside" id="8zA-e6-2jX"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BgY-Wr-VNH">
                                 <rect key="frame" x="20" y="340" width="129" height="71"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                 <state key="normal" title="Delete"/>
                                 <connections>
                                     <action selector="btn_delete:" destination="f01-Ef-xTr" eventType="touchUpInside" id="3ez-69-tJu"/>
                                     <action selector="unhighlight:" destination="f01-Ef-xTr" eventType="touchUpInside" id="NSf-9s-sqe"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0V0-XL-TlW">
-                                <rect key="frame" x="618" y="340" width="130" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="btn_done:" destination="f01-Ef-xTr" eventType="touchUpInside" id="clD-zj-B1G"/>
-                                    <action selector="unhighlight:" destination="f01-Ef-xTr" eventType="touchUpInside" id="gL0-OM-D3n"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8G-b8-HRx">
-                                <rect key="frame" x="618" y="210" width="130" height="69"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
-                                <state key="normal" title="Enter"/>
-                                <connections>
-                                    <action selector="btn_enter:" destination="f01-Ef-xTr" eventType="touchUpInside" id="PJq-uZ-De8"/>
-                                    <action selector="unhighlight:" destination="f01-Ef-xTr" eventType="touchUpInside" id="Aj2-dE-zdc"/>
+                                    <outletCollection property="gestureRecognizers" destination="TWC-dd-oU4" appends="YES" id="QT2-6h-emP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uTt-UA-Fsi">
@@ -271,6 +275,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8G-b8-HRx">
+                                <rect key="frame" x="618" y="340" width="130" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                <state key="normal" title="Enter"/>
+                                <connections>
+                                    <action selector="btn_enter:" destination="f01-Ef-xTr" eventType="touchUpInside" id="PJq-uZ-De8"/>
+                                    <action selector="unhighlight:" destination="f01-Ef-xTr" eventType="touchUpInside" id="Aj2-dE-zdc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="He8-OS-C2m"/>
@@ -282,6 +296,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZAJ-cH-aCs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="TWC-dd-oU4">
+                    <connections>
+                        <action selector="btn_deleteLongPress:" destination="f01-Ef-xTr" id="km1-op-NoD"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1419.53125" y="585.64453125"/>
         </scene>
@@ -289,7 +308,7 @@
         <scene sceneID="oFh-7O-3TO">
             <objects>
                 <tableViewController id="h4C-c4-ehZ" customClass="TableViewController" customModule="Parse_KTR" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" dataMode="static" style="plain" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="wSb-id-Ynu">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="static" style="plain" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="wSb-id-Ynu">
                         <rect key="frame" x="0.0" y="0.0" width="585" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -448,28 +467,28 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Output Type: Evaluator" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="230" translatesAutoresizingMaskIntoConstraints="NO" id="N5j-pt-o8v">
-                                                    <rect key="frame" x="14" y="-7" width="216" height="32"/>
+                                                    <rect key="frame" x="14" y="11" width="216" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Code Type: PLT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="167" translatesAutoresizingMaskIntoConstraints="NO" id="WSf-D0-lH0">
-                                                    <rect key="frame" x="241" y="-7" width="163" height="32"/>
+                                                    <rect key="frame" x="249" y="11" width="163" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dark Mode: Off" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="167" translatesAutoresizingMaskIntoConstraints="NO" id="W4L-dQ-yFS">
-                                                    <rect key="frame" x="420" y="-7" width="137" height="32"/>
+                                                    <rect key="frame" x="420" y="11" width="154" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hide Keyboard on Device Rotation: Off" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="230" translatesAutoresizingMaskIntoConstraints="NO" id="51S-Vs-h8C">
-                                                    <rect key="frame" x="14" y="30" width="358" height="32"/>
+                                                    <rect key="frame" x="14" y="56" width="358" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -510,7 +529,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2108.59375" y="677.34375"/>
+            <point key="canvasLocation" x="2108.203125" y="677.34375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nf6-8K-4za">

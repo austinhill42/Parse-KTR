@@ -19,6 +19,7 @@
 		D948655320CCDFFB00A18995 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D948651E20CA3AAB00A18995 /* CoreImage.framework */; };
 		D948655520CCE00C00A18995 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = D948655420CCE00C00A18995 /* tessdata */; };
 		D98F3D9320DECB8500C66C27 /* ALL_KTR_CODES.txt in Resources */ = {isa = PBXBuildFile; fileRef = D98F3D9220DECB8500C66C27 /* ALL_KTR_CODES.txt */; };
+		D98F3D9720E03E6200C66C27 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98F3D9620E03E6200C66C27 /* DocumentsViewController.swift */; };
 		D99724951FEDB1E500FD3B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724941FEDB1E500FD3B08 /* AppDelegate.swift */; };
 		D99724971FEDB1E500FD3B08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99724961FEDB1E500FD3B08 /* ViewController.swift */; };
 		D997249A1FEDB1E500FD3B08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D99724981FEDB1E500FD3B08 /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		D948655120CCDFF400A18995 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D948655420CCE00C00A18995 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		D98F3D9220DECB8500C66C27 /* ALL_KTR_CODES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ALL_KTR_CODES.txt; sourceTree = "<group>"; };
+		D98F3D9620E03E6200C66C27 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		D99724911FEDB1E500FD3B08 /* Parse-KTR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parse-KTR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99724941FEDB1E500FD3B08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D99724961FEDB1E500FD3B08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			children = (
 				D98F3D9220DECB8500C66C27 /* ALL_KTR_CODES.txt */,
 				D99724941FEDB1E500FD3B08 /* AppDelegate.swift */,
+				D98F3D9620E03E6200C66C27 /* DocumentsViewController.swift */,
 				D936F5F820DC00D5005FAA9D /* KeyboardViewController.swift */,
 				D947A48A20D9F7F600D57799 /* SettingsTableViewController.swift */,
 				D947A48820D9F58700D57799 /* SettingsViewController.swift */,
@@ -337,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D99724971FEDB1E500FD3B08 /* ViewController.swift in Sources */,
+				D98F3D9720E03E6200C66C27 /* DocumentsViewController.swift in Sources */,
 				D936F5F920DC00D5005FAA9D /* KeyboardViewController.swift in Sources */,
 				D947A48B20D9F7F600D57799 /* SettingsTableViewController.swift in Sources */,
 				D9D146F320D30D4800DA1970 /* TableViewController.swift in Sources */,
