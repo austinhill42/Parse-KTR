@@ -41,12 +41,17 @@ class TableViewController: UITableViewController, UITextViewDelegate, UIGestureR
         codeType.text = "KTR Code: " + userDefaults.string(forKey: "code")!
         
        darkmode.text = "Dark Mode: " + (userDefaults.bool(forKey: "dark") ? "On" : "Off")
-        hideKeyboard.text = "Hide Keyboard on Device Rotation: " + (userDefaults.bool(forKey: "hidekeyboard") ? "On" : "Off")
+        hideKeyboard.text = "Hide KTR Keyboard on Device Rotate: " + (userDefaults.bool(forKey: "hidekeyboard") ? "On" : "Off")
     }
     
     @IBAction func handleTap(recognizer: UITapGestureRecognizer) {
         
         if recognizer.view is UITextView {
+            
+            // bring up the keyboard
+            if !self.viewController.keyboardShowing {
+                self.viewController.showKeyboard()
+            }
             
             if !((recognizer.view as? UITextView)?.text.isEmpty)! {
              
