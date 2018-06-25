@@ -211,6 +211,8 @@ class KeyboardViewController: UIViewController {
                     
                     view.backgroundColor = userDefaults.color(forKey: "buttonDark")
                     (view as? UIButton)?.titleLabel?.textColor = userDefaults.color(forKey: "buttonTextDark")
+                    (view as? UIButton)?.tintColor = userDefaults.color(forKey: "buttonTextDark")
+                    
                 } else if view is UITextField {
                     
                     view.backgroundColor = userDefaults.color(forKey: "textViewDark")
@@ -227,6 +229,8 @@ class KeyboardViewController: UIViewController {
                     
                     view.backgroundColor = userDefaults.color(forKey: "buttonLight")
                     (view as? UIButton)?.titleLabel?.textColor = userDefaults.color(forKey: "buttonTextLight")
+                    (view as? UIButton)?.tintColor = userDefaults.color(forKey: "buttonTextLight")
+                    
                 } else if view is UITextField {
                     
                     view.backgroundColor = userDefaults.color(forKey: "textViewLight")

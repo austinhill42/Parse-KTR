@@ -22,6 +22,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var keyboardContainerView: UIView!
+    @IBOutlet weak var notice: UILabel!
     
     @IBOutlet weak var navbar: UINavigationBar!
     
@@ -35,6 +36,9 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         // add nice looking rounded corners to the container view
         containerView.layer.cornerRadius = 6.0
+        
+        // put the notice label behind the keyboard
+        self.view.sendSubview(toBack: self.notice)
         
         if userDefaults.string(forKey: "code") == nil {
             
@@ -60,7 +64,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         userDefaults.set(color: UIColor.clear, forKey: "segmentedControlDark")
         userDefaults.set(color: UIColor.black, forKey: "tableViewCellSeperatorDark")
         userDefaults.set(color: UIColor(red: 30/255, green: 30/255, blue: 60/255, alpha: 1), forKey: "buttonDark")
-        userDefaults.set(color: UIColor.blue, forKey: "buttonTextDark")
+        userDefaults.set(color: UIColor.cyan, forKey: "buttonTextDark")
         
         // set user light mode color defaults
         userDefaults.set(color: UIColor.white, forKey: "viewLight")
@@ -146,15 +150,12 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
+    // hide the keyboard when user touches outside the view
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
         
-        // hide the keyboard if it isn't the one being touched
-        if touches.first?.view != self.keyboardViewController.view && keyboardShowing {
-            
+        if keyboardShowing {
             hideKeyboard()
         }
-        
     }
     
     // function to show the keyboard
@@ -165,7 +166,11 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
                        animations: {
                         self.keyboardContainerView.frame.origin.y = self.view.frame.height - (self.keyboardContainerView.frame.height)
                         
-                        self.containerView.frame.origin.y -= self.keyboardContainerView.frame.height / 2})
+                        self.containerView.frame.origin.y -= self.keyboardContainerView.frame.height / 4
+                        
+                        // scroll the tableview up with the view
+                        self.tableViewController.tableView.scrollToRow(at: IndexPath(item: 5, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+        })
         
         // set the keyboard as showing
         keyboardShowing = true
@@ -189,7 +194,11 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
                        animations: {
                         self.keyboardContainerView.frame.origin.y = self.view.frame.height
                         
-                        self.containerView.frame.origin.y = self.containerViewOrigin })
+                        self.containerView.frame.origin.y = self.containerViewOrigin
+                        
+                        // scroll the tableview down with the view
+                        self.tableViewController.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
+        })
         
         // set the keyboard as not showing
         keyboardShowing = false
@@ -852,6 +861,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             self.navigationController?.navigationBar.barTintColor = userDefaults.color(forKey: "navigationBarDark")
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: userDefaults.color(forKey: "navigationBarTextDark")!]
             self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: userDefaults.color(forKey: "navigationBarTextDark")!]
+            self.notice.textColor = userDefaults.color(forKey: "labelTextDark")
             
         } else {
             
@@ -861,6 +871,7 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             self.navigationController?.navigationBar.barTintColor = userDefaults.color(forKey: "navigationBarLight")
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: userDefaults.color(forKey: "navigationBarTextLight")!]
             self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: userDefaults.color(forKey: "navigationBarTextLight")!]
+            self.notice.textColor = userDefaults.color(forKey: "labelTextLight")
             
         }
     }
