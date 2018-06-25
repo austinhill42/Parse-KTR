@@ -78,7 +78,7 @@ When sending an error report, please include the device model, iOS version, and 
                         </connections>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Parse-KTR" id="jUT-iW-81D">
+                    <navigationItem key="navigationItem" title="Parse-KTR" largeTitleDisplayMode="always" id="jUT-iW-81D">
                         <leftBarButtonItems>
                             <barButtonItem title="Clear" width="100" id="uFO-En-gEy">
                                 <connections>
@@ -88,6 +88,12 @@ When sending an error report, please include the device model, iOS version, and 
                             <barButtonItem title="Item" image="settings" id="rNe-YE-JRp">
                                 <connections>
                                     <segue destination="XOb-bM-kIZ" kind="show" identifier="settings" id="J6b-dM-V0z"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="help" id="nVf-DA-8KC">
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="helpButton:" destination="BAp-9B-o0K" id="I0P-jp-Izm"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
@@ -572,6 +578,10 @@ When sending an error report, please include the device model, iOS version, and 
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bb5-yu-aei">
                         <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="yba-ue-13K" appends="YES" id="cbB-x0-9h2"/>
+                        </connections>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zTI-fb-Kbx">
@@ -579,10 +589,15 @@ When sending an error report, please include the device model, iOS version, and 
                     </toolbar>
                     <connections>
                         <segue destination="BAp-9B-o0K" kind="relationship" relationship="rootViewController" id="xki-kH-PTK"/>
-                        <segue destination="BAp-9B-o0K" kind="show" id="JPQ-ca-Z98"/>
+                        <segue destination="BAp-9B-o0K" kind="show" identifier="viewcontroller" id="JPQ-ca-Z98"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4JN-Dl-NSX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="yba-ue-13K">
+                    <connections>
+                        <action selector="tap:" destination="2Xg-Nm-6bF" id="Roj-7Y-SJN"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1421" y="38"/>
         </scene>
@@ -730,6 +745,7 @@ When sending an error report, please include the device model, iOS version, and 
         </scene>
     </scenes>
     <resources>
+        <image name="help" width="32" height="32"/>
         <image name="settings" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>

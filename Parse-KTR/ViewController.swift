@@ -8,8 +8,9 @@
 
 import UIKit
 import TesseractOCR
+import StoreKit
 
-class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, G8TesseractDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SKProductsRequestDelegate, G8TesseractDelegate {
     
     private var userDefaults = UserDefaults.standard
     
@@ -33,6 +34,8 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     // do stuff when the view loads
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         // add nice looking rounded corners to the container view
         containerView.layer.cornerRadius = 6.0
@@ -82,6 +85,11 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         userDefaults.set(color: UIColor.groupTableViewBackground, forKey: "buttonLight")
         userDefaults.set(color: UIColor.black, forKey: "buttonTextLight")
         
+        if !userDefaults.bool(forKey: "hideHelp") {
+            
+            helpButton(self)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,6 +123,10 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         
         // change the name of the view to "Done" so it shows "Done" as the back button
         self.navigationItem.title = "Done"
+        
+        if keyboardShowing {
+            hideKeyboard()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -148,6 +160,10 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             self.documentsViewController = vc
             self.documentsViewController.viewController = self
         }
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        
     }
     
     // hide the keyboard when user touches outside the view
@@ -212,6 +228,78 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         // Dispose of any resources that can be recreated.
     }
     
+    // help button
+    @IBAction func helpButton(_ sender: Any) {
+        
+        // create the popover for the available actions
+        let actionPopover = UIAlertController(
+            title: "Help",
+            message: "Press the camera button to take a photo of the Knowledge Test Report.\n" +
+                     "OCR should grab the applicant's name, test type, and all KTR codes.\n" +
+                     "If OCR fails, likely due to shadows, the image being crooked, or embossing over some KTR codes, " +
+                     "then you can enter them manually.\n\nSelect a code in the list to manually edit or delete it.\n\n" +
+                     "To show this help screen again, tap the \"?\" icon at the top of the screen",
+            preferredStyle: .actionSheet)
+        
+        // set the print button properties
+        let closeButton = UIAlertAction(title: "Close",
+                                        style: .cancel,
+                                        handler: nil)
+        
+        // set the share button properties
+        let showAgainButton = UIAlertAction(title: "Don't show this message again",
+                                        style: .default,
+                                        handler: { (alert) in self.userDefaults.set(true, forKey: "hideHelp") })
+        
+        
+        
+        // add the buttons to the popover
+        actionPopover.addAction(closeButton)
+        
+        if !userDefaults.bool(forKey: "hideHelp") {
+            
+            actionPopover.addAction(showAgainButton)
+
+        }
+        
+        // required for the ipad, tell the app where the image picker should appear on screen
+        if let popoverController = actionPopover.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+            
+        }
+        
+        if self.userDefaults.bool(forKey: "dark") {
+            
+            actionPopover.view.backgroundColor = userDefaults.color(forKey: "viewDark")
+            
+            //actionPopover.view.tintColor = userDefaults.color(forKey: "viewDark")
+            
+        } else {
+            //actionPopover.view.tintColor = userDefaults.color(forKey: "viewLight")
+        }
+        
+        if userDefaults.bool(forKey: "dark") {
+            
+            closeButton.setValue(userDefaults.color(forKey: "labelTextDark"), forKey: "titleTextColor")
+            showAgainButton.setValue(userDefaults.color(forKey: "labelTextDark"), forKey: "titleTextColor")
+            actionPopover.view.backgroundColor = UIColor.clear
+            actionPopover.view.subviews.first?.backgroundColor = userDefaults.color(forKey: "viewDark")
+            
+        } else {
+            
+            closeButton.setValue(userDefaults.color(forKey: "labelTextLight"), forKey: "titleTextColor")
+            showAgainButton.setValue(userDefaults.color(forKey: "labelTextLight"), forKey: "titleTextColor")
+            actionPopover.view.backgroundColor = userDefaults.color(forKey: "viewLight")
+            actionPopover.view.subviews.first?.backgroundColor = userDefaults.color(forKey: "viewLight")
+            
+        }
+        
+        // show the actionsheet
+        self.present(actionPopover, animated: true, completion: nil)
+    }
+    
     @IBAction func actionButton(_ sender: Any) {
     
         // create the popover for the available actions
@@ -250,7 +338,27 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             
         }
         
-        // show the image picker
+        if userDefaults.bool(forKey: "dark") {
+            
+            printButton.setValue(userDefaults.color(forKey: "labelTextDark"), forKey: "titleTextColor")
+            shareButton.setValue(userDefaults.color(forKey: "labelTextDark"), forKey: "titleTextColor")
+            saveButton.setValue(userDefaults.color(forKey: "labelTextDark"), forKey: "titleTextColor")
+            loadButton.setValue(userDefaults.color(forKey: "labelTextDark"), forKey: "titleTextColor")
+            actionPopover.view.backgroundColor = UIColor.clear
+            actionPopover.view.subviews.first?.backgroundColor = userDefaults.color(forKey: "viewDark")
+            
+        } else {
+            
+            printButton.setValue(userDefaults.color(forKey: "labelTextLight"), forKey: "titleTextColor")
+            shareButton.setValue(userDefaults.color(forKey: "labelTextLight"), forKey: "titleTextColor")
+            saveButton.setValue(userDefaults.color(forKey: "labelTextLight"), forKey: "titleTextColor")
+            loadButton.setValue(userDefaults.color(forKey: "labelTextLight"), forKey: "titleTextColor")
+            actionPopover.view.backgroundColor = userDefaults.color(forKey: "viewLight")
+            actionPopover.view.subviews.first?.backgroundColor = userDefaults.color(forKey: "viewLight")
+            
+        }
+        
+        // show the actionsheet
         self.present(actionPopover, animated: true, completion: nil)
     
     }
@@ -905,6 +1013,21 @@ extension UserDefaults {
     }
 }
 
+//extension SubscriptionService: SKProductsRequestDelegate {
+//
+//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+//
+//        options = response.products.map { Subscription(product: $0) }
+//    }
+//
+//    func request(_ request: SKRequest, didFailWithError error: Error) {
+//
+//        if request is SKProductsRequest {
+//
+//            print("Subscription Options Failed Loading: \(error.localizedDescription)")
+//        }
+//    }
+//}
 
 
 
