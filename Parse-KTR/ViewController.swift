@@ -95,6 +95,8 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationItem.title = "Parse-KTR"
+        
         // set the initial container view origin
         containerViewOrigin = self.containerView.frame.origin.y
         
@@ -730,8 +732,11 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
         var testType = ""
         var lookingForName = true
         var lookingForTestType = true
+        var ocrnamefail = true
+        var ocrtestfail = true
+        var ocrcodefail = true
+        var errorstring = ""
         
-        originalString.removeFirst(100)
         // loop while the string isn't empty and is large enough to contain a code
         while !originalString.isEmpty && originalString.count > 6 {
             
@@ -739,9 +744,13 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             
             if lookingForName && originalString.hasPrefix("NAME:") {
                 
+                // found the start of the name
+                ocrnamefail = false
+                
                 // remove NAME:
                 originalString.removeFirst(5)
                 
+                // go until it reads applicant
                 while !originalString.hasPrefix("APPLICANT") {
                     
                     // append each character
@@ -749,25 +758,32 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
                     
                     // remove the now appended character
                     originalString.removeFirst()
-                }
-                
-                // not looking for name anymore
-                lookingForName = false
-                
-                // UI updates must go in the main thread
-                DispatchQueue.main.async {
                     
-                    // set the name text view
-                    self.tableViewController.name.text = name
+                    // if it cant read applicant stop and set fail
+                    if originalString.hasPrefix("\n") {
+                        
+                        // failed to find the end of the name
+                        ocrnamefail = true
+                        break
+                    }
                 }
+                
+                // found name
+                lookingForName = false
             }
             
             if lookingForTestType && originalString.hasPrefix("EXAM:") {
                 
+                //found the start of the test type
+                ocrtestfail = false
+                
+                // not looking for name anymore
+                lookingForName = false
+                
                 // remove EXAM:
                 originalString.removeFirst(5)
                 
-                // go until you get to EXAM ID
+                // go until it reads EXAM ID
                 while !originalString.hasPrefix("EXAM ID") {
                     
                     // append each character
@@ -775,49 +791,28 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
                     
                     // remove the now appended character
                     originalString.removeFirst()
+                    
+                    // if it cant read EXAM ID stop and set fail
+                    if originalString.hasPrefix("\n") {
+                        
+                        // failed to find the end of the test type
+                        ocrtestfail = true
+                        break
+                    }
                 }
                 
                 // found test type
                 lookingForTestType = false
 
-                // get the test type as string array to initialize the string
-                var test = testType.components(separatedBy: " ")
-                
-                // remove the empty string if needed
-                if test.last == "" {
-                    
-                    test.removeLast()
-                }
-                
-                // remove the empty string if needed
-                if test.first == "" {
-                    
-                    test.removeFirst()
-                }
-                
-                // set test type to empty string
-                testType = ""
-                
-                for string in test {
-                    
-                    // make sure it's not in parentheses
-                    if string.first != "(" {
-                        
-                        // append the first letter of each string in the test type
-                        testType.append(string.first!)
-                    }
-                }
-                // UI updates must go in the main thread
-                DispatchQueue.main.async {
-                    
-                    // set the test type as the initialization of teh test type
-                    self.tableViewController.testType.text = testType
-                }
             }
             
             // if it starts with PLT then it's likely a proper code, grab it and remove it from the original string
             if originalString.hasPrefix(userDefaults.string(forKey: "code")!) {
                 
+                // found the start of a code
+                ocrcodefail = false
+                
+                // not looking for name or test type anymore
                 lookingForName = false
                 lookingForTestType = false
                 
@@ -854,11 +849,88 @@ class ViewController: UIViewController, UITextViewDelegate, UINavigationBarDeleg
             
         }
         
-        // UI updates must go in the main thread
-        DispatchQueue.main.async {
+        if codes.isEmpty {
+            
+            ocrcodefail = true
+        }
         
-            // add the found KTR codes to the code list
-            self.tableViewController.KTRCodes.text = codes.joined(separator: " ")
+        if ocrnamefail {
+            
+            errorstring.append("OCR failed to get the applicant's name\n\n")
+       
+        } else {
+            
+            // UI updates must go in the main thread
+            DispatchQueue.main.async {
+                
+                // set the name text view
+                self.tableViewController.name.text = name
+            }
+            
+        }
+        
+        if ocrtestfail {
+            
+            errorstring.append("OCR failed to get the test type\n\n")
+       
+        } else {
+            
+            // get the test type as string array to initialize the string
+            var test = testType.components(separatedBy: " ")
+            
+            // remove the empty string if needed
+            if test.last == "" {
+                
+                test.removeLast()
+            }
+            
+            // remove the empty string if needed
+            if test.first == "" {
+                
+                test.removeFirst()
+            }
+            
+            // set test type to empty string
+            testType = ""
+            
+            for string in test {
+                
+                // make sure it's not in parentheses
+                if string.first != "(" {
+                    
+                    // append the first letter of each string in the test type
+                    testType.append(string.first!)
+                }
+            }
+            
+            // UI updates must go in the main thread
+            DispatchQueue.main.async {
+                
+                // set the test type as the initialization of teh test type
+                self.tableViewController.testType.text = testType
+            }
+        }
+        
+        if ocrcodefail {
+            
+            errorstring.append("OCR failed to get the \(userDefaults.string(forKey: "code")!) codes")
+       
+        } else {
+            
+            // UI updates must go in the main thread
+            DispatchQueue.main.async {
+                
+                // add the found KTR codes to the code list
+                self.tableViewController.KTRCodes.text = codes.joined(separator: " ")
+            }
+        }
+        
+        if ocrnamefail || ocrtestfail || ocrcodefail {
+            
+            DispatchQueue.main.async {
+                
+                self.showErrorAlert(title: "OCR Failed", message: errorstring)
+            }
         }
     }
     

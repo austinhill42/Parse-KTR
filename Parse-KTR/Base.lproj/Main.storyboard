@@ -579,9 +579,6 @@ When sending an error report, please include the device model, iOS version, and 
                         <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="yba-ue-13K" appends="YES" id="cbB-x0-9h2"/>
-                        </connections>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zTI-fb-Kbx">
@@ -593,11 +590,6 @@ When sending an error report, please include the device model, iOS version, and 
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4JN-Dl-NSX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="yba-ue-13K">
-                    <connections>
-                        <action selector="tap:" destination="2Xg-Nm-6bF" id="Roj-7Y-SJN"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1421" y="38"/>
         </scene>
@@ -620,14 +612,14 @@ When sending an error report, please include the device model, iOS version, and 
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Output Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="170" translatesAutoresizingMaskIntoConstraints="NO" id="sOe-Rd-L5e">
-                                                    <rect key="frame" x="9" y="14" width="174" height="36"/>
+                                                    <rect key="frame" x="9" y="13" width="174" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XCZ-Gd-Vfj">
-                                                    <rect key="frame" x="283" y="14" width="243" height="31"/>
+                                                    <rect key="frame" x="283" y="13" width="243" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <segments>
@@ -655,7 +647,7 @@ When sending an error report, please include the device model, iOS version, and 
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <pickerView tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U7J-1g-hh7">
-                                                    <rect key="frame" x="251" y="-6" width="301" height="95"/>
+                                                    <rect key="frame" x="251" y="-6" width="301" height="94"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
